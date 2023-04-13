@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useInViewport } from "react-in-viewport";
 
-function useInViewAnimation({ animateContainerRef, sensivity= 0.8 }) {
+function useInViewAnimation({ animateContainerRef, sensivity= 0.5 }) {
   const [animate, setAnimate] = useState(false);
 
   const onEnterViewport = useCallback(() => {
