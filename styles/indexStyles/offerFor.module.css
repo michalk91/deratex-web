@@ -1,0 +1,229 @@
+.offerFor {
+  display: flex;
+  flex-direction: column;
+  /* max-width: 80rem;
+  padding-left: 6%;
+  padding-right: 6%; */
+}
+
+.offerForText {
+  padding-top: 2%;
+  /* padding-left: 5%;
+  padding-right: 5%; */
+}
+.offerForText span {
+  display: inline;
+}
+
+.offerForImageContainer {
+  padding-left: 30%;
+  padding-right: 30%;
+  margin-bottom: 5%;
+  margin-top: 3%;
+  position: relative;
+  opacity: 0;
+}
+
+.offerForImageContainer div{
+  opacity: 0;
+}
+
+.offerForWrapper {
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  text-align: justify;
+  justify-content: center;
+}
+
+.offerForImageContainer div {
+  position: absolute;
+  z-index: 5;
+  color: whitesmoke;
+  font-size: 1.2rem;
+  text-shadow: black 0.1em 0.1em 0.2em !important;
+  transition: 0.3s;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  /* text-transform: uppercase; */
+}
+
+@media (hover: hover) {
+  .offerForImageContainer div:hover {
+    transform: scale(1.2);
+  }
+}
+
+.offerForImageContainer div:nth-child(1) {
+  top: 26%;
+  left: 37%;
+  font-size: 1.6rem;
+}
+
+.offerForImageContainer div:nth-child(2) {
+  top: 10%;
+  left: 42%;
+}
+
+.offerForImageContainer div:nth-child(3) {
+  top: 34%;
+  left: 53%;
+}
+
+.offerForImageContainer div:nth-child(4) {
+  top: 38%;
+  left: 38%;
+}
+
+.offerForImageContainer div:nth-child(5) {
+  top: 14%;
+  left: 50%;
+}
+
+@media only screen and (max-width: 1150px) {
+  .offerForImageContainer {
+    padding-left: 25%;
+    padding-right: 25%;
+  }
+
+  .offerForImageContainer div:nth-child(1) {
+    left: 32%;
+  }
+
+  .offerForImageContainer div:nth-child(2) {
+    left: 39%;
+  }
+  .offerForImageContainer div:nth-child(4) {
+    left: 33%;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .offerForImageContainer {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+  .offerForImageContainer div:nth-child(2) {
+    left: 37%;
+  }
+  .offerForImageContainer div:nth-child(4) {
+    left: 31%;
+  }
+}
+
+@media only screen and (max-width: 880px) {
+  .offerForImageContainer {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+  .offerForImageContainer div:nth-child(2) {
+    left: 35%;
+  }
+  .offerForImageContainer div:nth-child(4) {
+    left: 28%;
+  }
+
+  .offerForImageContainer div:nth-child(1) {
+    left: 28%;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .offerForImageContainer {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+  .offerForImageContainer div:nth-child(2) {
+    left: 33%;
+  }
+  .offerForImageContainer div:nth-child(4) {
+    left: 24%;
+  }
+
+  .offerForImageContainer div:nth-child(1) {
+    left: 25%;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .offerFor {
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+  .offerForImageContainer {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .offerForImageContainer div:nth-child(1) {
+    left: 22%;
+    font-size: 1.5rem;
+  }
+  .offerForImageContainer div:nth-child(2) {
+    left: 32%;
+  }
+  .offerForImageContainer div:nth-child(4) {
+    left: 23%;
+  }
+  .offerForImageContainer div:nth-child(3) {
+    top: 36%;
+  }
+
+  .offerForImageContainer div {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .offerForImageContainer div:nth-child(1) {
+    font-size: 1.4rem;
+  }
+
+  .offerForImageContainer div {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  .offerForImageContainer div:nth-child(1) {
+    font-size: 1.3rem;
+  }
+
+  .offerForImageContainer div {
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 470px) {
+  .offerForImageContainer div:nth-child(1) {
+    left: 18%;
+
+    font-size: 1.2rem;
+  }
+
+  .offerForImageContainer div {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .offerForImageContainer div:nth-child(1) {
+    top: 24%;
+    left: 18%;
+  }
+
+  .offerForImageContainer div {
+    font-size: 0.7rem;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .offerForImageContainer div:nth-child(1) {
+    font-size: 1rem;
+    left: 15%;
+  }
+
+  .offerForImageContainer div {
+    font-size: 0.7rem;
+  }
+}

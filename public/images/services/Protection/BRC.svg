@@ -1,0 +1,48 @@
+<svg id="Warstwa_1" data-name="Warstwa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 199 260.25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #69be28;
+      }
+
+      .cls-2 {
+        font-size: 105px;
+      }
+
+      .cls-2, .cls-4, .cls-8 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-7 {
+        font-family: MyriadPro-Regular, Myriad Pro;
+      }
+
+      .cls-3 {
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        font-size: 32px;
+        font-family: ErasITC-Bold, Eras Bold ITC;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        letter-spacing: 0.13em;
+      }
+
+      .cls-6 {
+        font-size: 25px;
+      }
+
+      .cls-7 {
+        font-size: 20px;
+        font-weight: 400;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="199" height="254" rx="42.39"/>
+  <text class="cls-2" transform="translate(8.52 181.3)">B<tspan class="cls-3" x="56.91" y="0">R</tspan><tspan x="113.71" y="0">C</tspan></text>
+  <text class="cls-4" transform="translate(17.92 210.1)"><tspan class="cls-5">GLOBAL</tspan><tspan class="cls-6"><tspan x="-3.71" y="24" xml:space="preserve"> STANDARDS</tspan><tspan class="cls-7" x="163.45" y="24"> </tspan></tspan></text>
+  <path class="cls-8" d="M39.35,56.54C67.56,109.65,147,14,147,14L67.56,109.65Z" transform="translate(-3 -3)"/>
+</svg>

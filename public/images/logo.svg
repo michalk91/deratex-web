@@ -1,0 +1,63 @@
+<svg id="Warstwa_1" data-name="Warstwa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.35 12.32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2, .cls-4, .cls-5, .cls-9 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        font-size: 12px;
+        letter-spacing: -0.12em;
+      }
+
+      .cls-2, .cls-4, .cls-5 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.2em;
+      }
+
+      .cls-4 {
+        font-size: 14px;
+        fill: red;
+        letter-spacing: -0.05em;
+      }
+
+      .cls-5 {
+        font-size: 1.6px;
+        letter-spacing: 0.95em;
+      }
+
+      .cls-6 {
+        letter-spacing: 0.91em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0.95em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0.91em;
+      }
+
+      .cls-9 {
+        font-size: 1.6px;
+        font-family: ArialMT, Arial;
+        letter-spacing: 0.26em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" y="0.77" width="27.29" height="11.1"/>
+  <text class="cls-2" transform="translate(0 10.39)">DER<tspan class="cls-3" x="20.98" y="0">A</tspan><tspan x="27.3" y="0">T</tspan></text>
+  <rect class="cls-1" x="26.83" y="0.77" width="17.52" height="15.55"/>
+  <text class="cls-4" transform="translate(33.65 11.81)">EX</text>
+  <text class="cls-5" transform="translate(0.84 11.86)">GRAŻYN<tspan class="cls-6" x="15.87" y="0">A</tspan><tspan class="cls-7" x="18.48" y="0" xml:space="preserve"> KUKL</tspan><tspan class="cls-8" x="30.96" y="0">A</tspan></text>
+  <rect class="cls-1" x="0.06" y="-0.8" width="39.38" height="2.05"/>
+  <text class="cls-9" transform="translate(0.91 1.41)">Zakład Dezynfekcji, Dezynsekcji i Deratyzacji</text>
+</svg>

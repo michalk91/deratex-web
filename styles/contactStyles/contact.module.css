@@ -1,0 +1,22 @@
+
+
+.gridContainer {
+  padding-top: 30px;
+  padding-bottom: 50px;
+  column-gap: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 1230px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+}
+

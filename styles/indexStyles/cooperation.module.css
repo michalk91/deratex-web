@@ -1,0 +1,149 @@
+.cooperationSection {
+  width: 1200px;
+  padding: 40px;
+  margin: 0 auto;
+}
+
+.cooperationSection h3 {
+  font-size: 1.1rem;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+
+  text-align: center;
+  text-shadow: black 2px 2px 1px;
+  background-color: rgba(140, 0, 0, 0.6);
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+
+  width: 100%;
+  padding: 5px;
+
+  font-weight: 900;
+}
+.cooperationArticleSliderImage {
+  display: block;
+  position: relative;
+
+  width: 100%;
+
+  -webkit-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
+  box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cooperationTitleContainer {
+  text-align: center;
+
+  max-width: 100%;
+  margin-top: 10px;
+
+  /* border-bottom: red solid 2px; */
+}
+
+.cooperationArticleSliderContainer {
+  padding: 3%;
+  gap: 15px;
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+@media only screen and (max-width: 1060px) {
+  .cooperationArticleSliderContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cooperationSection {
+    padding-left: 18%;
+    padding-right: 18%;
+  }
+}
+
+@media only screen and (max-width: 935px) {
+  .cooperationSection {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+
+@media only screen and (max-width: 840px) {
+  .cooperationSection {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media only screen and (max-width: 740px) {
+  .cooperationSection {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .cooperationSection h3 {
+    font-size: 1rem;
+  }
+
+
+  .cooperationArticleSliderContainer {
+    padding: 10%;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .cooperationArticleSliderContainer {
+    padding: 8%;
+  }
+  .cooperationSection {
+    padding: 0;
+  }
+
+  .cooperationArticleSliderContainer {
+    gap:8px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .cooperationSection h3 {
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .cooperationSection h3 {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .cooperationSection h3 {
+    font-size: 0.65rem;
+  }
+
+  .cooperationArticleSliderContainer {
+    padding: 7%;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .cooperationSection h3 {
+    font-size: 0.6rem;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .cooperationSection h3 {
+    font-size: 0.8rem;
+  }
+
+  .cooperationArticleSliderContainer {
+    grid-template-columns: 1fr;
+  }
+}

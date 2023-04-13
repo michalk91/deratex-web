@@ -1,0 +1,40 @@
+<svg id="Warstwa_1" data-name="Warstwa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 328 185">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-5 {
+        fill: #00a891;
+      }
+
+      .cls-3, .cls-4 {
+        fill: #00305e;
+      }
+
+      .cls-4 {
+        font-size: 122px;
+      }
+
+      .cls-4, .cls-5 {
+        font-family: PalatinoLinotype-Bold, Palatino Linotype;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        font-size: 43px;
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect class="cls-1" x="0.5" y="0.5" width="327" height="184" rx="40.24"/>
+    <path d="M288.26,8A39.79,39.79,0,0,1,328,47.74V151.26A39.79,39.79,0,0,1,288.26,191H41.74A39.79,39.79,0,0,1,2,151.26V47.74A39.79,39.79,0,0,1,41.74,8H288.26m0-1H41.74A40.74,40.74,0,0,0,1,47.74V151.26A40.74,40.74,0,0,0,41.74,192H288.26A40.74,40.74,0,0,0,329,151.26V47.74A40.74,40.74,0,0,0,288.26,7Z" transform="translate(-1 -7)"/>
+  </g>
+  <polygon class="cls-2" points="69.05 87.91 93.97 87.92 106.43 109.51 93.95 131.09 69.03 131.08 56.57 109.49 69.05 87.91"/>
+  <polygon class="cls-3" points="17.7 41.17 30.18 19.59 55.1 19.6 67.56 41.2 55.09 62.78 30.16 62.77 17.7 41.17"/>
+  <polygon class="cls-2" points="69.18 42.59 94.11 42.6 106.56 64.2 94.08 85.78 69.16 85.77 56.7 64.17 69.18 42.59"/>
+  <text class="cls-4" transform="translate(117.75 130.76)">IFS</text>
+  <text class="cls-5" transform="translate(121.75 171.06)">Food</text>
+</svg>

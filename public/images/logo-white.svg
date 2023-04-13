@@ -1,0 +1,79 @@
+<svg id="Warstwa_1" data-name="Warstwa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.6 17.88">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        isolation: isolate;
+      }
+
+      .cls-2, .cls-3 {
+        font-size: 12px;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-8, .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-8 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .cls-2 {
+        letter-spacing: -0.12em;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.28em;
+      }
+
+      .cls-4 {
+        font-size: 14px;
+        letter-spacing: -0.05em;
+      }
+
+      .cls-5, .cls-6, .cls-8, .cls-9 {
+        font-size: 1.6px;
+      }
+
+      .cls-5 {
+        letter-spacing: 0.95em;
+      }
+
+      .cls-6 {
+        letter-spacing: 0.83em;
+      }
+
+      .cls-8 {
+        letter-spacing: 0.91em;
+      }
+
+      .cls-9 {
+        font-family: ArialMT, Arial;
+        letter-spacing: 0.26em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" y="1.57" width="27.29" height="11.1"/>
+  <g>
+    <text class="cls-2" transform="translate(0 11.19)">DER</text>
+    <text class="cls-3" transform="translate(20.98 11.19)">A</text>
+    <text class="cls-2" transform="translate(27.3 11.19)">T</text>
+  </g>
+  <rect class="cls-1" x="26.83" y="1.57" width="17.52" height="15.55"/>
+  <text class="cls-4" transform="translate(33.65 12.61)">EX</text>
+  <g>
+    <text class="cls-5" transform="translate(0.84 12.66)">GRAŻYN</text>
+    <text class="cls-6" transform="translate(16.71 12.66)">A</text>
+    <g class="cls-7">
+      <text class="cls-5" transform="translate(19.32 12.66)"><tspan xml:space="preserve"> KUK</tspan></text>
+      <text class="cls-8" transform="translate(29.31 12.66)">L</text>
+    </g>
+    <text class="cls-6" transform="translate(31.8 12.66)">A</text>
+  </g>
+  <rect class="cls-1" x="0.06" width="39.38" height="2.05"/>
+  <text class="cls-9" transform="translate(0.91 2.21)">Zakład Dezynfekcji, Dezynsekcji i Deratyzacji</text>
+</svg>

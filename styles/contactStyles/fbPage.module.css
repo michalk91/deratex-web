@@ -1,0 +1,77 @@
+.fbPageContainer {
+  text-align: center;
+  overflow: hidden;
+}
+
+.innerContainer {
+  position: relative;
+  height: 600px;
+}
+
+.title {
+  margin-bottom: calc(10px + 0.5rem);
+}
+
+.invisibleBackdrop {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  transition: 0.4s;
+  pointer-events: auto;
+}
+
+.backdropText {
+  display: none;
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background-color: transparent;
+  text-align: center;
+  font-size: 1.2rem;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+.visibleBackdropText {
+  display: block;
+}
+.visibleBackdrop {
+  background-color: rgba(1, 101, 225, 75%);
+}
+
+.allowScroll {
+  display: none;
+}
+
+.btn {
+  position: fixed;
+
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  background-color: #3b5998;
+  color: white;
+  z-index: 14;
+  text-shadow: black 0.1em 0.1em 0.2em;
+  transition: 0.4s;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+@media only screen and (max-width: 615px) {
+  .innerContainer {
+    height: 70vh;
+  }
+}

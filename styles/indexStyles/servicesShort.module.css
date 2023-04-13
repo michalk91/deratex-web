@@ -1,0 +1,117 @@
+/* .services {
+  margin-top: 5rem;
+  width: 100vw;
+  max-width: 100%;
+} */
+
+/* .services span {
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+} */
+
+/* .servicesWrapper {
+  background-color: #d3d3d3;
+} */
+
+.services section {
+  /* padding: 0; */
+  /* margin: 0 auto; */
+  padding-top: 2%;
+  padding-bottom: 4%;
+overflow: hidden;
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(30px, 300px)); */
+  grid-template-columns: repeat(3, 18%);
+
+  justify-content: center;
+
+  gap: 6%;
+}
+
+
+
+
+.services button {
+  display: block;
+  height: auto;
+  padding-left: 5%;
+  padding-right: 5%;
+  border-radius: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  margin: 5% auto;
+  border: black 2px solid;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+@media (hover: hover) {
+.services button:hover {
+  background-color: red;
+  color: white;
+  border-color: red;
+  box-shadow: 1px -1px 24px 0px rgba(222, 99, 99, 1);
+}
+}
+/* .services article {
+  padding: 2.5rem 2.5rem;
+} */
+
+@media only screen and (max-width: 1000px) {
+  .services section {
+    grid-template-columns: 20% 20% 20%;
+    padding-bottom: 6%;
+  }
+  .services button{
+    font-size: 0.9rem;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .services section {
+    grid-template-columns: 30% 30%;
+    padding-bottom: 18%;
+    padding-top: 4%;
+  }
+
+  /* .innerContentWidth:nth-child(2)  {
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-bottom: 9%;
+    padding-top: 2%;
+  } */
+}
+@media only screen and (max-width: 550px) {
+  .services section {
+    grid-template-columns: 35% 35%;
+    padding-bottom: 25%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .services section {
+    grid-template-columns: 40% 40%;
+  }
+  .services button{
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .services section {
+    grid-template-columns: 45% 45%;
+    /* column-gap: 2%; */
+    padding-bottom: 30%;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .services section {
+    grid-template-columns: 55%;
+    row-gap: 2%;
+    padding-bottom: 50%;
+  }
+}

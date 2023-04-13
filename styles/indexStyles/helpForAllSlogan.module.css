@@ -1,0 +1,62 @@
+.helpForAll {
+  display: block;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  height: 40vh;
+  background-image: url(../../public/images/aaa.jpg);
+}
+
+.helpForAllSloganTransparentBackground {
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+}
+
+.helpForAllSlogan {
+  color: white;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: black 0.1em 0.1em 0.2em;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+  max-width: 100%;
+  width: 100vw;
+
+}
+
+@media only screen and (max-width:1000px) and (orientation: landscape){
+  .helpForAll{
+    height: 60vh;
+  }
+}
+
+@media only screen and (max-width: 1270px) and (orientation: portrait){
+ .helpForAllSlogan{
+  font-size: 1.4rem;
+ }
+}
+
+@media only screen and (max-width: 1270px) and (orientation: portrait){
+  .helpForAllSlogan{
+   font-size: 1.3rem;
+  }
+ }
+
+ @media only screen and (max-width: 640px) and (orientation: portrait){
+  .helpForAllSlogan{
+   font-size: 1.2rem;
+  }
+ }
+ @media only screen and (max-width: 480px) and (orientation: portrait){
+  .helpForAllSlogan{
+   font-size: 1.1rem;
+  }
+ }
+
+
+

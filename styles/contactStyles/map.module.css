@@ -1,0 +1,30 @@
+.mapContainer {
+    overflow: hidden;
+    line-height: 0;
+    height: 700px;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    user-select: none;
+    width: 100%;
+  }
+
+  .mapContainer iframe{
+    border: none;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .mapContainer {
+      height: 600px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .mapContainer {
+      height: 500px;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .mapContainer {
+      height: 400px;
+    }
+  }

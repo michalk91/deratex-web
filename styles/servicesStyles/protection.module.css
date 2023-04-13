@@ -1,0 +1,45 @@
+.imgContainer {
+  position: relative;
+  overflow: hidden;
+  flex-basis: 190px;
+  border-radius: 15px;
+  height: 160px;
+  opacity: 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  column-gap: 40px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.wrapper div:nth-child(4){
+  margin-left: -35px;
+  margin-right: -35px;
+}
+.whiteFontColor {
+  color: white;
+}
+
+.innerText strong {
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 900px) {
+  .wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+
+}
+
+

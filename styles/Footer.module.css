@@ -1,0 +1,182 @@
+
+
+.footer {
+  position: relative;
+  left: 0;
+  right: 0;
+
+  background-color: rgb(23, 23, 23);
+  /* z-index: 4; */
+
+  /* justify-content: flex-end; */
+}
+
+.fbLogo:hover {
+  color: rgb(66, 103, 178);
+  cursor: pointer;
+}
+.fbLogo {
+  margin-left: -6px;
+  margin-right: -6px;
+}
+
+.gridContainer {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  color: white;
+  padding: 30px;
+}
+
+/* .phoneNumber {
+
+  font-weight: bold;
+
+} */
+
+.nestedColumnInfo,
+.navlogo {
+  padding-top: 20px;
+}
+
+.columnInfo {
+  font-family: "Outfit", sans-serif;
+
+  font-size: 1.5rem;
+  padding-top: 20px;
+}
+
+.nestedColumnTitle {
+  font-size: 1.1rem;
+  font-weight: bolder;
+}
+
+.navlogo {
+  text-align: center;
+  /* box-sizing: content-box; */
+  margin-left: -5px;
+  margin-right: -5px;
+
+  width: 85%;
+}
+
+.footerBottomText {
+  padding: 30px;
+
+  color: white;
+  text-align: center;
+  /* border-top: 1px solid white; */
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+}
+
+.innerContainer,
+.innerContainer p {
+  line-height: 150%;
+  /* margin-top: 2%;
+  padding-left: 10%; */
+}
+.imageContainer {
+  position: relative;
+  /* display: block; */
+  height: 100%;
+  padding: 20px;
+  /* background-color: transparent; */
+}
+
+.redHover:hover {
+  color: red;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 850px) and (orientation: portrait) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* .gridContainer div:nth-child(3){
+  grid-column: -3/-1;
+} */
+  .navlogo {
+    grid-column: -1/1;
+    width: 350px;
+    padding-top: 30px;
+    align-self: center;
+  }
+
+  .footerBottomText {
+    padding-top: 0;
+  }
+}
+
+@media only screen and (max-width: 715px) and (orientation: portrait) {
+  .navlogo {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 600px) and (orientation: portrait) {
+  .gridContainer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .footerBottomText {
+    font-size: 1rem;
+  }
+  .nestedColumnTitle {
+    font-size: 1rem;
+  }
+  .columnInfo {
+    font-size: 1.3rem;
+  }
+}
+
+@media only screen and (max-width: 450px) and (orientation: portrait) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .footerBottomText {
+    font-size: 1.2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .nestedColumnTitle,
+  .nestedColumnTitle p {
+    font-size: 1.2rem;
+  }
+  .columnInfo {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .navlogo {
+    width: 300px;
+  }
+  .gridContainer p {
+    text-align: center;
+  }
+  .gridContainer a {
+    display: block;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 370px) and (orientation: portrait) {
+  .navlogo {
+    width: 260px;
+  }
+  .footerBottomText {
+    font-size: 1.1rem;
+  }
+}
+@media only screen and (max-width: 330px) and (orientation: portrait) {
+  .navlogo {
+    width: 220px;
+  }
+}
+@media only screen and (max-width: 275px) and (orientation: portrait) {
+  .navlogo {
+    width: 200px;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "deratex-web",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "svg": "svgr -d src/public/icons src/public/icons/svgs "
+  },
+  "dependencies": {
+    "@accessible/use-id": "^1.1.2",
+    "classnames": "^2.3.2",
+    "next": "^12.3.4",
+    "next-react-svg": "^1.2.0",
+    "nodemailer": "^6.9.1",
+    "react": "^17.0.2",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^17.0.2",
+    "react-flip-toolkit": "^7.0.17",
+    "react-fps": "^1.0.6",
+    "react-hooks-global-state": "^2.1.0",
+    "react-icons": "^4.8.0",
+    "react-in-viewport": "^1.0.0-alpha.30",
+    "react-media-hook": "^0.4.9",
+    "sharp": "^0.32.0",
+    "use-debounce": "^9.0.4"
+  },
+  "devDependencies": {
+    "@svgr/cli": "^6.5.1",
+    "@svgr/webpack": "^6.5.1",
+    "eslint": "7.32.0",
+    "eslint-config-next": "12.0.2",
+    "prettier": "^2.8.7",
+    "typescript": "^4.9.5"
+  }
+}

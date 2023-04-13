@@ -1,0 +1,194 @@
+
+
+
+.carousel {
+  /* overflow-x: hidden; */
+  /* overflow-x: clip; */
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  background-color: transparent;
+}
+@media (hover: hover) {
+  .carousel:hover .buttonLeft {
+    left: 2%;
+  }
+
+  .carousel:hover .buttonRight {
+    right: 2%;
+  }
+
+  .buttonLeft:hover,
+  .buttonRight:hover,
+  .buttonLeftOutside:hover,
+  .buttonRightOutside:hover {
+    font-size: 3rem;
+  }
+  .buttonLeft:hover,
+.buttonRight:hover,
+.buttonLeftOutside:hover,
+.buttonRightOutside:hover {
+  font-size: 3rem;
+}
+}
+
+.inner {
+  /* max-width: 100%;
+  white-space: nowrap; */
+  position: relative;
+
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  /* touch-action: pan-y; */
+
+  /* transition: transform 0.5s; */
+  /* transition : all 0.3s ease-in-out; */
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  transition: transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s;
+}
+.buttonRightStatic {
+  right: 1% !important;
+}
+
+.buttonLeftStatic {
+  left: 1% !important;
+}
+
+.carouselItem {
+  /* display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  color: rgb(218, 42, 42);
+  max-width: 100%;
+  max-height: 100%;
+  flex-grow: 1;
+  flex-basis: 0; */
+
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  user-select: none;
+}
+
+/* .carouselItem::-webkit-scrollbar {
+  display: none;
+  width: 0;
+} */
+
+.buttonLeft {
+  left: -10%;
+}
+
+.buttonLeftOutside,
+.buttonRightOutside {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 2.5rem;
+  transition: 0.3s;
+  position: absolute;
+  /* z-index: 1; */
+
+}
+
+.buttonLeftOutside,
+.buttonRightOutside {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.buttonRightOutside {
+  right: 0;
+}
+
+.buttonLeftOutside {
+  left: 0;
+}
+
+.buttonLeft,
+.buttonRight {
+  position: absolute;
+  background-color: transparent;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 1;
+}
+.buttonLeft,
+.buttonRight,
+.buttonLeftOutside,
+.buttonRightOutside {
+  user-select: none;
+}
+
+
+
+.buttonRight {
+  right: -10%;
+}
+
+.rectangleContainerOutside {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  padding-bottom: 10px;
+
+}
+
+.rectangleContainer{
+  position: absolute;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  background-color: transparent;
+  padding-bottom: 5px;
+  padding: 10px;
+
+}
+
+
+.rectangle {
+  width: 35px;
+  height: 10px;
+  border-radius: 20%;
+  border: 1px solid #f1f1f1;
+  margin: 2px 5px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+.active {
+  background: rgb(32, 32, 32);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2.5rem;
+}
+
+@media only screen and (max-width: 850px) {
+  .rectangle {
+    border-radius: 50%;
+    width: 1.5vw;
+    height: 1.5vw;
+  }
+  .rectangleContainer {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}

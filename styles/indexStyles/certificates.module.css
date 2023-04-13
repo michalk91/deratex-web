@@ -1,0 +1,136 @@
+.certificates {
+  max-width: 1100px;
+  /* max-width: 100%; */
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin: 0 auto;
+}
+
+.certificatesSlideContainer {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  align-items: center;
+}
+
+.certificatesText {
+  flex-basis: 50%;
+  padding-left: 5%;
+}
+.certificatesText h3 {
+  padding-top: 5%;
+}
+
+.certificatesImage {
+  position: relative;
+  flex-basis: 90px;
+  cursor: zoom-in;
+  /* transition: 0.3s; */
+  /* height: 150px; */
+}
+
+.certificatesImage img {
+  transition: 0.3s;
+}
+
+
+/* .certificatesImage>img{
+  transition: 0.3s;
+  z-index: 10;
+} */
+
+.certificatesImage span {
+  overflow: visible !important;
+}
+
+.certificatesImage img {
+  transition: 0.3s;
+}
+
+@media (hover: hover) {
+  .certificatesImage img:hover {
+    scale: 1.1;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  }
+  .certificatesImage img:hover{
+    transform: scale(1.05);
+    cursor: zoom-in;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+
+
+}
+}
+
+.closeBtn {
+  position: absolute;
+  top: 2%;
+  font-size: 3rem;
+  right: 8%;
+  z-index: 999999999;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  font-size: 4rem;
+}
+
+.certificatesTextFullScreen {
+  display: none;
+}
+
+.nextBtn {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  z-index: 9999999999999999999999999999999;
+  font-size: 30px;
+}
+
+.prevBtn {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  z-index: 9999999999999999999999999999999;
+}
+
+@media only screen and (max-width: 850px) {
+  .certificates {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  .certificatesText h2 {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  .certificatesText h3 {
+    font-size: 0.9rem;
+    text-align: right;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .certificatesImage {
+    /* height: 100px; */
+    flex-basis: 80px;
+  }
+  .certificatesText h2 {
+    font-size: 0.8rem;
+  }
+
+  .certificatesText h3 {
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .certificatesText h2 {
+    font-size: 0.75rem;
+  }
+
+  .certificatesText h3 {
+    font-size: 0.75rem;
+  }
+}
