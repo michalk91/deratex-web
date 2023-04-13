@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/OurGuarantee.module.css";
+import styles from "../../styles/indexStyles/ourGuarantee.module.css";
 import React from "react";
 import Image from "next/image";
 import { memo, useRef } from "react";
