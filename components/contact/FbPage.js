@@ -49,7 +49,7 @@ function FbPage() {
     }, 30); // HACK: Fixes horizontal scrolling using scrollIntoView
   }, [clicked]);
 
-  console.log("height", fbPageWidth);
+
 
   return (
     <div className={styles.fbPageContainer}>

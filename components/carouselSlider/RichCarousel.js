@@ -78,7 +78,7 @@ function RichCarousel({
     }));
   }, []);
 
-  // console.log("krystek Richcarousel", galleryOpen);
+
 
   const pullData = (data) => {
     const dataLength = dataRef.current.push(data);
@@ -95,7 +95,7 @@ function RichCarousel({
     );
   }, [activeIndex, carouselInfo.galleryOpen]);
 
-  console.log("mateuszek flip", virtualizedDataRef.current, carouselInfo.flipAnimating);
+
   return (
     <Flipper
       onStart={(e) => (

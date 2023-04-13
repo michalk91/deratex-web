@@ -21,7 +21,7 @@ function Slider({ slides }) {
     setWasHovered(false);
     setPressed((pressed) => !pressed);
     setCurrent((val) => (val !== slidesCount ? val + 1 : 1));
-    console.log("wywolalem sie");
+
   }, [slidesCount, setWasHovered, setPressed]);
 
   const prevSlide = useCallback(() => {

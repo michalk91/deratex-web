@@ -114,7 +114,7 @@ const useSwiping = ({
         transitionX: 0,
         transitionEnded: withoutTransitionEndHandling ? true : false,
       }));
-      console.log("velo", swipingSpeed);
+
       if (delta < -SENSITIVITY || swipingSpeed < -VELOCITY) {
         nextSlide();
       } else if (delta > SENSITIVITY || swipingSpeed > VELOCITY) {

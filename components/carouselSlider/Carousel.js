@@ -120,7 +120,7 @@ const Carousel = React.forwardRef(
     ref
   ) => {
     const { containerRef } = ref.current;
-    console.log("fook uj", virtualizedItems);
+
 
     const { onTouchEnd, onTouchStart, onTouchMove } = touchEvents;
     const { prevSlide, nextSlide, handleMouseLeave, handleMouseOver } =
@@ -278,7 +278,7 @@ export { CarouselItem, ImageForLightbox };
 
 // export function CarouselImage({ children, idx }) {
 //   const arrayChildren = Children.toArray(children);
-//   console.log("gowno", arrayChildren);
+
 //   return React.Children.map(arrayChildren, (child, index) => (
 //     <Flipped flipId={`carousel${idx}`}>
 //       {React.cloneElement(child, {

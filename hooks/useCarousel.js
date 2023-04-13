@@ -14,7 +14,7 @@ const useCarousel = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  console.log("usecarousel");
+
   const calculateNewIndex = useCallback(
     (newIndex) => {
       if (newIndex < 0) {
@@ -38,7 +38,7 @@ const useCarousel = ({
       updateIndex(parseInt(e.target.dataset.id));
     else updateIndex(parseInt(e.target.closest("[data-id]").dataset.id));
   }, []);
-  console.log("kkk dupa", activeIndex);
+
   const handleMouseOver = useCallback(() => {
     setPaused(true);
   }, []);
@@ -49,7 +49,7 @@ const useCarousel = ({
 
   const nextSlide = useCallback(() => {
     setActiveIndex((val) => calculateNewIndex(val + 1));
-    console.log("przesuwam na anstepny");
+
   }, []);
 
   const prevSlide = useCallback(() => {

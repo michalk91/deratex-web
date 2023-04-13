@@ -33,7 +33,7 @@ function RichLightboxGallery({
   const { updateIndex } = handleIndex;
 
   const closeGallery = useCallback(() => {
-    console.log("kupa jestem w closeGallery");
+
 
     setLightBoxOpen(false);
   }, [setLightBoxOpen]);
@@ -42,7 +42,7 @@ function RichLightboxGallery({
     updateIndex(Number(e.target.closest("[data-id]").dataset.id));
     setLightBoxOpen(true);
 
-    console.log("kkk k", Number(e.target.closest("[data-id]").dataset.id));
+
   }, []);
 
   return clickTextToOpenLightbox ? (

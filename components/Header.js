@@ -33,7 +33,7 @@ function Header() {
     setMounted(true);
   }, []);
 
-console.log("adrianek", scrolledOverMargin)
+
   return (
     mounted && (
       <>

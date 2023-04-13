@@ -141,7 +141,7 @@ navCallbacks,
 
 
 //     setItemsToShow(slice({items:items, startIndex:activeIndex>=0 && activeIndex, endIndex:activeIndex+3}))
-//     console.log("mateuszek juj", itemsToShow)
+
 
 //   },[activeIndex])
 

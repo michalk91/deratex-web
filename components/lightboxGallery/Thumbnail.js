@@ -34,7 +34,7 @@ const Thumbnail = memo(
       thumbnailWithBorderRadius = true,
       keepRatio = false,
     } = thumbnailsOptions ?? {};
-    console.log("chuu", thumbnailsOptions)
+
     return (
       <div
         ref={thumbRef}
