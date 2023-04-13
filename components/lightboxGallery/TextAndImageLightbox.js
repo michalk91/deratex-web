@@ -1,5 +1,5 @@
 import React, { memo, useRef, useState, useEffect } from "react";
-import styles from "../../styles/textAndImagelightbox.module.css";
+import styles from "../../styles/textAndImageLightbox.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
