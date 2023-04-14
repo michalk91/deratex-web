@@ -26,7 +26,7 @@ const Reviews = () => {
   });
 
   useEffect(() => {
-    if (!fbSDKLoaded) return;
+    if (!fbSDKLoaded || height) return;
 
     FB.XFBML.parse(ref?.current, function () {
       //FB.XFBML.parse callback function invoked when elements are rendered
