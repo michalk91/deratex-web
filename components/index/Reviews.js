@@ -35,7 +35,7 @@ const Reviews = () => {
       }
       //When the iframe is rendered we check if its height is greater than 150px. if so, we are sure that the iframe has been rendered correctly
     });
-  }, [fbSDKLoaded]); // When the error "'<URL>' was refused to be displayed in the frame because 'X-Frame-Options' is set to 'deny'" the iframe will not load and the height will not increase
+  }, [fbSDKLoaded, height]); // When the error "'<URL>' was refused to be displayed in the frame because 'X-Frame-Options' is set to 'deny'" the iframe will not load and the height will not increase
 
   return (
     <>
