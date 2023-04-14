@@ -16,7 +16,10 @@ const LightboxImage = memo(
     imgContainerClassName,
     openGallery,
     fitToContainer,
+    activeIndex,
   }) => {
+
+
     return (
       <Flipped
         onStart={(e) => (
@@ -38,6 +41,7 @@ const LightboxImage = memo(
             // layout={item.width && item.height  ? "responsive" : "fill"}
             layout={fitToContainer ? "fill" : "responsive"}
             objectFit="cover"
+            priority={index === activeIndex ? true : false}
           />
         </div>
       </Flipped>
@@ -46,7 +50,7 @@ const LightboxImage = memo(
 );
 
 const ZoomedLightboxImage = memo(
-  ({ index, activeIndex, item, lightboxFor }) => {
+  ({ index, activeIndex, item, lightboxFor, imageLoaded }) => {
     return (
       <div className={styles.slideWrapper}>
         <div
@@ -61,7 +65,7 @@ const ZoomedLightboxImage = memo(
             onStart={(e) => (e.style.zIndex = "10")}
             onComplete={(e) => (e.style.zIndex = "")}
             flipId={
-              index === activeIndex ? `${lightboxFor}${index}` : undefined
+              index === activeIndex && imageLoaded.current ? `${lightboxFor}${index}` : undefined
             }
           >
             <div data-id={index} className={styles.imageContainer}>
@@ -70,10 +74,11 @@ const ZoomedLightboxImage = memo(
                 alt={item.alt}
                 // height={item.height ? item.height : undefined}
                 // width={item.width ? item.width : undefined}
-                layout="fill"
+                // layout="fill"
                 objectFit={!item.height && !item.width ? "contain" : undefined}
-                priority={true}
+                priority={index === activeIndex ? true : false}
                 quality={50}
+                onLoadingComplete={imageLoaded.current=true}
               />
             </div>
           </Flipped>
@@ -145,7 +150,7 @@ navCallbacks,
 
 //   },[activeIndex])
 
-
+const imageLoaded = useRef(false);
 
 
 
@@ -162,6 +167,7 @@ navCallbacks,
               item={item}
               imgContainerClassName={imgContainerClassName}
               lightboxFor={lightboxFor}
+              activeIndex={activeIndex}
             />
           ))}
       </div>
@@ -200,6 +206,7 @@ navCallbacks,
                 item={item}
                 activeIndex={activeIndex}
                 lightboxFor={lightboxFor}
+                imageLoaded={imageLoaded}
               />
             ))}
           </div>

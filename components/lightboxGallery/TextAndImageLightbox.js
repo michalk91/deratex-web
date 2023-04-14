@@ -32,6 +32,7 @@ function TextAndImageLightbox({
   const closingModalDelay = 400;
 
   const thumbsContainerRef = useRef();
+  const imageLoaded = useRef(false);
 
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
@@ -63,7 +64,7 @@ function TextAndImageLightbox({
         prevSlide={prevSlide}
         containerClassName={classNames(styles.wrapper, {
           [styles.backgroundClosingAnim]: beforeDelay,
-          [styles.backgroundOpeningAnim]: !beforeDelay,
+          [styles.backgroundOpeningAnim]: imageLoaded.current && !beforeDelay,
         })}
       >
         <div
@@ -104,9 +105,10 @@ function TextAndImageLightbox({
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    layout="fill"
+                    // layout="fill"
+                    onLoadingComplete={imageLoaded.current=true}
                     priority={true}
-                    objectFit="contain"
+                    // objectFit="contain"
                   />
                 </div>
               </div>
