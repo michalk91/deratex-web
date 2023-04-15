@@ -126,7 +126,7 @@ navCallbacks,
 
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
-    enabled: carouselInfo?.galleryOpen || lightboxOpen,
+    enabled: carouselInfo?.galleryOpen ?? lightboxOpen,
   });
 
   const {onTouchEnd, onTouchStart, onTouchMove} = touchEvents;
