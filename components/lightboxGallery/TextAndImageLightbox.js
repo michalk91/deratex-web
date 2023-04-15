@@ -29,10 +29,12 @@ function TextAndImageLightbox({
   const { activeIndex, setNavigate } = handleIndex;
   const { isSwiping, transitionX } = handleSwipe;
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const closingModalDelay = 400;
 
   const thumbsContainerRef = useRef();
-  const imageLoaded = useRef(false);
+
 
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
@@ -43,7 +45,7 @@ function TextAndImageLightbox({
     delay: closingModalDelay,
     functionToDelay: closeGallery,
   });
-
+console.log(imageLoaded, "imageloaded")
   return (
     <>
       {items.map((item, index) => (
@@ -64,7 +66,7 @@ function TextAndImageLightbox({
         prevSlide={prevSlide}
         containerClassName={classNames(styles.wrapper, {
           [styles.backgroundClosingAnim]: beforeDelay,
-          [styles.backgroundOpeningAnim]: imageLoaded.current && !beforeDelay,
+          [styles.backgroundOpeningAnim]: !beforeDelay,
         })}
       >
         <div
@@ -98,17 +100,17 @@ function TextAndImageLightbox({
                         : undefined,
                   }}
                   className={classNames(styles.imageContainer, {
-                    [styles.openingAnim]: !beforeDelay,
+                    [styles.openingAnim]: imageLoaded && !beforeDelay,
                     [styles.closingAnim]: beforeDelay,
                   })}
                 >
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    // layout="fill"
-                    onLoadingComplete={imageLoaded.current=true}
+                    layout="fill"
+                    onLoadingComplete={index === activeIndex ? ()=>setImageLoaded(true) : undefined}
                     priority={true}
-                    // objectFit="contain"
+                    objectFit="contain"
                   />
                 </div>
               </div>

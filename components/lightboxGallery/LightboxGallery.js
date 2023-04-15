@@ -50,7 +50,7 @@ const LightboxImage = memo(
 );
 
 const ZoomedLightboxImage = memo(
-  ({ index, activeIndex, item, lightboxFor, imageLoaded }) => {
+  ({ index, activeIndex, item, lightboxFor }) => {
     return (
       <div className={styles.slideWrapper}>
         <div
@@ -65,7 +65,7 @@ const ZoomedLightboxImage = memo(
             onStart={(e) => (e.style.zIndex = "10")}
             onComplete={(e) => (e.style.zIndex = "")}
             flipId={
-              index === activeIndex && imageLoaded.current ? `${lightboxFor}${index}` : undefined
+              index === activeIndex  ? `${lightboxFor}${index}` : undefined
             }
           >
             <div data-id={index} className={styles.imageContainer}>
@@ -74,11 +74,10 @@ const ZoomedLightboxImage = memo(
                 alt={item.alt}
                 // height={item.height ? item.height : undefined}
                 // width={item.width ? item.width : undefined}
-                // layout="fill"
+                layout="fill"
                 objectFit={!item.height && !item.width ? "contain" : undefined}
                 priority={index === activeIndex ? true : false}
                 quality={50}
-                onLoadingComplete={imageLoaded.current=true}
               />
             </div>
           </Flipped>
@@ -150,7 +149,7 @@ navCallbacks,
 
 //   },[activeIndex])
 
-const imageLoaded = useRef(false);
+
 
 
 
@@ -206,7 +205,7 @@ const imageLoaded = useRef(false);
                 item={item}
                 activeIndex={activeIndex}
                 lightboxFor={lightboxFor}
-                imageLoaded={imageLoaded}
+
               />
             ))}
           </div>
