@@ -12,6 +12,7 @@ const Thumbnail = memo(
     item,
     isScrollableX,
     thumbnailsOptions,
+    virtualized = false,
   }) => {
     const thumbRef = useRef(null);
     useEffect(() => {
@@ -22,7 +23,7 @@ const Thumbnail = memo(
         setTimeout(() => {
           thumbRef.current?.scrollIntoView({
             behavior: "smooth",
-            inline: "center",
+            inline: virtualized ? "center" : "start",
           });
         }, 30); // HACK: Fixes horizontal scrolling using scrollIntoView
       }
