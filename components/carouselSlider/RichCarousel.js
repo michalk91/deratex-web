@@ -5,14 +5,13 @@ import React, {
   useCallback,
   useRef,
   useLayoutEffect,
+  useMemo,
 } from "react";
 
 import useCarousel from "../../hooks/useCarousel";
-import Carousel from "./Carousel";
+import Carousel, { ImageForLightbox } from "./Carousel";
 import LightboxGallery from "../lightboxGallery/LightboxGallery";
 import { Flipper, Flipped } from "react-flip-toolkit";
-
-
 
 function RichCarousel({
   children,
@@ -20,11 +19,14 @@ function RichCarousel({
   slideTime,
   withGallery,
   navigationOutside,
+  imagesForLightboxData,
+  width,
+  height,
   // thumbnailWidth,
   // thumbnailHeight,
   // thumbnailWithBorderRadius,
   thumbnailsOptions,
-
+  virtualized = false,
   ...rest
 }) {
   // const [galleryOpen, setGalleryOpen] = useState(false);
@@ -35,13 +37,12 @@ function RichCarousel({
     flipAnimating: false,
   });
 
-  const containerRef = useRef();
-  const ref = useRef({
-    containerRef,
-  });
+  const { galleryOpen, flipAnimating } = carouselInfo;
+
+  // const containerRef = useRef();
+  const ref = useRef();
 
   const dataRef = useRef([]);
-  const virtualizedDataRef = useRef([]);
 
   const {
     touchEvents,
@@ -52,11 +53,11 @@ function RichCarousel({
     transitionEnded,
   } = useCarousel({
     childrenCount: React.Children.count(children),
-    containerRef,
-    withoutTransitionEndHandling: carouselInfo.galleryOpen ? false : true,
+    containerRef: ref,
+    withoutTransitionEndHandling: galleryOpen ? false : true,
     autoPlay,
     slideTime,
-    withoutAxisDetection: carouselInfo.galleryOpen ? true : false,
+    withoutAxisDetection: galleryOpen ? true : false,
   });
 
   const { activeIndex } = handleIndex;
@@ -78,22 +79,19 @@ function RichCarousel({
     }));
   }, []);
 
+  function getImageForLightboxProps(children) {
+    React.Children.forEach(children, (child) => {
+      if (child.props) {
+        child.type === ImageForLightbox
+          ? dataRef.current.push(child.props)
+          : getImageForLightboxProps(child.props.children);
+      }
+    });
+  }
 
+  if (dataRef.current.length === 0) getImageForLightboxProps(children);
+  console.log("tablica", dataRef.current);
 
-  const pullData = (data) => {
-    const dataLength = dataRef.current.push(data);
-
-    return dataLength;
-  };
-
-  useEffect(() => {
-    if (React.Children.count(children) < 5) return;
-
-    virtualizedDataRef.current = dataRef.current.slice(
-      activeIndex >= 2 && activeIndex - 2,
-      activeIndex < React.Children.count(children) && activeIndex + 3
-    );
-  }, [activeIndex, carouselInfo.galleryOpen]);
 
 
   return (
@@ -114,35 +112,34 @@ function RichCarousel({
           flipAnimating: false,
         }))
       )}
-      flipKey={carouselInfo.galleryOpen}
+      flipKey={galleryOpen}
       portalKey="modal"
     >
-
-        <Carousel
-          ref={ref}
-          handleIndex={handleIndex}
-          navCallbacks={navCallbacks}
-          touchEvents={touchEvents}
-          handleSwipe={handleSwipe}
-          navigationOutside={navigationOutside}
-          withGallery={withGallery}
-          openGallery={openGallery}
-          carouselInfo={carouselInfo}
-          virtualizedItems={virtualizedDataRef.current}
-          transitionEnded={transitionEnded}
-          pullData={pullData}
-          lightboxFor={lightboxFor}
-          {...rest}
-        >
-          {children}
-        </Carousel>
-
+      <Carousel
+        ref={ref}
+        handleIndex={handleIndex}
+        navCallbacks={navCallbacks}
+        touchEvents={touchEvents}
+        handleSwipe={handleSwipe}
+        navigationOutside={navigationOutside}
+        withGallery={withGallery}
+        openGallery={openGallery}
+        carouselInfo={carouselInfo}
+        transitionEnded={transitionEnded}
+        lightboxFor={lightboxFor}
+        virtualized={virtualized}
+        height={height}
+        width={width}
+        {...rest}
+      >
+        {children}
+      </Carousel>
 
       {withGallery && (
         <LightboxGallery
           transitionEnded={transitionEnded}
           onTransitionEnd={onTransitionEnd}
-      handleSwipe={handleSwipe}
+          handleSwipe={handleSwipe}
           lightboxForSlider
           lightboxThumbsVisible
           items={dataRef.current}
@@ -153,7 +150,7 @@ function RichCarousel({
           handleIndex={handleIndex}
           thumbnailsOptions={thumbnailsOptions}
           lightboxFor={lightboxFor}
-          virtualizedItems={virtualizedDataRef.current}
+          virtualized={virtualized}
         />
       )}
     </Flipper>

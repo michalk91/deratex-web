@@ -1,12 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  memo,
-  useContext,
-  useMemo,
-  createContext
-} from "react";
+import React, { memo, useContext, useMemo, createContext } from "react";
 import styles from "../../styles/carouselSlider.module.css";
 import classNames from "classnames";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -25,10 +17,10 @@ const CarouselItem = memo(
     itemClassName,
     index,
     activeIndex,
-    carouselItemRef,
-    pullData,
     openGallery,
     lightboxFor,
+    virtualizedIndex,
+    virtualized,
 
     ...rest
   }) => {
@@ -36,7 +28,6 @@ const CarouselItem = memo(
 
     return (
       <div
-        ref={carouselItemRef}
         className={classNames(styles.carouselItem, itemClassName)}
         {...realRest}
         style={{
@@ -48,9 +39,19 @@ const CarouselItem = memo(
           ...(style || {}),
         }}
       >
-          <CarouselContext.Provider value={{ pullData, openGallery, lightboxFor }}>
-        {children}
+        <CarouselContext.Provider value={{ openGallery, lightboxFor, index }}>
+          {children}
         </CarouselContext.Provider>
+
+        {/* {React.Children.map(children, (child, index) => {
+          return React.cloneElement(child, {
+            index: virtualized ? virtualizedIndex : index,
+            openGallery,
+
+            // openGallery,
+            // lightboxFor,
+          });
+        })} */}
       </div>
     );
   }
@@ -58,14 +59,9 @@ const CarouselItem = memo(
 
 const ImageForLightbox = memo(
   ({ src, alt, objectFit, imgClassName, width, height }) => {
-    const { pullData, openGallery, lightboxFor } = useContext(CarouselContext);
-    const indexRef = useRef();
+    const { openGallery, lightboxFor, index } = useContext(CarouselContext);
 
-    useEffect(() => {
-      const dataLength = pullData({ src, alt, width, height });
-      indexRef.current = dataLength - 1;
-    }, []);
-
+    console.log("haha", index);
     return (
       <>
         <Flipped
@@ -73,7 +69,7 @@ const ImageForLightbox = memo(
             (e.style.zIndex = "10"), (e.style.position = "relative")
           )}
           onComplete={(e) => ((e.style.zIndex = "10"), (e.style.position = ""))}
-          flipId={`${lightboxFor}${indexRef.current}`}
+          flipId={`${lightboxFor}${index}`}
         >
           <div onClick={openGallery} className={imgClassName}>
             <Image
@@ -110,26 +106,18 @@ const Carousel = React.forwardRef(
       touchEvents,
       navigationOutside,
       carouselInfo,
-      virtualizedItems,
-      transitionEnded,
-      virtualized = false,
-      pullData,
       openGallery,
       lightboxFor,
+      virtualized,
     },
     ref
   ) => {
-    const { containerRef } = ref.current;
-
-
     const { onTouchEnd, onTouchStart, onTouchMove } = touchEvents;
     const { prevSlide, nextSlide, handleMouseLeave, handleMouseOver } =
       navCallbacks;
     const { activeIndex, setNavigate } = handleIndex;
     const { isSwiping, transitionX } = handleSwipe;
-    const { galleryOpen, flipAnimating} = carouselInfo;
-
-
+    const { galleryOpen, flipAnimating } = carouselInfo;
 
     const virtualizedChildren = useMemo(() => {
       const start = activeIndex > 0 ? activeIndex - 1 : activeIndex;
@@ -139,12 +127,13 @@ const Carousel = React.forwardRef(
         React.cloneElement(child, {
           width,
           height,
-          style: { opacity: flipAnimating && index !== activeIndex ? 0 : 1 },
+          style: {
+            opacity: flipAnimating && index + start !== activeIndex ? 0 : 1,
+          },
           index: index + start,
           activeIndex,
-          pullData,
           openGallery,
-          lightboxFor
+          lightboxFor,
         })
       );
     }, [activeIndex, flipAnimating]);
@@ -172,7 +161,7 @@ const Carousel = React.forwardRef(
             />
           )}
           <div
-            ref={containerRef}
+            ref={ref}
             onMouseOver={handleMouseOver}
             onMouseLeave={handleMouseLeave}
             className={classNames(styles.carousel)}
@@ -182,43 +171,47 @@ const Carousel = React.forwardRef(
             }}
           >
             <div
-              className={classNames(styles.inner, {
-                ["without-transition"]: isSwiping,
-              })}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
               style={{
-                pointerEvents: galleryOpen ? "none" : "auto",
-                marginLeft:
-                  virtualized && activeIndex > 1
-                    ? `${
-                        (activeIndex - 1) * containerRef?.current?.clientWidth
-                      }px`
-                    : `0px`,
-                transform:
-                  galleryOpen && isSwiping
-                    ? `translateX(
-                  -${activeIndex}00)%`
-                    : `translateX(calc(${transitionX}px - ${activeIndex}00%)`,
+                height: "100%",
+                transform: virtualized
+                  ? activeIndex > 1 && `translateX(${activeIndex - 1}00%`
+                  : undefined,
               }}
             >
-              {!virtualized
-                ? React.Children.map(children, (child, index) => {
-                    return React.cloneElement(child, {
-                      style: {
-                        opacity: flipAnimating && index !== activeIndex ? 0 : 1,
-                      },
-                      width,
-                      height,
-                      index,
-                      activeIndex,
-                      pullData,
-                      openGallery,
-                      lightboxFor
-                    });
-                  })
-                : virtualizedChildren}
+              <div
+                className={classNames(styles.inner, {
+                  ["without-transition"]: isSwiping,
+                })}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+                style={{
+                  pointerEvents: galleryOpen ? "none" : "auto",
+
+                  transform:
+                    galleryOpen && isSwiping
+                      ? `translateX(
+                  -${activeIndex}00)%`
+                      : `translateX(calc(${transitionX}px - ${activeIndex}00%)`,
+                }}
+              >
+                {!virtualized
+                  ? React.Children.map(children, (child, index) => {
+                      return React.cloneElement(child, {
+                        style: {
+                          opacity:
+                            flipAnimating && index !== activeIndex ? 0 : 1,
+                        },
+                        width,
+                        height,
+                        index,
+                        activeIndex,
+                        openGallery,
+                        lightboxFor,
+                      });
+                    })
+                  : virtualizedChildren}
+              </div>
             </div>
 
             {!navigationOutside && (
@@ -230,7 +223,22 @@ const Carousel = React.forwardRef(
                 onClick={prevSlide}
               />
             )}
-
+            {sliderRectanglesVisible &&
+              !navigationOutside &&(
+                <div className={classNames(styles.rectangleContainer)}>
+                  {React.Children.map(children, (_, index) => {
+                    return (
+                      <div
+                        data-id={index}
+                        className={classNames(styles.rectangle, {
+                          [styles.active]: index === activeIndex,
+                        })}
+                        onClick={setNavigate}
+                      ></div>
+                    );
+                  })}
+                </div>
+              )}
             {!navigationOutside && (
               <FiChevronRight
                 style={{ color: arrowColor }}
@@ -239,26 +247,6 @@ const Carousel = React.forwardRef(
                 })}
                 onClick={nextSlide}
               />
-            )}
-            {sliderRectanglesVisible && (
-              <div
-                className={classNames({
-                  [styles.rectangleContainer]: !navigationOutside,
-                  [styles.rectangleContainerOutside]: navigationOutside,
-                })}
-              >
-                {React.Children.map(children, (_, index) => {
-                  return (
-                    <div
-                      data-id={index}
-                      className={classNames(styles.rectangle, {
-                        [styles.active]: index === activeIndex,
-                      })}
-                      onClick={setNavigate}
-                    ></div>
-                  );
-                })}
-              </div>
             )}
           </div>
           {navigationOutside && (
@@ -269,21 +257,25 @@ const Carousel = React.forwardRef(
             />
           )}
         </div>
+        {sliderRectanglesVisible &&
+          navigationOutside && (
+            <div className={classNames(styles.rectangleContainerOutside)}>
+              {React.Children.map(children, (_, index) => {
+                return (
+                  <div
+                    data-id={index}
+                    className={classNames(styles.rectangle, {
+                      [styles.active]: index === activeIndex,
+                    })}
+                    onClick={setNavigate}
+                  ></div>
+                );
+              })}
+            </div>
+          )}
       </>
     );
   }
 );
 export default memo(Carousel);
 export { CarouselItem, ImageForLightbox };
-
-// export function CarouselImage({ children, idx }) {
-//   const arrayChildren = Children.toArray(children);
-
-//   return React.Children.map(arrayChildren, (child, index) => (
-//     <Flipped flipId={`carousel${idx}`}>
-//       {React.cloneElement(child, {
-//         "data-id": index,
-//       })}
-//     </Flipped>
-//   ));
-// }

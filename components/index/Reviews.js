@@ -46,7 +46,7 @@ const Reviews = () => {
               <RichCarousel
                 translateX="100%"
                 sliderRectanglesVisible={false}
-                // autoPlay
+                autoPlay
                 slideTime={5000}
                 // width="35vw"
                 // height="25vh"

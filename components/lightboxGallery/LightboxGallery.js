@@ -4,9 +4,10 @@ import classNames from "classnames";
 import Modal from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
 import useIsScrollableX from "../../hooks/useIsScrollableX";
-import { Flipped } from "react-flip-toolkit";
+import { Flipped, Flipper } from "react-flip-toolkit";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
+import useVirtualized from "../../hooks/useVirtualized";
 
 const LightboxImage = memo(
   ({
@@ -18,8 +19,6 @@ const LightboxImage = memo(
     fitToContainer,
     activeIndex,
   }) => {
-
-
     return (
       <Flipped
         onStart={(e) => (
@@ -65,7 +64,7 @@ const ZoomedLightboxImage = memo(
             onStart={(e) => (e.style.zIndex = "10")}
             onComplete={(e) => (e.style.zIndex = "")}
             flipId={
-              index === activeIndex  ? `${lightboxFor}${index}` : undefined
+              index === activeIndex ? `${lightboxFor}${index}` : undefined
             }
           >
             <div data-id={index} className={styles.imageContainer}>
@@ -96,11 +95,11 @@ function LightboxGallery({
   closeGallery,
 
   lightboxThumbsVisible,
-touchEvents,
- handleIndex,
+  touchEvents,
+  handleIndex,
   lightboxForSlider,
   lightboxOpen,
-navCallbacks,
+  navCallbacks,
   handleSwipe,
   onTransitionEnd,
   transitionEnded,
@@ -109,52 +108,45 @@ navCallbacks,
   lightboxContainerClassName,
   items,
   imgContainerClassName,
-  virtualizedItems,
   carouselInfo,
   openGallery,
-
+  virtualized,
   fitToContainer,
 }) {
-  // const isMobile = useMediaPredicate("(max-width: 1180px)");
-
   const thumbsContainerRef = useRef();
-  // const [itemsToShow, setItemsToShow] = useState();
-
-
-
-
 
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
     enabled: carouselInfo?.galleryOpen ?? lightboxOpen,
   });
 
-  const {onTouchEnd, onTouchStart, onTouchMove} = touchEvents;
-  const { activeIndex, setNavigate} = handleIndex;
-  const {prevSlide, nextSlide} = navCallbacks;
-  const {isSwiping, transitionX} = handleSwipe;
+  const { onTouchEnd, onTouchStart, onTouchMove } = touchEvents;
+  const { activeIndex, setNavigate } = handleIndex;
+  const { prevSlide, nextSlide } = navCallbacks;
+  const { isSwiping, transitionX } = handleSwipe;
 
-// const slice = useCallback( ({items, startIndex, endIndex})=>{
-//   return items.slice(startIndex, endIndex).map((item, index)=>({
-//     item,
-//     index: index + startIndex,
-//   }))
-// },[])
+  // const slice = useCallback( ({items, startIndex, endIndex})=>{
+  //   return items.slice(startIndex, endIndex).map((item, index)=>({
+  //     item,
+  //     index: index + startIndex,
+  //   }))
+  // },[])
 
-//   useEffect(()=>{
+  //   useEffect(()=>{
 
+  //     setItemsToShow(slice({items:items, startIndex:activeIndex>=0 && activeIndex, endIndex:activeIndex+3}))
 
-//     setItemsToShow(slice({items:items, startIndex:activeIndex>=0 && activeIndex, endIndex:activeIndex+3}))
+  //   },[activeIndex])
 
-
-//   },[activeIndex])
-
-
-
-
+  const { virtualizedData } = useVirtualized({
+        data: items,
+        activeIndex,
+        isOpen: lightboxOpen,
+      });
+  console.log("datka", virtualizedData, activeIndex);
 
   return (
-    <>
+    <Flipper flipKey={lightboxOpen} portalKey="modal">
       <div className={lightboxContainerClassName}>
         {!lightboxForSlider &&
           items.map((item, index) => (
@@ -172,7 +164,7 @@ navCallbacks,
       </div>
 
       <Modal
-        isOpen={carouselInfo?.galleryOpen || lightboxOpen}
+        isOpen={carouselInfo?.galleryOpen ?? lightboxOpen}
         onClose={closeGallery}
         nextSlide={nextSlide}
         prevSlide={prevSlide}
@@ -184,36 +176,48 @@ navCallbacks,
           })}
         >
           <div
-            onTouchEnd={onTouchEnd}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTransitionEnd={onTransitionEnd}
-            className={classNames(styles.inner, {
-              ["without-transition"]: isSwiping && !transitionEnded,
-              [styles.withTransition]: !isSwiping && !transitionEnded,
-            })}
             style={{
-              transform: `translateX(calc(${transitionX}px - ${
-                activeIndex * 100
-              }%)`,
+              height: "100%",
+              transform: virtualized ? activeIndex > 1 && `translateX(${activeIndex - 1}00%` : undefined,
             }}
           >
-            {items?.map((item, index) => (
-              <ZoomedLightboxImage
-                key={index}
-                index={index}
-                item={item}
-                activeIndex={activeIndex}
-                lightboxFor={lightboxFor}
-
-              />
-            ))}
+            <div
+              onTouchEnd={onTouchEnd}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTransitionEnd={onTransitionEnd}
+              className={classNames(styles.inner, {
+                ["without-transition"]: isSwiping && !transitionEnded,
+                [styles.withTransition]: !isSwiping && !transitionEnded,
+              })}
+              style={{
+                transform: `translateX(calc(${transitionX}px - ${activeIndex}00%)`,
+              }}
+            >
+              {!virtualized
+                ? items?.map((item, index) => (
+                    <ZoomedLightboxImage
+                      key={index}
+                      index={index}
+                      item={item}
+                      activeIndex={activeIndex}
+                      lightboxFor={lightboxFor}
+                    />
+                  ))
+                : virtualizedData?.map((item) => (
+                    <ZoomedLightboxImage
+                      key={item.index}
+                      index={item.index}
+                      item={item}
+                      activeIndex={activeIndex}
+                      lightboxFor={lightboxFor}
+                    />
+                  ))}
+            </div>
           </div>
-
           <IoCaretForward className={styles.nextSlide} onClick={nextSlide} />
           <IoCaretBack className={styles.prevSlide} onClick={prevSlide} />
         </div>
-
         <div
           className={styles.containerThumbs}
           ref={thumbsContainerRef}
@@ -238,7 +242,7 @@ navCallbacks,
             ))}
         </div>
       </Modal>
-    </>
+    </Flipper>
   );
 }
 

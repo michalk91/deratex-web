@@ -12,6 +12,7 @@ function RichLightboxGallery({
   items,
   fitToContainer = true,
   thumbnailsOptions,
+  virtualized=false
 }) {
   const [lightboxOpen, setLightBoxOpen] = useState(false);
 
@@ -62,7 +63,7 @@ function RichLightboxGallery({
       thumbnailsOptions={thumbnailsOptions}
     />
   ) : (
-    <Flipper flipKey={lightboxOpen} portalKey="modal">
+
       <LightboxGallery
         transitionEnded={transitionEnded}
         handleSwipe={handleSwipe}
@@ -80,8 +81,10 @@ function RichLightboxGallery({
         imgContainerClassName={imgContainerClassName}
         fitToContainer={fitToContainer}
         thumbnailsOptions={thumbnailsOptions}
+        virtualized={virtualized}
+
       />
-    </Flipper>
+
   );
 }
 

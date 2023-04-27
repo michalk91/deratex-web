@@ -22,6 +22,7 @@ function ReferenceLetters() {
             <RichCarousel
               navigationOutside
               withGallery
+
               thumbnailsOptions={{
                 keepRatio: true,
                 thumbnailWithBorderRadius: false,
