@@ -232,7 +232,6 @@ function LightboxGallery({
             items?.map((item, index) => (
               <Thumbnail
                 key={index}
-                virtualized={virtualized ? true : false}
                 index={index}
                 onNavigate={setNavigate}
                 activeIndex={activeIndex}
