@@ -139,7 +139,7 @@ function Certificates() {
           // slideTime={3000}
           // width="70vw"
 
-          height= "230px"
+          height= "240px"
           virtualized
           // imagesForLightboxData={certificates} //add this when you want using virtualized and you added "withGallery" prop
           withGallery
