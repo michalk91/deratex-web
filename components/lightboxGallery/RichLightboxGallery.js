@@ -3,6 +3,7 @@ import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
 import TextAndImageLightbox from "./TextAndImageLightbox";
 import { Flipper, Flipped } from "react-flip-toolkit";
+import useId from "@accessible/use-id";
 
 function RichLightboxGallery({
   lightboxThumbsVisible = true,
@@ -15,6 +16,7 @@ function RichLightboxGallery({
   virtualized=false
 }) {
   const [lightboxOpen, setLightBoxOpen] = useState(false);
+  const id = useId();
 
   const {
     touchEvents,
@@ -30,7 +32,7 @@ function RichLightboxGallery({
     withoutAxisDetection: lightboxOpen ? true : false,
   });
 
-  const lightboxFor = "gallery";
+  const lightboxFor = `gallery${id}` ;
   const { updateIndex } = handleIndex;
 
   const closeGallery = useCallback(() => {

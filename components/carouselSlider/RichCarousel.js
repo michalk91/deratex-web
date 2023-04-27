@@ -12,6 +12,7 @@ import useCarousel from "../../hooks/useCarousel";
 import Carousel, { ImageForLightbox } from "./Carousel";
 import LightboxGallery from "../lightboxGallery/LightboxGallery";
 import { Flipper, Flipped } from "react-flip-toolkit";
+import useId from "@accessible/use-id";
 
 function RichCarousel({
   children,
@@ -31,7 +32,7 @@ function RichCarousel({
 }) {
   // const [galleryOpen, setGalleryOpen] = useState(false);
   // const [flipAnimating, setFlipAnimating] = useState(false);
-
+  const id = useId();
   const [carouselInfo, setCarouselInfo] = useState({
     galleryOpen: false,
     flipAnimating: false,
@@ -62,7 +63,7 @@ function RichCarousel({
 
   const { activeIndex } = handleIndex;
 
-  const lightboxFor = "carousel";
+  const lightboxFor = `carousel${id}`;
 
   const openGallery = useCallback(() => {
     if (!withGallery) return;
