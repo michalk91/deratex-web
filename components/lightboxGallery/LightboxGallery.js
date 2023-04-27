@@ -139,10 +139,10 @@ function LightboxGallery({
   //   },[activeIndex])
 
   const { virtualizedData } = useVirtualized({
-    data: items,
-    activeIndex,
-    isOpen: lightboxOpen,
-  });
+        data: items,
+        activeIndex,
+        isOpen: lightboxOpen,
+      });
   console.log("datka", virtualizedData, activeIndex);
 
   return (
@@ -178,9 +178,7 @@ function LightboxGallery({
           <div
             style={{
               height: "100%",
-              transform: virtualized
-                ? activeIndex > 1 && `translateX(${activeIndex - 1}00%`
-                : undefined,
+              transform: virtualized ? activeIndex > 1 && `translateX(${activeIndex - 1}00%` : undefined,
             }}
           >
             <div
@@ -230,29 +228,18 @@ function LightboxGallery({
               : "",
           }}
         >
-          {lightboxThumbsVisible && !virtualized
-            ? items?.map((item, index) => (
-                <Thumbnail
-                  key={index}
-                  index={index}
-                  onNavigate={setNavigate}
-                  activeIndex={activeIndex}
-                  item={item}
-                  isScrollableX={isScrollableX}
-                  thumbnailsOptions={thumbnailsOptions}
-                />
-              ))
-            : virtualizedData?.map((item, index) => (
-                <Thumbnail
-                  key={index}
-                  index={item.index}
-                  onNavigate={setNavigate}
-                  activeIndex={activeIndex}
-                  item={item}
-                  isScrollableX={isScrollableX}
-                  thumbnailsOptions={thumbnailsOptions}
-                />
-              ))}
+          {lightboxThumbsVisible &&
+            items?.map((item, index) => (
+              <Thumbnail
+                key={index}
+                index={index}
+                onNavigate={setNavigate}
+                activeIndex={activeIndex}
+                item={item}
+                isScrollableX={isScrollableX}
+                thumbnailsOptions={thumbnailsOptions}
+              />
+            ))}
         </div>
       </Modal>
     </Flipper>
