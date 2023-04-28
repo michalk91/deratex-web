@@ -9,14 +9,13 @@
     "svg": "svgr -d src/public/icons src/public/icons/svgs "
   },
   "dependencies": {
-    "@accessible/use-id": "^1.1.2",
     "classnames": "^2.3.2",
     "next": "^12.3.4",
     "next-react-svg": "^1.2.0",
     "nodemailer": "^6.9.1",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "react-flip-toolkit": "^7.0.17",
     "react-fps": "^1.0.6",
     "react-hooks-global-state": "^2.1.0",
