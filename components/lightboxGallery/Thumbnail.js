@@ -24,7 +24,7 @@ const Thumbnail = memo(
             behavior: "smooth",
             inline: "center",
           });
-        }, 30); // HACK: Fixes horizontal scrolling using scrollIntoView
+        }, 50); // HACK: Fixes horizontal scrolling using scrollIntoView
       }
     }, [activeIndex, isScrollableX]);
 
