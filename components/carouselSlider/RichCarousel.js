@@ -6,13 +6,14 @@ import React, {
   useRef,
   useLayoutEffect,
   useMemo,
+  useId
 } from "react";
 
 import useCarousel from "../../hooks/useCarousel";
 import Carousel, { ImageForLightbox } from "./Carousel";
 import LightboxGallery from "../lightboxGallery/LightboxGallery";
 import { Flipper, Flipped } from "react-flip-toolkit";
-import useId from "@accessible/use-id";
+// import useId from "@accessible/use-id";
 
 function RichCarousel({
   children,
@@ -116,7 +117,7 @@ function RichCarousel({
       flipKey={galleryOpen}
       portalKey="modal"
     >
-      <Carousel
+       <Carousel
         ref={ref}
         handleIndex={handleIndex}
         navCallbacks={navCallbacks}

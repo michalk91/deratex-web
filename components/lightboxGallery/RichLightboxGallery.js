@@ -1,9 +1,9 @@
-import React, { memo, useState, useCallback, useRef, useEffect } from "react";
+import React, { memo, useState, useCallback, useRef, useEffect, useId } from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
 import TextAndImageLightbox from "./TextAndImageLightbox";
 import { Flipper, Flipped } from "react-flip-toolkit";
-import useId from "@accessible/use-id";
+// import useId from "@accessible/use-id";
 
 function RichLightboxGallery({
   lightboxThumbsVisible = true,
@@ -33,6 +33,7 @@ function RichLightboxGallery({
   });
 
   const lightboxFor = `gallery${id}` ;
+  console.log("lightbox id lightbox", lightboxFor)
   const { updateIndex } = handleIndex;
 
   const closeGallery = useCallback(() => {

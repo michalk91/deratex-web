@@ -1,7 +1,6 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useId } from "react";
 import { useInViewport } from "react-in-viewport";
 import { createGlobalState } from "react-hooks-global-state";
-import useId from "@accessible/use-id";
 
 const initialState = {
   selectedID: "",
