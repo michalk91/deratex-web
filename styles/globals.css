@@ -27,6 +27,12 @@ body * {
 
 }
 
+.grecaptcha-badge{
+  transition: 0.6s !important;
+  transform: translateX(-100%);
+
+}
+
 .fade-in-left {
   animation: fade-in-left 0.7s ease-in-out forwards;
 }

@@ -5,6 +5,7 @@ import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
 
 
+
 export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
 
 function MyApp({ Component, pageProps }) {
