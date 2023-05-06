@@ -8,7 +8,7 @@ function Quality() {
 
 
   const containerRef = useRef();
-  const animate = useInViewAnimation({animateContainerRef:containerRef, sensivity:0.4});
+  const {animate} = useInViewAnimation({animateContainerRef:containerRef, sensivity:0.4});
   return (
     <>
       <section>

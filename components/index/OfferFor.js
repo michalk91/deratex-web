@@ -7,7 +7,7 @@ import useInViewAnimation from "../../hooks/useInViewAnimation";
 
 function OfferFor() {
   const containerRef = useRef();
-  const animate = useInViewAnimation({animateContainerRef:containerRef});
+  const {animate} = useInViewAnimation({animateContainerRef:containerRef});
   return (
     <div className={styles.offerForWrapper} ref={containerRef}>
       <section className={classNames("innerContentWidth" ,styles.offerFor)}>

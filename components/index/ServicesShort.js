@@ -69,7 +69,7 @@ function ServicesShort() {
 
   const containerRef = useRef();
 
-  const animate = useInViewAnimation({ animateContainerRef: containerRef });
+  const {animate} = useInViewAnimation({ animateContainerRef: containerRef });
 
   return (
     <section className={classNames(styles.services)}>

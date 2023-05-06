@@ -1,13 +1,13 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef } from "react";
 import { useInViewport } from "react-in-viewport";
 
 function useInViewAnimation({ animateContainerRef, sensivity= 0.5 }) {
-  const [animate, setAnimate] = useState(false);
+  const animateRef = useRef(false);
 
   const onEnterViewport = useCallback(() => {
-    if (animate) return;
+    if (animateRef.current) return;
 
-    setAnimate(true);
+    animateRef.current=true;
   }, []);
 
   useInViewport(
@@ -17,7 +17,7 @@ function useInViewAnimation({ animateContainerRef, sensivity= 0.5 }) {
     { onEnterViewport }
   );
 
-  return animate;
+  return {animate:animateRef.current};
 }
 
 export default useInViewAnimation;

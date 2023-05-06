@@ -13,7 +13,7 @@ function Protection() {
   ];
 
   const containerRef = useRef();
-  const animate = useInViewAnimation({animateContainerRef:containerRef});
+  const {animate} = useInViewAnimation({animateContainerRef:containerRef});
 
   return (
     <div ref={containerRef} className="innerContentWidth">

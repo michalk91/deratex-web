@@ -53,7 +53,7 @@ function OurGuarantee() {
 
  const containerRef = useRef();
 
-  const animate = useInViewAnimation({animateContainerRef:containerRef});
+  const {animate} = useInViewAnimation({animateContainerRef:containerRef});
 
   return (
     <section>

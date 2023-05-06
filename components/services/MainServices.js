@@ -70,7 +70,7 @@ function MainServices() {
 
   const containerRef = useRef();
 
-  const animate = useInViewAnimation({animateContainerRef:containerRef, sensivity:0});
+  const {animate} = useInViewAnimation({animateContainerRef:containerRef, sensivity:0});
 
   return (
     <div className={styles.wrapper} ref={containerRef}>
