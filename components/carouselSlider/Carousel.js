@@ -1,4 +1,11 @@
-import React, { memo, useContext, useMemo, createContext } from "react";
+import React, {
+  memo,
+  useContext,
+  useMemo,
+  createContext,
+  useEffect,
+  useRef,
+} from "react";
 import styles from "../../styles/carouselSlider.module.css";
 import classNames from "classnames";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -109,6 +116,7 @@ const Carousel = React.forwardRef(
       openGallery,
       lightboxFor,
       virtualized,
+      transitionEnded,
     },
     ref
   ) => {
@@ -171,11 +179,14 @@ const Carousel = React.forwardRef(
             }}
           >
             <div
+              className={styles.container}
               style={{
-                height: "100%",
-                transform: virtualized
-                  ? activeIndex > 1 && `translateX(${activeIndex - 1}00%`
-                  : undefined,
+                // height: "100%",
+                willChange: "transform",
+                transform:
+                  virtualized &&
+                  activeIndex > 1 &&
+                  `translateX(${activeIndex - 1}00%`,
               }}
             >
               <div
@@ -187,6 +198,7 @@ const Carousel = React.forwardRef(
                 onTouchEnd={onTouchEnd}
                 style={{
                   pointerEvents: galleryOpen ? "none" : "auto",
+                  willChange: "transform",
 
                   transform:
                     galleryOpen && isSwiping
@@ -223,22 +235,21 @@ const Carousel = React.forwardRef(
                 onClick={prevSlide}
               />
             )}
-            {sliderRectanglesVisible &&
-              !navigationOutside &&(
-                <div className={classNames(styles.rectangleContainer)}>
-                  {React.Children.map(children, (_, index) => {
-                    return (
-                      <div
-                        data-id={index}
-                        className={classNames(styles.rectangle, {
-                          [styles.active]: index === activeIndex,
-                        })}
-                        onClick={setNavigate}
-                      ></div>
-                    );
-                  })}
-                </div>
-              )}
+            {sliderRectanglesVisible && !navigationOutside && (
+              <div className={classNames(styles.rectangleContainer)}>
+                {React.Children.map(children, (_, index) => {
+                  return (
+                    <div
+                      data-id={index}
+                      className={classNames(styles.rectangle, {
+                        [styles.active]: index === activeIndex,
+                      })}
+                      onClick={setNavigate}
+                    ></div>
+                  );
+                })}
+              </div>
+            )}
             {!navigationOutside && (
               <FiChevronRight
                 style={{ color: arrowColor }}
@@ -257,22 +268,21 @@ const Carousel = React.forwardRef(
             />
           )}
         </div>
-        {sliderRectanglesVisible &&
-          navigationOutside && (
-            <div className={classNames(styles.rectangleContainerOutside)}>
-              {React.Children.map(children, (_, index) => {
-                return (
-                  <div
-                    data-id={index}
-                    className={classNames(styles.rectangle, {
-                      [styles.active]: index === activeIndex,
-                    })}
-                    onClick={setNavigate}
-                  ></div>
-                );
-              })}
-            </div>
-          )}
+        {sliderRectanglesVisible && navigationOutside && (
+          <div className={classNames(styles.rectangleContainerOutside)}>
+            {React.Children.map(children, (_, index) => {
+              return (
+                <div
+                  data-id={index}
+                  className={classNames(styles.rectangle, {
+                    [styles.active]: index === activeIndex,
+                  })}
+                  onClick={setNavigate}
+                ></div>
+              );
+            })}
+          </div>
+        )}
       </>
     );
   }

@@ -66,6 +66,8 @@ function RichCarousel({
 
   const lightboxFor = `carousel${id}`;
 
+
+
   const openGallery = useCallback(() => {
     if (!withGallery) return;
 
