@@ -14,12 +14,6 @@ const Reviews = () => {
 
   const fbSDKLoaded = useGlobalState(`fbSDKLoaded`)[0];
 
-  useEffect(() => {
-    if (window.FB) {
-      FB.XFBML.parse(ref?.current); //Reload iframe after page changed
-    }
-  });
-
 
   useEffect(() => {
     if (!fbSDKLoaded) return;
