@@ -6,7 +6,7 @@ import React, {
   useRef,
   useLayoutEffect,
   useMemo,
-  useId
+  useId,
 } from "react";
 
 import useCarousel from "../../hooks/useCarousel";
@@ -47,10 +47,18 @@ function RichCarousel({
   const dataRef = useRef([]);
 
   const {
-    touchEvents,
-    navCallbacks,
-    handleIndex,
-    handleSwipe,
+    onTouchEnd,
+    onTouchStart,
+    onTouchMove,
+    prevSlide,
+    nextSlide,
+    handleMouseLeave,
+    handleMouseOver,
+    handleUserKeyPress,
+    activeIndex,
+    setNavigate,
+    transitionX,
+    isSwiping,
     onTransitionEnd,
     transitionEnded,
   } = useCarousel({
@@ -62,11 +70,7 @@ function RichCarousel({
     withoutAxisDetection: galleryOpen ? true : false,
   });
 
-  const { activeIndex } = handleIndex;
-
   const lightboxFor = `carousel${id}`;
-
-
 
   const openGallery = useCallback(() => {
     if (!withGallery) return;
@@ -96,8 +100,6 @@ function RichCarousel({
   if (dataRef.current.length === 0) getImageForLightboxProps(children);
   console.log("tablica", dataRef.current);
 
-
-
   return (
     <Flipper
       onStart={(e) => (
@@ -119,12 +121,20 @@ function RichCarousel({
       flipKey={galleryOpen}
       portalKey="modal"
     >
-       <Carousel
+      <Carousel
         ref={ref}
-        handleIndex={handleIndex}
-        navCallbacks={navCallbacks}
-        touchEvents={touchEvents}
-        handleSwipe={handleSwipe}
+        activeIndex={activeIndex}
+        setNavigate={setNavigate}
+        prevSlide={prevSlide}
+        nextSlide={nextSlide}
+        handleMouseLeave={handleMouseLeave}
+        handleMouseOver={handleMouseOver}
+        handleUserKeyPress={handleUserKeyPress}
+        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        transitionX={transitionX}
+        isSwiping={isSwiping}
         navigationOutside={navigationOutside}
         withGallery={withGallery}
         openGallery={openGallery}
@@ -143,15 +153,23 @@ function RichCarousel({
         <LightboxGallery
           transitionEnded={transitionEnded}
           onTransitionEnd={onTransitionEnd}
-          handleSwipe={handleSwipe}
+          transitionX={transitionX}
+          isSwiping={isSwiping}
           lightboxForSlider
           lightboxThumbsVisible
           items={dataRef.current}
           carouselInfo={carouselInfo}
           closeGallery={closeGallery}
-          navCallbacks={navCallbacks}
-          touchEvents={touchEvents}
-          handleIndex={handleIndex}
+          prevSlide={prevSlide}
+          nextSlide={nextSlide}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseOver={handleMouseOver}
+          handleUserKeyPress={handleUserKeyPress}
+          onTouchEnd={onTouchEnd}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          activeIndex={activeIndex}
+          setNavigate={setNavigate}
           thumbnailsOptions={thumbnailsOptions}
           lightboxFor={lightboxFor}
           virtualized={virtualized}

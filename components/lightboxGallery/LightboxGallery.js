@@ -93,14 +93,18 @@ const ZoomedLightboxImage = memo(
 
 function LightboxGallery({
   closeGallery,
-
   lightboxThumbsVisible,
-  touchEvents,
-  handleIndex,
+  onTouchEnd,
+  onTouchStart,
+  onTouchMove,
+  activeIndex,
+  setNavigate,
   lightboxForSlider,
   lightboxOpen,
-  navCallbacks,
-  handleSwipe,
+  prevSlide,
+  nextSlide,
+  transitionX,
+  isSwiping,
   onTransitionEnd,
   transitionEnded,
   thumbnailsOptions,
@@ -120,11 +124,6 @@ function LightboxGallery({
     enabled: carouselInfo?.galleryOpen ?? lightboxOpen,
   });
 
-  const { onTouchEnd, onTouchStart, onTouchMove } = touchEvents;
-  const { activeIndex, setNavigate } = handleIndex;
-  const { prevSlide, nextSlide } = navCallbacks;
-  const { isSwiping, transitionX } = handleSwipe;
-
   // const slice = useCallback( ({items, startIndex, endIndex})=>{
   //   return items.slice(startIndex, endIndex).map((item, index)=>({
   //     item,
@@ -139,10 +138,10 @@ function LightboxGallery({
   //   },[activeIndex])
 
   const { virtualizedData } = useVirtualized({
-        data: items,
-        activeIndex,
-        isOpen: lightboxOpen,
-      });
+    data: items,
+    activeIndex,
+    isOpen: lightboxOpen,
+  });
   console.log("datka", virtualizedData, activeIndex);
 
   return (
@@ -178,7 +177,9 @@ function LightboxGallery({
           <div
             style={{
               height: "100%",
-              transform: virtualized ? activeIndex > 1 && `translateX(${activeIndex - 1}00%` : undefined,
+              transform: virtualized
+                ? activeIndex > 1 && `translateX(${activeIndex - 1}00%`
+                : undefined,
             }}
           >
             <div

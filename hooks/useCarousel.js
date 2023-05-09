@@ -14,7 +14,6 @@ const useCarousel = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
-
   const calculateNewIndex = useCallback(
     (newIndex) => {
       if (newIndex < 0) {
@@ -49,7 +48,6 @@ const useCarousel = ({
 
   const nextSlide = useCallback(() => {
     setActiveIndex((val) => calculateNewIndex(val + 1));
-
   }, []);
 
   const prevSlide = useCallback(() => {
@@ -57,9 +55,12 @@ const useCarousel = ({
   }, []);
 
   const {
-    touchEvents,
+    onTouchEnd,
+    onTouchStart,
+    onTouchMove,
     onTransitionEnd,
-    handleSwipe,
+    transitionX,
+    isSwiping,
     transitionEnded,
   } = useSwiping({
     currentSlide: activeIndex,
@@ -69,7 +70,6 @@ const useCarousel = ({
     withoutTransitionEndHandling,
     withoutAxisDetection: withoutAxisDetection ? true : false,
   });
-  const {isSwiping} = handleSwipe;
 
   const { inViewport, handleUserKeyPress } = useKeyPress({
     inViewportRef: containerRef,
@@ -90,25 +90,23 @@ const useCarousel = ({
     }
   }, [nextSlide, paused, inViewport, isSwiping]);
 
-  const navCallbacks = {
-    prevSlide, nextSlide,
-    handleMouseLeave, handleMouseOver, handleUserKeyPress
-  }
-
-  const handleIndex ={
+  return {
+    onTouchEnd,
+    onTouchStart,
+    onTouchMove,
+    prevSlide,
+    nextSlide,
+    handleMouseLeave,
+    handleMouseOver,
+    handleUserKeyPress,
+    paused,
     activeIndex,
     updateIndex,
     setNavigate,
-  }
-
-  return {
-    touchEvents,
-    navCallbacks,
-    paused,
-   handleIndex,
     inViewport,
     onTransitionEnd,
-   handleSwipe,
+    transitionX,
+    isSwiping,
     transitionEnded,
   };
 };

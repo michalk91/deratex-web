@@ -130,19 +130,12 @@ const useSwiping = ({
     [swipeInfo.transitionX]
   );
 
-  const touchEvents = {
+  return {
     onTouchEnd,
     onTouchStart,
     onTouchMove,
-  };
-  const handleSwipe = {
     transitionX: swipeInfo.transitionX,
     isSwiping: swipingRef.isSwiping,
-  };
-
-  return {
-    touchEvents,
-    handleSwipe,
     onTransitionEnd,
     transitionEnded: swipeInfo.transitionEnded,
   };

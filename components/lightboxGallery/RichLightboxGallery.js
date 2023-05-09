@@ -1,4 +1,11 @@
-import React, { memo, useState, useCallback, useRef, useEffect, useId } from "react";
+import React, {
+  memo,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useId,
+} from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
 import TextAndImageLightbox from "./TextAndImageLightbox";
@@ -13,16 +20,25 @@ function RichLightboxGallery({
   items,
   fitToContainer = true,
   thumbnailsOptions,
-  virtualized=false
+  virtualized = false,
 }) {
   const [lightboxOpen, setLightBoxOpen] = useState(false);
   const id = useId();
 
   const {
-    touchEvents,
-    navCallbacks,
-    handleIndex,
-    handleSwipe,
+    onTouchEnd,
+    onTouchStart,
+    onTouchMove,
+    prevSlide,
+    nextSlide,
+    handleMouseLeave,
+    handleMouseOver,
+    handleUserKeyPress,
+    activeIndex,
+    updateIndex,
+    setNavigate,
+    transitionX,
+    isSwiping,
     onTransitionEnd,
 
     transitionEnded,
@@ -32,62 +48,70 @@ function RichLightboxGallery({
     withoutAxisDetection: lightboxOpen ? true : false,
   });
 
-  const lightboxFor = `gallery${id}` ;
-  console.log("lightbox id lightbox", lightboxFor)
-  const { updateIndex } = handleIndex;
+  const lightboxFor = `gallery${id}`;
+  console.log("lightbox id lightbox", lightboxFor);
 
   const closeGallery = useCallback(() => {
-
-
     setLightBoxOpen(false);
   }, [setLightBoxOpen]);
 
   const openGallery = useCallback((e) => {
     updateIndex(Number(e.target.closest("[data-id]").dataset.id));
     setLightBoxOpen(true);
-
-
   }, []);
 
   return clickTextToOpenLightbox ? (
     <TextAndImageLightbox
       transitionEnded={transitionEnded}
-      handleSwipe={handleSwipe}
+      transitionX={transitionX}
+      isSwiping={isSwiping}
       onTransitionEnd={onTransitionEnd}
       openGallery={openGallery}
       lightboxOpen={lightboxOpen}
       closeGallery={closeGallery}
-      navCallbacks={navCallbacks}
+      prevSlide={prevSlide}
+      nextSlide={nextSlide}
+      handleMouseLeave={handleMouseLeave}
+      handleMouseOver={handleMouseOver}
+      handleUserKeyPress={handleUserKeyPress}
       lightboxThumbsVisible={lightboxThumbsVisible}
-      touchEvents={touchEvents}
-      handleIndex={handleIndex}
+      onTouchEnd={onTouchEnd}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      activeIndex={activeIndex}
+      setNavigate={setNavigate}
       lightboxContainerClassName={lightboxContainerClassName}
       items={items}
       thumbnailsOptions={thumbnailsOptions}
     />
   ) : (
-
-      <LightboxGallery
-        transitionEnded={transitionEnded}
-        handleSwipe={handleSwipe}
-        onTransitionEnd={onTransitionEnd}
-        navCallbacks={navCallbacks}
-        lightboxOpen={lightboxOpen}
-        closeGallery={closeGallery}
-        openGallery={openGallery}
-        lightboxThumbsVisible={lightboxThumbsVisible}
-        touchEvents={touchEvents}
-        handleIndex={handleIndex}
-        lightboxFor={lightboxFor}
-        lightboxContainerClassName={lightboxContainerClassName}
-        items={items}
-        imgContainerClassName={imgContainerClassName}
-        fitToContainer={fitToContainer}
-        thumbnailsOptions={thumbnailsOptions}
-        virtualized={virtualized}
-
-      />
-
+    <LightboxGallery
+      transitionEnded={transitionEnded}
+      transitionX={transitionX}
+      isSwiping={isSwiping}
+      onTransitionEnd={onTransitionEnd}
+      prevSlide={prevSlide}
+      nextSlide={nextSlide}
+      handleMouseLeave={handleMouseLeave}
+      handleMouseOver={handleMouseOver}
+      handleUserKeyPress={handleUserKeyPress}
+      lightboxOpen={lightboxOpen}
+      closeGallery={closeGallery}
+      openGallery={openGallery}
+      lightboxThumbsVisible={lightboxThumbsVisible}
+      onTouchEnd={onTouchEnd}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      activeIndex={activeIndex}
+      setNavigate={setNavigate}
+      lightboxFor={lightboxFor}
+      lightboxContainerClassName={lightboxContainerClassName}
+      items={items}
+      imgContainerClassName={imgContainerClassName}
+      fitToContainer={fitToContainer}
+      thumbnailsOptions={thumbnailsOptions}
+      virtualized={virtualized}
+    />
   );
 }
 

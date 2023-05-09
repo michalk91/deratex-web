@@ -10,13 +10,18 @@ import useFuncDelay from "../../hooks/useFuncDelay";
 
 function TextAndImageLightbox({
   closeGallery,
-  navCallbacks,
+  prevSlide,
+  nextSlide,
   lightboxThumbsVisible,
-  touchEvents,
-  handleIndex,
+  onTouchEnd,
+  onTouchStart,
+  onTouchMove,
+  activeIndex,
+  setNavigate,
   openGallery,
   lightboxOpen,
-  handleSwipe,
+  transitionX,
+  isSwiping,
   onTransitionEnd,
   transitionEnded,
   thumbnailsOptions,
@@ -24,17 +29,11 @@ function TextAndImageLightbox({
 }) {
   // const isMobile = useMediaPredicate("(max-width: 1180px)");
 
-  const { prevSlide, nextSlide } = navCallbacks;
-  const { onTouchEnd, onTouchMove, onTouchStart } = touchEvents;
-  const { activeIndex, setNavigate } = handleIndex;
-  const { isSwiping, transitionX } = handleSwipe;
-
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const closingModalDelay = 400;
 
   const thumbsContainerRef = useRef();
-
 
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
@@ -45,7 +44,7 @@ function TextAndImageLightbox({
     delay: closingModalDelay,
     functionToDelay: closeGallery,
   });
-console.log(imageLoaded, "imageloaded")
+  console.log(imageLoaded, "imageloaded");
   return (
     <>
       {items.map((item, index) => (
@@ -108,7 +107,11 @@ console.log(imageLoaded, "imageloaded")
                     src={item.src}
                     alt={item.alt}
                     layout="fill"
-                    onLoadingComplete={index === activeIndex ? ()=>setImageLoaded(true) : undefined}
+                    onLoadingComplete={
+                      index === activeIndex
+                        ? () => setImageLoaded(true)
+                        : undefined
+                    }
                     priority={true}
                     objectFit="contain"
                   />

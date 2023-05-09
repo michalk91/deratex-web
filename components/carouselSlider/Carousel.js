@@ -106,11 +106,19 @@ const Carousel = React.forwardRef(
       arrowColor = "black",
       width,
       height,
-      handleSwipe,
+      transitionX,
+      isSwiping,
       staticArrows = true,
-      handleIndex,
-      navCallbacks,
-      touchEvents,
+      activeIndex,
+      setNavigate,
+      prevSlide,
+      nextSlide,
+      handleMouseLeave,
+      handleMouseOver,
+      handleUserKeyPress,
+      onTouchEnd,
+      onTouchMove,
+      onTouchStart,
       navigationOutside,
       carouselInfo,
       openGallery,
@@ -120,11 +128,6 @@ const Carousel = React.forwardRef(
     },
     ref
   ) => {
-    const { onTouchEnd, onTouchStart, onTouchMove } = touchEvents;
-    const { prevSlide, nextSlide, handleMouseLeave, handleMouseOver } =
-      navCallbacks;
-    const { activeIndex, setNavigate } = handleIndex;
-    const { isSwiping, transitionX } = handleSwipe;
     const { galleryOpen, flipAnimating } = carouselInfo;
 
     const virtualizedChildren = useMemo(() => {

@@ -36,7 +36,7 @@ function Slider({ slides }) {
     hover: paused,
   });
 
-  const { touchEvents } = useSwiping({
+  const {  onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
     currentSlide: current,
     nextSlide,
     prevSlide,
@@ -45,7 +45,7 @@ function Slider({ slides }) {
     disableResistanceOnEnds: true,
   });
 
-  const { onTouchEnd, onTouchMove, onTouchStart } = touchEvents;
+
 
   useEffect(() => {
     if (paused || !inViewport) return;
