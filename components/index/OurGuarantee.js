@@ -64,7 +64,7 @@ function OurGuarantee() {
         <section ref={containerRef} className={classNames("innerContentWidth", styles.articleContainer)}>
           {images.map((item, index) => (
             <article key={index}>
-              <div className={classNames( styles.imageContainer, {["fade-in-down"]: animate})}>
+              <div className={classNames( styles.imageContainer, {["fade-in"]: animate})}>
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -76,7 +76,7 @@ function OurGuarantee() {
                 />
               </div>
 
-              <h2 className={classNames({["fade-in-up"]: animate})}>{item.text}</h2>
+              <h2 className={classNames({["fade-in"]: animate})}>{item.text}</h2>
             </article>
           ))}
         </section>

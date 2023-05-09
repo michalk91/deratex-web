@@ -19,10 +19,10 @@ function OfferFor() {
           <strong>
             <div className={classNames ( {["delayed-scale"]:animate})}>kujawsko-pomorskie</div>
           </strong>
-          <div className={classNames ( {["delayed-fade-in-left"]:animate})}>pomorskie</div>
-          <div  className={classNames ( {["delayed-fade-in-right"]:animate})}>mazowieckie</div>
-          <div  className={classNames ( {["delayed-fade-in-left"]:animate})}>wielkopolskie</div>
-          <div  className={classNames ( {["delayed-fade-in-right"]:animate})}>warmińsko-mazurskie</div>
+          <div className={classNames ( {["delayed-fade-in"]:animate})}>pomorskie</div>
+          <div className={classNames ( {["delayed-fade-in"]:animate})}>mazowieckie</div>
+          <div className={classNames ( {["delayed-fade-in"]:animate})}>wielkopolskie</div>
+          <div className={classNames ( {["delayed-fade-in"]:animate})}>warmińsko-mazurskie</div>
 
           <Image
             src="/images/poland2.png"

@@ -5,6 +5,7 @@
   border-radius: 15px;
   height: 160px;
   opacity: 0;
+  transform: scale(0);
 }
 
 .title {

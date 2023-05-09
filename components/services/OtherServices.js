@@ -16,7 +16,7 @@ function OtherServices() {
 
         <div className={classNames("innerContentWidth")}>
         <span className={classNames( "title", styles.underline)}>Nasze usługi obejmuja:</span>
-          <ul ref={containerRef}  className={classNames(styles.textContainer, {["fade-in-up"]: animate})}>
+          <ul ref={containerRef}  className={classNames(styles.textContainer, {["fade-in"]: animate})}>
             <li>
               Dokumentacje dla potrzeb systemu HACCP, GMP, GHP (program,
               procedury, raporty, wykresy, instrukcje).

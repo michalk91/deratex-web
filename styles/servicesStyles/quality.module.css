@@ -1,19 +1,20 @@
-.container p{
-    text-align: center;
-    font-size: 1.1rem;
+.container p {
+  text-align: center;
+  font-size: 1.1rem;
 }
 
-.container{
-    padding: 30px;
-    opacity: 0;
+.container {
+  padding: 30px;
+  opacity: 0;
+  transform: translateY(20px);
 }
-.container span{
-    padding-top: 20px;
-    padding-bottom: 20px;
+.container span {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.secondText p:nth-child(1){
-    font-weight: bolder;
-    font-size: 1.2rem;
-    padding-bottom: 10px;
+.secondText p:nth-child(1) {
+  font-weight: bolder;
+  font-size: 1.2rem;
+  padding-bottom: 10px;
 }

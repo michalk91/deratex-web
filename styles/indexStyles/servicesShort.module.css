@@ -1,37 +1,64 @@
-/* .services {
-  margin-top: 5rem;
-  width: 100vw;
-  max-width: 100%;
-} */
-
-/* .services span {
-  text-align: center;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 700;
-} */
-
-/* .servicesWrapper {
-  background-color: #d3d3d3;
-} */
-
 .services section {
-  /* padding: 0; */
-  /* margin: 0 auto; */
   padding-top: 2%;
   padding-bottom: 4%;
-overflow: hidden;
+  overflow: hidden;
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax(30px, 300px)); */
   grid-template-columns: repeat(3, 18%);
-
   justify-content: center;
-
   gap: 6%;
 }
 
+.imgsContainer div {
+  padding-right: 10%;
+  padding-left: 10%;
+  padding-bottom: 3%;
+}
 
+.imgsContainer div:nth-child(-n + 3) {
+  opacity: 0;
+  transform: translateX(-40px);
+}
 
+.imgsContainer div:nth-last-child(-n + 3) {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.imgsContainer:nth-child(1) div {
+  padding-left: 17%;
+  padding-right: 5%;
+}
+
+.imgsContainer:nth-child(2) div {
+  padding-left: 16%;
+  padding-right: 16%;
+  padding-bottom: 10%;
+}
+
+.imgsContainer:nth-child(3) div {
+  padding-left: 19%;
+  padding-right: 19%;
+  padding-bottom: 9%;
+  padding-top: 5%;
+}
+
+.imgsContainer:nth-child(4) div {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 3%;
+}
+.imgsContainer:nth-child(5) div .imgsContainer:nth-child(6) div {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 3%;
+}
+
+.imgsContainer:nth-child(7) div {
+  padding-left: 19%;
+  padding-right: 19%;
+  padding-bottom: 9%;
+  padding-top: 5%;
+}
 
 .services button {
   display: block;
@@ -49,23 +76,20 @@ overflow: hidden;
   transition: 0.2s;
 }
 @media (hover: hover) {
-.services button:hover {
-  background-color: red;
-  color: white;
-  border-color: red;
-  box-shadow: 1px -1px 24px 0px rgba(222, 99, 99, 1);
+  .services button:hover {
+    background-color: red;
+    color: white;
+    border-color: red;
+    box-shadow: 1px -1px 24px 0px rgba(222, 99, 99, 1);
+  }
 }
-}
-/* .services article {
-  padding: 2.5rem 2.5rem;
-} */
 
 @media only screen and (max-width: 1000px) {
   .services section {
     grid-template-columns: 20% 20% 20%;
     padding-bottom: 6%;
   }
-  .services button{
+  .services button {
     font-size: 0.9rem;
   }
 }
@@ -76,13 +100,6 @@ overflow: hidden;
     padding-bottom: 18%;
     padding-top: 4%;
   }
-
-  /* .innerContentWidth:nth-child(2)  {
-    padding-left: 15%;
-    padding-right: 15%;
-    padding-bottom: 9%;
-    padding-top: 2%;
-  } */
 }
 @media only screen and (max-width: 550px) {
   .services section {
@@ -95,7 +112,7 @@ overflow: hidden;
   .services section {
     grid-template-columns: 40% 40%;
   }
-  .services button{
+  .services button {
     font-size: 0.8rem;
   }
 }
@@ -103,7 +120,6 @@ overflow: hidden;
 @media only screen and (max-width: 400px) {
   .services section {
     grid-template-columns: 45% 45%;
-    /* column-gap: 2%; */
     padding-bottom: 30%;
   }
 }

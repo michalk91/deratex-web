@@ -3,6 +3,7 @@
   padding-left: 25px;
   padding-bottom: 25px;
   opacity: 0;
+  transform: translateY(20px);
 }
 .textContainer li {
   /* list-style-position: inside; */

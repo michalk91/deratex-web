@@ -83,7 +83,7 @@ function MainServices() {
         >
           <div className={classNames("innerContentWidth")}>
             <div
-            className={classNames (styles.serviceRowContainer, {["fade-in-left"]:animate && index % 2 === 0,["fade-in-right"]:animate && index % 2 !== 0 })}
+            className={classNames (styles.serviceRowContainer, {[styles.shiftedToRight]: index % 2 === 0,[styles.shiftedToLeft]: index % 2 !== 0, ["fade-in"] : animate })}
             >
               <div
                 // style={{ order: index % 2 === 0 ? 0 : 1 }}

@@ -12,7 +12,7 @@ function Quality() {
   return (
     <>
       <section>
-        <div ref={containerRef} className={classNames("innerContentWidth", styles.container, {["fade-in-up"]: animate})}>
+        <div ref={containerRef} className={classNames("innerContentWidth", styles.container, {["fade-in"]: animate})}>
           <span>
             <p>Jesteśmy płatnikiem podatku VAT. na zasadach ogólnych 23%.</p>
 
