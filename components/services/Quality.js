@@ -5,14 +5,17 @@ import classNames from "classnames";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
 
 function Quality() {
-
-
   const containerRef = useRef();
-  const {animate} = useInViewAnimation({animateContainerRef:containerRef, sensivity:0.4});
+  const { animate } = useInViewAnimation({ animateContainerRef: containerRef });
   return (
     <>
       <section>
-        <div ref={containerRef} className={classNames("innerContentWidth", styles.container, {["fade-in"]: animate})}>
+        <div
+          ref={containerRef}
+          className={classNames("innerContentWidth", styles.container, {
+            ["fade-in"]: animate,
+          })}
+        >
           <span>
             <p>Jesteśmy płatnikiem podatku VAT. na zasadach ogólnych 23%.</p>
 
