@@ -140,7 +140,7 @@ function Certificates() {
           // width="70vw"
 
           height= "240px"
-          // virtualized
+          virtualized
           // imagesForLightboxData={certificates} //add this when you want using virtualized and you added "withGallery" prop
           withGallery
           navigationOutside
