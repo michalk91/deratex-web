@@ -97,8 +97,8 @@ function RichCarousel({
     });
   }
 
-  if (dataRef.current.length === 0) getImageForLightboxProps(children);
-  console.log("tablica", dataRef.current);
+  if (withGallery && dataRef.current.length === 0) getImageForLightboxProps(children);
+
 
   return (
     <Flipper
