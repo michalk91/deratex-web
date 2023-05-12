@@ -85,6 +85,7 @@ function RichLightboxGallery({
       thumbnailsOptions={thumbnailsOptions}
     />
   ) : (
+    <Flipper flipKey={lightboxOpen} portalKey="modal">
     <LightboxGallery
       transitionEnded={transitionEnded}
       transitionX={transitionX}
@@ -112,6 +113,7 @@ function RichLightboxGallery({
       thumbnailsOptions={thumbnailsOptions}
       virtualized={virtualized}
     />
+    </Flipper>
   );
 }
 

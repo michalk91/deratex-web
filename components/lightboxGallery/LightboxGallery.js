@@ -145,7 +145,7 @@ function LightboxGallery({
   console.log("datka", virtualizedData, activeIndex);
 
   return (
-    <Flipper flipKey={lightboxOpen} portalKey="modal">
+  <>
       <div className={lightboxContainerClassName}>
         {!lightboxForSlider &&
           items.map((item, index) => (
@@ -243,7 +243,7 @@ function LightboxGallery({
             ))}
         </div>
       </Modal>
-    </Flipper>
+</>
   );
 }
 
