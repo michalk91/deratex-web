@@ -7,24 +7,16 @@
   margin-top: 0;
 }
 
-/* .image_container {
-  position: relative !important;
-  width: 100%;
-  height: 100%;
-} */
-
 .textContainer {
   background-color: rgba(255, 0, 0, 0.5);
   text-transform: uppercase;
   color: whitesmoke;
-
 }
 
 .textContainer span {
   font-family: "Open Sans", sans-serif;
   font-size: 1.6rem;
   z-index: 3;
-
 }
 
 .sliderText,
@@ -40,27 +32,24 @@
   top: 15%;
   transform: translateX(-100%);
   animation: firstTextAnimation 0.2s linear forwards;
-
 }
 
 .sliderText2 {
   top: 35%;
   transform: translateX(-100%);
   animation: secondTextAnimation 0.2s 0.5s linear forwards;
-
 }
 .sliderText3 {
   top: 55%;
   transform: translateX(-100%);
   animation: thirdTextAnimation 0.2s 1s linear forwards;
-
 }
 
 @keyframes firstTextAnimation {
-  0%{
+  0% {
     opacity: 0;
   }
-  60%{
+  60% {
     opacity: 0.5;
   }
   100% {
@@ -70,10 +59,10 @@
 }
 
 @keyframes secondTextAnimation {
-  0%{
+  0% {
     opacity: 0;
   }
-  60%{
+  60% {
     opacity: 0.5;
   }
   100% {
@@ -83,13 +72,13 @@
 }
 
 @keyframes thirdTextAnimation {
-  0%{
+  0% {
     opacity: 0;
   }
-  60%{
+  60% {
     opacity: 0.5;
   }
-  100%{
+  100% {
     transform: translateX(15vw);
     opacity: 1;
   }
@@ -140,13 +129,12 @@
 }
 
 @media only screen and (orientation: landscape) and (max-width: 1000px) {
-  .slider{
+  .slider {
     height: 100vh;
   }
   .textContainer span {
     font-size: 0.8rem;
   }
-
 }
 
 @media only screen and (min-width: 768px) {
@@ -210,9 +198,8 @@
 
 @media only screen and (max-width: 1550px) and (orientation: portrait) {
   .slider {
-    height: 65vh;
+    height: 650px;
   }
-
 }
 
 @media only screen and (max-width: 1400px) and (orientation: portrait) {
@@ -223,7 +210,7 @@
 
 @media only screen and (max-width: 1200px) and (orientation: portrait) {
   .slider {
-    height: 60vh;
+    height: 600px;
   }
   .textContainer span {
     font-size: 1.5rem;
@@ -232,16 +219,25 @@
 
 @media only screen and (max-width: 1000px) and (orientation: portrait) {
   .slider {
-    height: 55vh;
+    height: 550px;
   }
   .textContainer span {
     font-size: 1.4rem;
   }
 }
 
+@media only screen and (orientation: landscape) and (max-width: 1000px) {
+  .slider {
+    height: 100vh;
+  }
+  .textContainer span {
+    font-size: 0.8rem;
+  }
+}
+
 @media only screen and (max-width: 850px) and (orientation: portrait) {
   .slider {
-    height: 50vh;
+    height: 500px;
   }
   .textContainer span {
     padding: 7px;
@@ -251,7 +247,7 @@
 
 @media only screen and (max-width: 800px) and (orientation: portrait) {
   .slider {
-    height: 45vh;
+    height: 450px;
   }
   .textContainer span {
     font-size: 1.3rem;
@@ -260,7 +256,7 @@
 
 @media only screen and (max-width: 750px) and (orientation: portrait) {
   .slider {
-    height: 40vh;
+    height: 400px;
   }
   .textContainer span {
     padding: 5px;
@@ -269,7 +265,7 @@
 
 @media only screen and (max-width: 700px) and (orientation: portrait) {
   .slider {
-    height: 35vh;
+    height: 350px;
   }
   .textContainer span {
     font-size: 1.1rem;
@@ -278,7 +274,7 @@
 
 @media only screen and (max-width: 500px) and (orientation: portrait) {
   .slider {
-    height: 30vh;
+    height: 260px;
   }
   .textContainer span {
     font-size: 0.8rem;
@@ -296,36 +292,3 @@
     display: none;
   }
 }
-
-/* @media only screen and (max-width: 1000px) and (orientation: landscape) {
-  .slider {
-    height: 100vh;
-  }
-  .textContainer span {
-    font-size: 1.4rem;
-  }
-}
-@media only screen and (max-width: 700px) and (orientation: landscape) {
-  .textContainer span {
-    font-size: 1.3rem;
-  }
-}
-
-@media only screen and (max-width: 650px) and (orientation: landscape) {
-  .textContainer span {
-    font-size: 1.2rem;
-  }
-} */
-
-/* .dot {
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 3px solid #f1f1f1;
-  margin: 0 5px;
-  background: #f1f1f1;
-}
-.dot.active {
-  background: rgb(32, 32, 32);
-} */
