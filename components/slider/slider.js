@@ -22,12 +22,12 @@ function Slider({ slides }) {
     setPressed((pressed) => !pressed);
     setCurrent((val) => (val !== slidesCount ? val + 1 : 1));
 
-  }, [slidesCount, setWasHovered, setPressed]);
+  }, []);
 
   const prevSlide = useCallback(() => {
     setPressed((pressed) => !pressed);
     setCurrent((val) => (val !== 1 ? val - 1 : slidesCount));
-  }, [slidesCount, setWasHovered, setPressed]);
+  }, []);
 
   const { inViewport } = useKeyPress({
     inViewportRef: myRef,
@@ -61,14 +61,14 @@ function Slider({ slides }) {
         clearInterval(handleAutoplay);
       }
     };
-  }, [nextSlide, paused, pressed, wasHovered, inViewport]);
+  }, [paused, pressed, inViewport]);
 
   const handleHovered = useCallback(() => {
     setPaused(true), setWasHovered(true);
-  }, [setPaused, setWasHovered]);
+  }, []);
   const handleUnpaused = useCallback(() => {
     setPaused(false);
-  }, [setPaused]);
+  }, []);
 
   return (
     <section
