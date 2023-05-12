@@ -65,7 +65,7 @@ const Thumbnail = memo(
           layout="fill"
           priority={true}
           objectFit="cover"
-          quality={30}
+          quality={10}
         />
       </div>
     );
