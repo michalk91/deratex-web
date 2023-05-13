@@ -71,9 +71,6 @@ function RichLightboxGallery({
       closeGallery={closeGallery}
       prevSlide={prevSlide}
       nextSlide={nextSlide}
-      handleMouseLeave={handleMouseLeave}
-      handleMouseOver={handleMouseOver}
-      handleUserKeyPress={handleUserKeyPress}
       lightboxThumbsVisible={lightboxThumbsVisible}
       onTouchEnd={onTouchEnd}
       onTouchStart={onTouchStart}
@@ -93,9 +90,6 @@ function RichLightboxGallery({
       onTransitionEnd={onTransitionEnd}
       prevSlide={prevSlide}
       nextSlide={nextSlide}
-      handleMouseLeave={handleMouseLeave}
-      handleMouseOver={handleMouseOver}
-      handleUserKeyPress={handleUserKeyPress}
       lightboxOpen={lightboxOpen}
       closeGallery={closeGallery}
       openGallery={openGallery}

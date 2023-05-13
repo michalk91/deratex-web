@@ -112,30 +112,18 @@ function LightboxGallery({
   lightboxContainerClassName,
   items,
   imgContainerClassName,
-  carouselInfo,
   openGallery,
   virtualized,
   fitToContainer,
 }) {
   const thumbsContainerRef = useRef();
 
+
+
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
-    enabled: carouselInfo?.galleryOpen ?? lightboxOpen,
+    enabled:  lightboxOpen,
   });
-
-  // const slice = useCallback( ({items, startIndex, endIndex})=>{
-  //   return items.slice(startIndex, endIndex).map((item, index)=>({
-  //     item,
-  //     index: index + startIndex,
-  //   }))
-  // },[])
-
-  //   useEffect(()=>{
-
-  //     setItemsToShow(slice({items:items, startIndex:activeIndex>=0 && activeIndex, endIndex:activeIndex+3}))
-
-  //   },[activeIndex])
 
   const { virtualizedData } = useVirtualized({
     data: items,
@@ -145,7 +133,7 @@ function LightboxGallery({
   console.log("datka", virtualizedData, activeIndex);
 
   return (
-  <>
+    <>
       <div className={lightboxContainerClassName}>
         {!lightboxForSlider &&
           items.map((item, index) => (
@@ -163,7 +151,7 @@ function LightboxGallery({
       </div>
 
       <Modal
-        isOpen={carouselInfo?.galleryOpen ?? lightboxOpen}
+        isOpen={lightboxOpen}
         onClose={closeGallery}
         nextSlide={nextSlide}
         prevSlide={prevSlide}
@@ -243,7 +231,7 @@ function LightboxGallery({
             ))}
         </div>
       </Modal>
-</>
+    </>
   );
 }
 

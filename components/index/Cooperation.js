@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { CarouselItem } from "../carouselSlider/Carousel";
 import RichCarousel from "../carouselSlider/RichCarousel";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import classNames from "classnames";
 import { useMediaPredicate } from "react-media-hook";
 

@@ -1,17 +1,9 @@
-import React, {
-  memo,
-  useContext,
-  useMemo,
-  useEffect,
-  useRef,
-} from "react";
+import React, { memo, useContext, useMemo, useEffect, useRef } from "react";
 import styles from "../../styles/carouselSlider.module.css";
 import classNames from "classnames";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Flipper, Flipped } from "react-flip-toolkit";
 import Image from "next/image";
-
-
 
 const CarouselItem = memo(
   ({
@@ -21,15 +13,20 @@ const CarouselItem = memo(
     width,
     height,
     itemClassName,
-     activeIndex,
     openGallery,
-    virtualizedIndex,
-    virtualized,
     lightboxForID,
-
     ...rest
   }) => {
     const { style, ...realRest } = rest;
+
+    const carouselChild = useMemo(()=> React.Children.map(children, (child) => {
+      if (child.type === ImageForLightbox) {
+        return React.cloneElement(child, {
+          openGallery,
+          lightboxForID,
+        });
+      } else return React.cloneElement(child);
+    }));
 
     return (
       <div
@@ -43,16 +40,7 @@ const CarouselItem = memo(
           ...(style || {}),
         }}
       >
-
-
-        {React.Children.map(children, (child) => {
-          if (child.type === ImageForLightbox) {
-            return React.cloneElement(child, {
-              openGallery,
-              lightboxForID,
-            });
-          } else return React.cloneElement(child);
-        })}
+        {carouselChild}
       </div>
     );
   }
@@ -69,7 +57,6 @@ const ImageForLightbox = memo(
     lightboxForID,
     openGallery,
   }) => {
-
     return (
       <Flipped
         onStart={(e) => (
@@ -82,8 +69,6 @@ const ImageForLightbox = memo(
           <Image
             src={src}
             alt={alt}
-            // height={1267}
-            // width={1920}
             height={height ? height : undefined}
             width={width ? width : undefined}
             layout={width && height ? "responsive" : "fill"}
@@ -102,36 +87,49 @@ const Carousel = React.forwardRef(
     {
       children,
       sliderRectanglesVisible = true,
-      arrowColor = "black",
       width,
       height,
       transitionX,
       isSwiping,
-      staticArrows = true,
       activeIndex,
       setNavigate,
       prevSlide,
       nextSlide,
       handleMouseLeave,
       handleMouseOver,
-      handleUserKeyPress,
       onTouchEnd,
       onTouchMove,
       onTouchStart,
       navigationOutside,
-      carouselInfo,
+      lightboxOpen,
+      flipAnimating,
       openGallery,
       lightboxFor,
       virtualized,
-      transitionEnded,
       withGallery,
     },
     ref
   ) => {
-    const { galleryOpen, flipAnimating } = carouselInfo;
+
+
+    const defaultChildren = useMemo(() =>
+      React.Children.map(children,(child, index) => {
+        if (virtualized) return;
+
+        return React.cloneElement(child, {
+          style: {
+            opacity: flipAnimating && index !== activeIndex ? 0 : 1,
+          },
+          width,
+          height,
+          openGallery,
+          lightboxForID: `${lightboxFor}${index}`,
+        });
+      })
+    );
 
     const virtualizedChildren = useMemo(() => {
-      if (!withGallery) return;
+      if (!withGallery ?? !virtualized) return;
 
       const start = activeIndex > 0 ? activeIndex - 1 : activeIndex;
       const end = activeIndex + 2;
@@ -143,11 +141,8 @@ const Carousel = React.forwardRef(
           style: {
             opacity: flipAnimating && index + start !== activeIndex ? 0 : 1,
           },
-          // index: index + start,
           lightboxForID: `${lightboxFor}${index + start}`,
-          activeIndex,
           openGallery,
-          // lightboxFor,
         })
       );
     }, [activeIndex, flipAnimating]);
@@ -170,7 +165,6 @@ const Carousel = React.forwardRef(
           {navigationOutside && (
             <FiChevronLeft
               className={styles.buttonLeftOutside}
-              style={{ color: arrowColor }}
               onClick={prevSlide}
             />
           )}
@@ -203,41 +197,23 @@ const Carousel = React.forwardRef(
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
                 style={{
-                  pointerEvents: galleryOpen ? "none" : "auto",
+                  pointerEvents: lightboxOpen ? "none" : "auto",
                   willChange: "transform",
 
                   transform:
-                    galleryOpen && isSwiping
+                    lightboxOpen && isSwiping
                       ? `translateX(
                   -${activeIndex}00)%`
                       : `translateX(calc(${transitionX}px - ${activeIndex}00%)`,
                 }}
               >
-                {!virtualized
-                  ? React.Children.map(children, (child, index) => {
-                      return React.cloneElement(child, {
-                        style: {
-                          opacity:
-                            flipAnimating && index !== activeIndex ? 0 : 1,
-                        },
-                        width,
-                        height,
-                        // index,
-                        activeIndex,
-                        openGallery,
-                        lightboxForID: `${lightboxFor}${index}`,
-                      });
-                    })
-                  : virtualizedChildren}
+                {!virtualized ? defaultChildren : virtualizedChildren}
               </div>
             </div>
 
             {!navigationOutside && (
               <FiChevronLeft
-                style={{ color: arrowColor }}
-                className={classNames(styles.buttonLeft, {
-                  [styles.buttonLeftStatic]: staticArrows,
-                })}
+                className={classNames(styles.buttonLeft)}
                 onClick={prevSlide}
               />
             )}
@@ -258,10 +234,7 @@ const Carousel = React.forwardRef(
             )}
             {!navigationOutside && (
               <FiChevronRight
-                style={{ color: arrowColor }}
-                className={classNames(styles.buttonRight, {
-                  [styles.buttonRightStatic]: staticArrows,
-                })}
+                className={classNames(styles.buttonRight)}
                 onClick={nextSlide}
               />
             )}
@@ -269,7 +242,6 @@ const Carousel = React.forwardRef(
           {navigationOutside && (
             <FiChevronRight
               className={styles.buttonRightOutside}
-              style={{ color: arrowColor }}
               onClick={nextSlide}
             />
           )}

@@ -24,22 +24,18 @@ function RichCarousel({
   imagesForLightboxData,
   width,
   height,
-  // thumbnailWidth,
-  // thumbnailHeight,
-  // thumbnailWithBorderRadius,
   thumbnailsOptions,
   virtualized = false,
   ...rest
 }) {
-  // const [galleryOpen, setGalleryOpen] = useState(false);
-  // const [flipAnimating, setFlipAnimating] = useState(false);
+
   const id = useId();
   const [carouselInfo, setCarouselInfo] = useState({
-    galleryOpen: false,
+    lightboxOpen: false,
     flipAnimating: false,
   });
 
-  const { galleryOpen, flipAnimating } = carouselInfo;
+  const { lightboxOpen, flipAnimating } = carouselInfo;
 
   // const containerRef = useRef();
   const ref = useRef();
@@ -64,10 +60,10 @@ function RichCarousel({
   } = useCarousel({
     childrenCount: React.Children.count(children),
     containerRef: ref,
-    withoutTransitionEndHandling: galleryOpen ? false : true,
+    withoutTransitionEndHandling: lightboxOpen ? false : true,
     autoPlay,
     slideTime,
-    withoutAxisDetection: galleryOpen ? true : false,
+    withoutAxisDetection: lightboxOpen ? true : false,
   });
 
   const lightboxFor = `carousel${id}`;
@@ -77,17 +73,17 @@ function RichCarousel({
 
     setCarouselInfo((state) => ({
       ...state,
-      galleryOpen: true,
+      lightboxOpen: true,
     }));
   }, []);
   const closeGallery = useCallback(() => {
     setCarouselInfo((state) => ({
       ...state,
-      galleryOpen: false,
+      lightboxOpen: false,
     }));
   }, []);
 
-  function getImageForLightboxProps(children) {
+ const getImageForLightboxProps = useCallback((children) => {
     React.Children.forEach(children, (child) => {
       if (child.props) {
         child.type === ImageForLightbox
@@ -95,7 +91,7 @@ function RichCarousel({
           : getImageForLightboxProps(child.props.children);
       }
     });
-  }
+  },[])
 
   if (withGallery && dataRef.current.length === 0) getImageForLightboxProps(children);
 
@@ -118,7 +114,7 @@ function RichCarousel({
           flipAnimating: false,
         }))
       )}
-      flipKey={galleryOpen}
+      flipKey={lightboxOpen}
       portalKey="modal"
     >
       <Carousel
@@ -129,7 +125,6 @@ function RichCarousel({
         nextSlide={nextSlide}
         handleMouseLeave={handleMouseLeave}
         handleMouseOver={handleMouseOver}
-        handleUserKeyPress={handleUserKeyPress}
         onTouchEnd={onTouchEnd}
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
@@ -138,8 +133,8 @@ function RichCarousel({
         navigationOutside={navigationOutside}
         withGallery={withGallery}
         openGallery={openGallery}
-        carouselInfo={carouselInfo}
-        transitionEnded={transitionEnded}
+        lightboxOpen={lightboxOpen}
+        flipAnimating={flipAnimating}
         lightboxFor={lightboxFor}
         virtualized={virtualized}
         height={height}
@@ -151,20 +146,17 @@ function RichCarousel({
 
       {withGallery && (
         <LightboxGallery
+        lightboxForSlider
+        lightboxThumbsVisible
           transitionEnded={transitionEnded}
           onTransitionEnd={onTransitionEnd}
           transitionX={transitionX}
           isSwiping={isSwiping}
-          lightboxForSlider
-          lightboxThumbsVisible
           items={dataRef.current}
-          carouselInfo={carouselInfo}
+          lightboxOpen={lightboxOpen}
           closeGallery={closeGallery}
           prevSlide={prevSlide}
           nextSlide={nextSlide}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseOver={handleMouseOver}
-          handleUserKeyPress={handleUserKeyPress}
           onTouchEnd={onTouchEnd}
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
