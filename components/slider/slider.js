@@ -8,25 +8,34 @@ import useSwiping from "../../hooks/useSwiping";
 import useKeyPress from "../../hooks/useKeyPress";
 
 function Slider({ slides }) {
-  const [current, setCurrent] = useState(1);
-  const [paused, setPaused] = useState(false);
-  const [wasHovered, setWasHovered] = useState(false);
-  const [pressed, setPressed] = useState(false);
+  const [sliderInfo, setSliderInfo] = useState({
+    current: 0,
+    paused: false,
+    wasHovered: false,
+    pressed: false,
+  });
+
+  const { current, paused, wasHovered, pressed } = sliderInfo;
 
   const slidesCount = slides.length;
 
   const myRef = useRef();
 
   const nextSlide = useCallback(() => {
-    setWasHovered(false);
-    setPressed((pressed) => !pressed);
-    setCurrent((val) => (val !== slidesCount ? val + 1 : 1));
-
+    setSliderInfo((state) => ({
+      ...state,
+      wasHovered: false,
+      pressed: !state.pressed,
+      current: state.current !== slidesCount - 1 ? state.current + 1 : 0,
+    }));
   }, []);
 
   const prevSlide = useCallback(() => {
-    setPressed((pressed) => !pressed);
-    setCurrent((val) => (val !== 1 ? val - 1 : slidesCount));
+    setSliderInfo((state) => ({
+      ...state,
+      pressed: !state.pressed,
+      current: state.current !== 0 ? state.current - 1 : slidesCount - 1,
+    }));
   }, []);
 
   const { inViewport } = useKeyPress({
@@ -36,7 +45,7 @@ function Slider({ slides }) {
     hover: paused,
   });
 
-  const {  onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
+  const { onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
     currentSlide: current,
     nextSlide,
     prevSlide,
@@ -44,8 +53,6 @@ function Slider({ slides }) {
     bodyScrollAllTimeLocked: false,
     disableResistanceOnEnds: true,
   });
-
-
 
   useEffect(() => {
     if (paused || !inViewport) return;
@@ -64,10 +71,24 @@ function Slider({ slides }) {
   }, [paused, pressed, inViewport]);
 
   const handleHovered = useCallback(() => {
-    setPaused(true), setWasHovered(true);
+    setSliderInfo((state) => ({
+      ...state,
+      paused: true,
+      wasHovered: true,
+    }));
   }, []);
   const handleUnpaused = useCallback(() => {
-    setPaused(false);
+    setSliderInfo((state) => ({
+      ...state,
+      paused: false,
+    }));
+  }, []);
+
+  const setNavigate = useCallback((index) => {
+    setSliderInfo((state) => ({
+      ...state,
+      current: index,
+    }));
   }, []);
 
   return (
@@ -85,7 +106,7 @@ function Slider({ slides }) {
 
       {slides.map(
         (slide, index) =>
-          index === current - 1 && (
+          index === current && (
             <div className={styles.textContainer} key={index}>
               {slide.text && (
                 <span className={styles.sliderText}>{slide.text}</span>
@@ -102,14 +123,9 @@ function Slider({ slides }) {
 
       <div className={styles.dots_container}>
         {slides.map((_, index) => (
-          <div
-            key={index}
-            onClick={useCallback(() => {
-              setCurrent(index + 1);
-            }, [setCurrent, index])}
-          >
+          <div key={index} onClick={() => setNavigate(index)}>
             <SliderDot
-              active={current === index + 1}
+              active={current === index}
               paused={paused || !inViewport}
             />
           </div>
@@ -118,14 +134,14 @@ function Slider({ slides }) {
       {slides.map((slide, index) => (
         <div
           className={classNames(styles.slide, {
-            [styles.activeSlide]: inViewport && current - 1 === index,
+            [styles.activeSlide]: inViewport && current === index,
           })}
           key={index}
         >
           <div className={styles.imageContainer}>
             <Image
-              // priority={true}
-              loading="eager"
+              priority={true}
+              // loading="eager"
               src={slide.src}
               alt={slide.alt}
               layout="fill"
