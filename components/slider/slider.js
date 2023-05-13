@@ -19,7 +19,7 @@ function Slider({ slides }) {
 
   const slidesCount = slides.length;
 
-  const myRef = useRef();
+  const containerRef = useRef();
 
   const nextSlide = useCallback(() => {
     setSliderInfo((state) => ({
@@ -39,7 +39,7 @@ function Slider({ slides }) {
   }, []);
 
   const { inViewport } = useKeyPress({
-    inViewportRef: myRef,
+    inViewportRef: containerRef,
     nextSlide,
     prevSlide,
     hover: paused,
@@ -93,7 +93,7 @@ function Slider({ slides }) {
 
   return (
     <section
-      ref={myRef}
+      ref={containerRef}
       className={styles.slider}
       onMouseOver={handleHovered}
       onMouseLeave={handleUnpaused}
