@@ -8,8 +8,8 @@ import OurGuarantee from "../components/index/OurGuarantee";
 import Certificates from "../components/index/Certificates";
 
 import Reviews from "../components/index/Reviews";
-import Slider from "../components/slider/slider";
-import { SliderData } from "../components/slider/sliderData";
+import Slider from "../components/slider/Slider";
+import { SliderData } from "../components/slider/SliderData";
 import classNames from "classnames";
 import ServicesShort from "../components/index/ServicesShort";
 import Head from "next/head";
