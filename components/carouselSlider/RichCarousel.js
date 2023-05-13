@@ -123,11 +123,11 @@ function RichCarousel({
         setNavigate={setNavigate}
         prevSlide={prevSlide}
         nextSlide={nextSlide}
-        handleMouseLeave={handleMouseLeave}
-        handleMouseOver={handleMouseOver}
-        onTouchEnd={onTouchEnd}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
+        handleMouseLeave={lightboxOpen ? undefined : handleMouseLeave}
+        handleMouseOver={lightboxOpen ? undefined : handleMouseOver}
+        onTouchEnd={lightboxOpen ? undefined : onTouchEnd}
+        onTouchStart={lightboxOpen ? undefined : onTouchStart}
+        onTouchMove={lightboxOpen ? undefined : onTouchMove}
         transitionX={transitionX}
         isSwiping={isSwiping}
         navigationOutside={navigationOutside}
