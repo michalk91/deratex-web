@@ -146,6 +146,7 @@ function Slider({ slides }) {
               alt={slide.alt}
               layout="fill"
               objectFit="cover"
+              quality={80}
             />
           </div>
         </div>

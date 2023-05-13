@@ -74,7 +74,7 @@ const ImageForLightbox = memo(
             layout={width && height ? "responsive" : "fill"}
             priority={true}
             objectFit={objectFit ? objectFit : "cover"}
-            quality={50}
+            quality={30}
           />
         </div>
       </Flipped>

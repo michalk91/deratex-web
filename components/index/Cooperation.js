@@ -11,44 +11,44 @@ function Cooperation() {
   const images = [
     [
       {
-        src: "/images/hospital.jpg",
+        src: "/images/index/Cooperation/hospital.jpg",
         alt: "hospital",
         text: "służby zdrowia",
       },
       {
-        src: "/images/farmacja.jpg",
+        src: "/images/index/Cooperation/farmacja.jpg",
         alt: "farmacia",
         text: "firm farmaceutycznych",
       },
       {
-        src: "/images/gastronomia.jpg",
+        src: "/images/index/Cooperation/gastronomia.jpg",
         alt: "gastronomy",
         text: "gastronomii",
       },
       {
-        src: "/images/handel.jpg",
+        src: "/images/index/Cooperation/handel.jpg",
         alt: "trade",
         text: "placówek handlu hurtowego i detalicznego",
       },
     ],
     [
       {
-        src: "/images/bloki.jpg",
+        src: "/images/index/Cooperation/bloki.jpg",
         alt: "blocks of flats",
         text: "spółdzielni mieszkaniowej",
       },
       {
-        src: "/images/zasoby.jpg",
+        src: "/images/index/Cooperation/zasoby.jpg",
         alt: "housing stock",
         text: "gospodarki zasobami mieszkaniowymi",
       },
       {
-        src: "/images/wspolnota.jpg",
+        src: "/images/index/Cooperation/wspolnota.jpg",
         alt: "housing Association",
         text: "wspólnot mieszkaniowych",
       },
       {
-        src: "/images/rolne.jpg",
+        src: "/images/index/Cooperation/rolne.jpg",
         alt: "agri-food processing",
         text: "przetwórstwa rolno-spożywczego",
       },
@@ -56,22 +56,22 @@ function Cooperation() {
 
     [
       {
-        src: "/images/szkola.jpg",
+        src: "/images/index/Cooperation/szkola.jpg",
         alt: "school",
         text: "obiektów szkolnych oraz internatów",
       },
       {
-        src: "/images/osrodek.jpg",
+        src: "/images/index/Cooperation/osrodek.jpg",
         alt: "holiday resorts",
         text: "ośrodków wypoczynkowych",
       },
       {
-        src: "/images/hotel.jpg",
+        src: "/images/index/Cooperation/hotel.jpg",
         alt: "hotels",
         text: "hoteli",
       },
       {
-        src: "/images/zaklad.jpg",
+        src: "/images/index/Cooperation/zaklad.jpg",
         alt: "food production plants",
         text: "zakładów produkujących żywność",
       },

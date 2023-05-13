@@ -76,7 +76,7 @@ const ZoomedLightboxImage = memo(
                 layout="fill"
                 objectFit={!item.height && !item.width ? "contain" : undefined}
                 priority={index === activeIndex ? true : false}
-                quality={50}
+                // quality={50}
               />
             </div>
           </Flipped>

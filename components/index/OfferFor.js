@@ -25,7 +25,7 @@ function OfferFor() {
           <div className={classNames ( {["delayed-fade-in"]:animate})}>warmińsko-mazurskie</div>
 
           <Image
-            src="/images/poland2.png"
+            src="/images/index/offerFor/poland.jpg"
             alt="logo"
             height="100%"
             width="100%"

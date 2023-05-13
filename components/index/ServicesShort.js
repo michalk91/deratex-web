@@ -10,32 +10,32 @@ function ServicesShort() {
   const images = {
     images: [
       {
-        src: "/images/deratyzacja.png",
+        src: "/images/index/servicesShort/deratyzacja.png",
         alt: "Deratyzacja",
         text: "Deratyzacja (odszczurzanie)",
       },
       {
-        src: "/images/dezynsekcja.png",
+        src: "/images/index/servicesShort/dezynsekcja.png",
         alt: "Dezynsekcja",
         text: "Dezynsekcja (odrobaczanie)",
       },
       {
-        src: "/images/dezynfekcja.png",
+        src: "/images/index/servicesShort/dezynfekcja.png",
         alt: "Dezynfekcja",
         text: "Dezynfekcja",
       },
       {
-        src: "/images/ozonowanie.png",
+        src: "/images/index/servicesShort/ozonowanie.png",
         alt: "Ozonowanie",
         text: "Ozonowanie",
       },
       {
-        src: "/images/fumigacja.png",
+        src: "/images/index/servicesShort/fumigacja.png",
         alt: "Fumigacja",
         text: "Fumigacja",
       },
       {
-        src: "/images/wiezbadachowa.png",
+        src: "/images/index/servicesShort/wiezbadachowa.png",
         alt: "więźba dachowa",
         text: "Zwalczanie szkodników drewna wyrobionego (więźba dachowa)",
       },
