@@ -64,15 +64,17 @@ function OurGuarantee() {
         <section ref={containerRef} className={classNames("innerContentWidth", styles.articleContainer)}>
           {images.map((item, index) => (
             <article key={index}>
-              <div className={classNames( styles.imageContainer, {["fade-in"]: animate})}>
+              <div className={classNames(styles.imageContainer, {["fade-in"]: animate})}>
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  height="100%"
-                  width="100%"
-                  layout="responsive"
-                  priority={true}
-                  objectFit="contain"
+                  // height={100}
+                  // width={100}
+                  height={0}
+                  width={0}
+                  sizes="100vw"
+                  // priority={true}
+
                 />
               </div>
 

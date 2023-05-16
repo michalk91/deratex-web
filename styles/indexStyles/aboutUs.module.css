@@ -8,64 +8,40 @@
 
 .aboutUsImage {
   position: relative;
-  object-fit: contain;
-  /* border: 2px solid #d3d3d3; */
-  align-self: center;
-  flex-basis: 220px !important;
+  height: 100%;
+  flex-basis: 260px !important;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 6px;
   -webkit-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
   -moz-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
   box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
+  aspect-ratio: 4/3;
 }
 
 .aboutUs div {
-  flex-basis: 75%;
+  flex-basis: 72%;
 }
 
-@media only screen and (max-width: 1280px){
+@media only screen and (max-width: 1320px){
   .aboutUs div{
-    flex-basis: 73%;
+    flex-basis: 70%;
   }
 }
 
-@media only screen and (max-width: 1176px){
+@media only screen and (max-width: 1220px){
   .aboutUs div{
-    flex-basis: 72%;
+    flex-basis: 100%;
+    justify-content: center;
+    text-align: center;
+    gap: 15px;
+    margin-bottom: 1rem;
   }
-}
-
-@media only screen and (max-width: 1130px){
-  .aboutUs div{
-    flex-basis: 71%;
-  }
-}
-
-@media only screen and (max-width: 1086px){
-
   .aboutUsImage{
-    flex-basis: 210px !important;
+    flex-basis: 400px !important;
+
   }
 }
 
-/* @media only screen and (max-width: 1071px){
-
-.aboutUs p {
-  font-size: 1rem ;
-}
-} */
-
-@media only screen and (max-width: 1042px){
 
 
-.aboutUs{
-  justify-content: center;
-  text-align: center;
-  gap: 15px;
-  margin-bottom: 3rem;
-}
-.aboutUs div{
-  flex-basis: 100%;
-}
-}
 

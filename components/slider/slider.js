@@ -140,12 +140,11 @@ function Slider({ slides }) {
         >
           <div className={styles.imageContainer}>
             <Image
-              priority={true}
+              priority
               // loading="eager"
+        fill
               src={slide.src}
               alt={slide.alt}
-              layout="fill"
-              objectFit="cover"
               quality={80}
             />
           </div>

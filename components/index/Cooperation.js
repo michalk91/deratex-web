@@ -94,15 +94,17 @@ function Cooperation() {
             <div className={styles.cooperationArticleSliderContainer}>
               {item.map((item, index) => (
                 <article key={index}>
-                  <div className={styles.cooperationArticleSliderImage}>
+                  <div className={styles.imgContainer}>
                     <Image
                       src={item.src}
                       alt={item.alt}
-                      height={1}
-                      width={1.4}
-                      layout="responsive"
-                      priority={true}
-                      objectFit="cover"
+                      height={199}
+                      width={300}
+
+                      // style={{objectFit:"cover"}}
+
+
+
                     />
                     <h3>{item.text}</h3>
                   </div>

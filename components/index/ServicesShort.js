@@ -57,11 +57,14 @@ function ServicesShort() {
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  height="100%"
-                  width="100%"
-                  layout="responsive"
-                  priority={true}
-                  objectFit="contain"
+                  // fill
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  // style={{ width: '100%', height: 'auto' }}
+                  // layout="responsive"
+                  // priority={true}
+                  // objectFit="contain"
                 />
               </div>
               <h1 className={styles.services}>{item.text}</h1>

@@ -45,7 +45,7 @@ function Header() {
           })}
         >
           <nav className={styles.navbar}>
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a
                 className={classNames(styles.navlogo, {
                   [styles.scrolledOverMargin]: scrolledOverMargin,
@@ -80,7 +80,7 @@ function Header() {
                 })}
               >
                 <li className={styles.navitem}>
-                  <Link href="/">
+                  <Link legacyBehavior href="/">
                     <a
                       className={classNames(styles.navlink, {
                         [styles.active]: router.pathname === "/",
@@ -92,7 +92,7 @@ function Header() {
                   </Link>
                 </li>
                 <li className={styles.navitem}>
-                  <Link href="/services">
+                  <Link legacyBehavior href="/services">
                     <a
                       className={classNames(styles.navlink, {
                         [styles.active]: router.pathname === "/services",
@@ -104,7 +104,7 @@ function Header() {
                   </Link>
                 </li>
                 <li className={styles.navitem}>
-                  <Link href="/contact">
+                  <Link legacyBehavior href="/contact">
                     <a
                       className={classNames(styles.navlink, {
                         [styles.active]: router.pathname === "/contact",

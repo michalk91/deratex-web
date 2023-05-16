@@ -8,16 +8,17 @@
 
 .offerForText {
   padding-top: 2%;
-  /* padding-left: 5%;
-  padding-right: 5%; */
+  padding-left: 5%;
+  padding-right: 5%;
 }
 .offerForText span {
   display: inline;
 }
 
 .offerForImageContainer {
-  padding-left: 30%;
-  padding-right: 30%;
+  /* padding-left: 30%;
+  padding-right: 30%; */
+  text-align: center;
   margin-bottom: 5%;
   margin-top: 3%;
   position: relative;
@@ -25,12 +26,14 @@
   transform: scale(0);
 }
 
-.offerForImageContainer div{
+.offerForImageContainer img {
+  height: auto;
+  width: 500px;
+}
+.offerForImageContainer div {
   opacity: 0;
   transform: scale(0);
 }
-
-
 
 .offerForWrapper {
   width: 100vw;
@@ -68,7 +71,7 @@
   top: 10%;
   left: 42%;
   opacity: 0;
-    transform: translateX(-30px);
+  transform: translateX(-30px);
 }
 
 .offerForImageContainer div:nth-child(3) {

@@ -7,31 +7,50 @@ import useInViewAnimation from "../../hooks/useInViewAnimation";
 
 function OfferFor() {
   const containerRef = useRef();
-  const {animate} = useInViewAnimation({animateContainerRef:containerRef});
+  const { animate } = useInViewAnimation({ animateContainerRef: containerRef });
   return (
     <div className={styles.offerForWrapper} ref={containerRef}>
-      <section className={classNames("innerContentWidth" ,styles.offerFor)}>
-        <span className={styles.offerForText}><span className={classNames("redUnderline")}>Nasza ofertę kierujemy</span> do
-          wszystkich klientów zainteresowanych odrobaczeniem, odszczurzeniem,
+      <section className={classNames("innerContentWidth", styles.offerFor)}>
+        <span className={styles.offerForText}>
+          <span className={classNames("redUnderline")}>
+            Nasza ofertę kierujemy
+          </span>{" "}
+          do wszystkich klientów zainteresowanych odrobaczeniem, odszczurzeniem,
           usuwania insektów metoda fumigacji (gazowania), z terenu województwa
-          <b> kujawsko - pomorskiego</b> oraz z terenu województw osciennych:</span>
-        <div className={classNames (styles.offerForImageContainer, {["scale"]:animate})}>
+          <b> kujawsko - pomorskiego</b> oraz z terenu województw osciennych:
+        </span>
+        <div
+          className={classNames(styles.offerForImageContainer, {
+            ["scale"]: animate,
+          })}
+        >
           <strong>
-            <div className={classNames ( {["delayed-scale"]:animate})}>kujawsko-pomorskie</div>
+            <div className={classNames({ ["delayed-scale"]: animate })}>
+              kujawsko-pomorskie
+            </div>
           </strong>
-          <div className={classNames ( {["delayed-fade-in"]:animate})}>pomorskie</div>
-          <div className={classNames ( {["delayed-fade-in"]:animate})}>mazowieckie</div>
-          <div className={classNames ( {["delayed-fade-in"]:animate})}>wielkopolskie</div>
-          <div className={classNames ( {["delayed-fade-in"]:animate})}>warmińsko-mazurskie</div>
+          <div className={classNames({ ["delayed-fade-in"]: animate })}>
+            pomorskie
+          </div>
+          <div className={classNames({ ["delayed-fade-in"]: animate })}>
+            mazowieckie
+          </div>
+          <div className={classNames({ ["delayed-fade-in"]: animate })}>
+            wielkopolskie
+          </div>
+          <div className={classNames({ ["delayed-fade-in"]: animate })}>
+            warmińsko-mazurskie
+          </div>
 
           <Image
             src="/images/index/offerFor/poland.jpg"
             alt="logo"
-            height="100%"
-            width="100%"
-            layout="responsive"
-            priority={true}
-            objectFit="contain"
+            height={0}
+            width={0}
+            sizes="100vw"
+            //  style={{ width: '100%', height: 'auto' }}
+
+            // priority={true}
           />
         </div>
       </section>
