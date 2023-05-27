@@ -31,12 +31,12 @@ function FbPage() {
   const handleBackdropClick = useCallback(() => {
     setClicked(true);
     lockScroll();
-  }, []);
+  }, [lockScroll]);
 
   const handleButtonClick = useCallback(() => {
     setClicked(false);
     unlockScroll();
-  }, []);
+  }, [unlockScroll]);
 
   useEffect(() => {
     if (!clicked) return;

@@ -22,7 +22,7 @@ function Modal({
 
   useEffect(() => {
     isOpen ? lockScroll() : unlockScroll();
-  }, [isOpen]);
+  }, [isOpen, lockScroll, unlockScroll]);
 
   const { handleUserKeyPress } = useKeyPress({
     nextSlide,

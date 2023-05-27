@@ -106,7 +106,7 @@ function ContactForm() {
           });
       });
     },
-    [inputs]
+    [inputs, SITE_KEY]
   );
 
   return (
@@ -176,9 +176,9 @@ function ContactForm() {
             <div className={styles.messageLoading}>Wysyłanie...</div>
           ) : form.state === "error" ? (
             <div className={styles.messageError}>
-              Coś poszło nie tak... Prosimy o napisanie wiadomości bezpośrednio
+              {`Coś poszło nie tak... Prosimy o napisanie wiadomości bezpośrednio
               ze swojej poczty elektronicznej lub aplikacji pocztowej na adres:
-              "ul50@wp.pl"
+              "ul50@wp.pl"`}
             </div>
           ) : (
             form.state === "success" && (

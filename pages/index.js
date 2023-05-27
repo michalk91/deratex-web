@@ -28,7 +28,7 @@ export default function Home() {
       <Slider slides={SliderData} />
       <div>
         <h1  className={classNames("mainTitle")}>
-          Zakład Deratyzacji, Dezynfekcji i Dezynsekcji "DERATEX"
+          {`Zakład Deratyzacji, Dezynfekcji i Dezynsekcji "DERATEX"`}
         </h1>
       </div>
 

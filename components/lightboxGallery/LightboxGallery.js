@@ -4,92 +4,92 @@ import classNames from "classnames";
 import Modal from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
 import useIsScrollableX from "../../hooks/useIsScrollableX";
-import { Flipped, Flipper } from "react-flip-toolkit";
+import { Flipped } from "react-flip-toolkit";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
 
-const LightboxImage = memo(
-  ({
-    index,
-    item,
-    lightboxFor,
-    imgContainerClassName,
-    openGallery,
-    fitToContainer,
-    activeIndex,
-  }) => {
-    return (
-      <Flipped
-        onStart={(e) => (
-          (e.style.zIndex = "10"), (e.style.position = "relative")
-        )}
-        onComplete={(e) => ((e.style.zIndex = ""), (e.style.position = ""))}
-        flipId={`${lightboxFor}${index}`}
-      >
-        <div
-          data-id={index}
-          onClick={openGallery}
-          className={classNames(imgContainerClassName)}
-        >
-          <Image
-            src={item.src}
-            alt={item.alt}
-            height={!fitToContainer && item.height ? item.height : undefined}
-            width={!fitToContainer && item.width ? item.width : undefined}
-            // layout={item.width && item.height  ? "responsive" : "fill"}
-            layout={fitToContainer ? "fill" : "responsive"}
-            objectFit="cover"
-            priority={index === activeIndex ? true : false}
-          />
-        </div>
-      </Flipped>
-    );
-  }
-);
+const LightboxImage = memo(function LightboxImage({
+  index,
+  item,
+  lightboxImgID,
+  imgContainerClassName,
+  openGallery,
+  objectFit,
+}) {
 
-const ZoomedLightboxImage = memo(
-  ({ index, activeIndex, item, lightboxFor }) => {
-    return (
-      <div className={styles.slideWrapper}>
-        <div
-          className={styles.imageWrapper}
-          style={{
-            height: !item.height && !item.width && "100%",
-            maxHeight: !item.height && !item.width && "100%",
-            aspectRatio: `${[item.width]}/${[item.height]}`,
-          }}
-        >
-          <Flipped
+  return (
+    <Flipped
+      onStart={(e) => (
+        (e.style.zIndex = "10"), (e.style.position = "relative")
+      )}
+      onComplete={(e) => ((e.style.zIndex = ""), (e.style.position = ""))}
+      flipId={lightboxImgID}
+    >
+      <div
+        data-id={index}
+        onClick={openGallery}
+        className={classNames(imgContainerClassName)}
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          height={item.height ? item.height : undefined}
+          width={item.width ? item.width : undefined}
+          sizes="100vw"
+          style={{ objectFit: objectFit ? objectFit : "cover", maxHeight:"100%", maxWidth:"100%" }}
+        />
+      </div>
+    </Flipped>
+  );
+});
+
+const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
+  index,
+  item,
+  lightboxImgID,
+  activeIndex
+}) {
+
+  return (
+    <div className={styles.slideWrapper}>
+      <div
+        className={styles.imageWrapper}
+        style={{
+          height: !item.height && !item.width && "100%",
+          maxHeight: !item.height && !item.width && "100%",
+          aspectRatio: `${[item.width]}/${[item.height]}`,
+        }}
+      >
+         <Flipped
             onStart={(e) => (e.style.zIndex = "10")}
             onComplete={(e) => (e.style.zIndex = "")}
             flipId={
-              index === activeIndex ? `${lightboxFor}${index}` : undefined
+            index === activeIndex ? lightboxImgID : undefined
             }
           >
-            <div data-id={index} className={styles.imageContainer}>
-              <Image
-                src={item.src}
-                alt={item.alt}
-                // height={item.height ? item.height : undefined}
-                // width={item.width ? item.width : undefined}
-                layout="fill"
-                objectFit={!item.height && !item.width ? "contain" : undefined}
-                priority={index === activeIndex ? true : false}
-                // quality={50}
-              />
-            </div>
-          </Flipped>
+        <div data-id={index} className={styles.imageContainer}>
+
+            <Image
+              src={item.src}
+              alt={item.alt}
+              height={item.height ? item.height : undefined}
+              width={item.width ? item.width : undefined}
+              fill={!item.height && !item.width ? true : false }
+              sizes="100vw"
+            />
+
           {item.text && index === activeIndex && (
             <div className={styles.captionContainer}>
               <p> {item.text} </p>
             </div>
           )}
         </div>
+        </Flipped>
       </div>
-    );
-  }
-);
+    </div>
+  );
+});
 
 function LightboxGallery({
   closeGallery,
@@ -108,29 +108,26 @@ function LightboxGallery({
   onTransitionEnd,
   transitionEnded,
   thumbnailsOptions,
-  lightboxFor,
+  lightboxImgID,
   lightboxContainerClassName,
   items,
   imgContainerClassName,
   openGallery,
   virtualized,
-  fitToContainer,
+
 }) {
   const thumbsContainerRef = useRef();
 
-
-
   const isScrollableX = useIsScrollableX({
     scrollContainerRef: thumbsContainerRef,
-    enabled:  lightboxOpen,
+    enabled: lightboxOpen,
   });
 
   const { virtualizedData } = useVirtualized({
     data: items,
     activeIndex,
-    isOpen: lightboxOpen,
   });
-  console.log("datka", virtualizedData, activeIndex);
+
 
   return (
     <>
@@ -138,14 +135,12 @@ function LightboxGallery({
         {!lightboxForSlider &&
           items.map((item, index) => (
             <LightboxImage
-              fitToContainer={fitToContainer}
               openGallery={openGallery}
               key={index}
               index={index}
               item={item}
               imgContainerClassName={imgContainerClassName}
-              lightboxFor={lightboxFor}
-              activeIndex={activeIndex}
+              lightboxImgID={`${lightboxImgID}${index}`}
             />
           ))}
       </div>
@@ -190,7 +185,7 @@ function LightboxGallery({
                       index={index}
                       item={item}
                       activeIndex={activeIndex}
-                      lightboxFor={lightboxFor}
+                      lightboxImgID={`${lightboxImgID}${activeIndex}`}
                     />
                   ))
                 : virtualizedData?.map((item) => (
@@ -199,7 +194,7 @@ function LightboxGallery({
                       index={item.index}
                       item={item}
                       activeIndex={activeIndex}
-                      lightboxFor={lightboxFor}
+                      lightboxImgID={`${lightboxImgID}${activeIndex}`}
                     />
                   ))}
             </div>

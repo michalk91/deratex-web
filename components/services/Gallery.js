@@ -99,7 +99,7 @@ function Gallery() {
         <span className={classNames("title")}>Galeria</span>
         <div className={classNames("graySection")}>
           <RichLightboxGallery
-          virtualized
+          // virtualized
             items={images}
             imgContainerClassName={styles.imgContainer}
             lightboxContainerClassName={classNames(

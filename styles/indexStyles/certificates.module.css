@@ -1,6 +1,5 @@
 .certificates {
   max-width: 1100px;
-  /* max-width: 100%; */
   text-align: center;
   padding-top: 2%;
   padding-bottom: 2%;
@@ -28,41 +27,22 @@
   position: relative;
   flex-basis: 90px;
   cursor: zoom-in;
-  /* transition: 0.3s; */
-  /* height: 150px; */
 }
 
 .certificatesImage img {
   transition: 0.3s;
+  width: 100%;
+  height: auto;
 }
-
-
-/* .certificatesImage>img{
-  transition: 0.3s;
-  z-index: 10;
-} */
-
-.certificatesImage span {
-  overflow: visible !important;
-}
-
-.certificatesImage img {
-  transition: 0.3s;
-}
-
 @media (hover: hover) {
   .certificatesImage img:hover {
     scale: 1.1;
-    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   }
-  .certificatesImage img:hover{
+  .certificatesImage img:hover {
     transform: scale(1.05);
     cursor: zoom-in;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
-
-
-}
+  }
 }
 
 .closeBtn {
@@ -114,7 +94,6 @@
 
 @media only screen and (max-width: 550px) {
   .certificatesImage {
-    /* height: 100px; */
     flex-basis: 80px;
   }
   .certificatesText h2 {

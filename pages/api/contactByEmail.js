@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-export default async (req, res) => {
+const ContactByEmail = async (req, res) => {
   const SECRET_KEY = process.env.RECAPTCHA_SECRETKEY;
   const RECAPTCHA_THRESHOLD = 0.5;
   const { name, surname, email, phoneNumber, message, token } = req.body;
@@ -43,3 +43,5 @@ export default async (req, res) => {
     return res.status(500).json({ error: error.message || error.toString() });
   }
 };
+
+export default ContactByEmail;

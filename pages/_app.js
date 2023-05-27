@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import React, { useEffect } from "react";
 import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
-import { useRef } from "react";
+import { useState } from "react";
 
 
 
@@ -11,9 +11,9 @@ export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
 
 function MyApp({ Component, pageProps }) {
   const [_, setFbSDKLoaded] = useGlobalState('fbSDKLoaded');
-  const mountedRef = useRef(false);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(()=>{mountedRef.current=true}) //added to fix react hydration error
+  useEffect(()=>{setMounted(true)},[]) //added to fix react hydration error
 
   return (
     <>
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
 
-      {mountedRef.current && <Layout>
+      {mounted && <Layout>
         <Component {...pageProps} />
       </Layout>}
     </>

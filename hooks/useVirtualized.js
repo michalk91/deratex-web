@@ -1,19 +1,15 @@
 import { useRef, useEffect, useMemo } from "react";
 
-function useVirtualized({ data, activeIndex, isOpen }) {
+function useVirtualized({ data, activeIndex}) {
   const virtualizedDataRef = useRef([]);
 
+  const start = activeIndex > 0 ? activeIndex - 1 : 0;
+  const end = activeIndex + 2;
 
-  useMemo(() => {
-    // if (React.Children.count(children) < 5) return;
+  virtualizedDataRef.current = data
+    .slice(start, end)
+    .map((item, index) => ({ ...item, index: index + start }));
 
-    const start = activeIndex > 0 ? activeIndex - 1 : activeIndex;
-    const end = activeIndex + 2;
-
-    virtualizedDataRef.current = data
-      .slice(start, end)
-      .map((item, index) => ({ ...item, index: index + start }));
-  }, [activeIndex, isOpen]);
   return { virtualizedData: virtualizedDataRef.current };
 }
 

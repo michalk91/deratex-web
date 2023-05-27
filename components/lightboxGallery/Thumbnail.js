@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useEffect } from "react";
 import Image from "next/image";
 
-const Thumbnail = memo(
+const Thumbnail = memo(function  Thumbnail
   ({
     index,
     onNavigate,
@@ -12,7 +12,7 @@ const Thumbnail = memo(
     item,
     isScrollableX,
     thumbnailsOptions,
-  }) => {
+  }){
     const thumbRef = useRef(null);
     useEffect(() => {
       if (!isScrollableX) return;
@@ -26,7 +26,7 @@ const Thumbnail = memo(
           });
         }, 50); // HACK: Fixes horizontal scrolling using scrollIntoView
       }
-    }, [activeIndex, isScrollableX]);
+    }, [activeIndex, isScrollableX, index]);
 
     const {
       thumbnailHeight,
@@ -62,9 +62,10 @@ const Thumbnail = memo(
         <Image
           src={item.src}
           alt={item.alt}
-          layout="fill"
+          fill
           priority={true}
-          objectFit="cover"
+          sizes="100vw"
+          style={{objectFit:"cover"}}
           quality={1}
         />
       </div>

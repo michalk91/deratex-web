@@ -100,8 +100,9 @@ function Cooperation() {
                       alt={item.alt}
                       height={199}
                       width={300}
-
+                      sizes="100vw"
                       // style={{objectFit:"cover"}}
+
 
 
 

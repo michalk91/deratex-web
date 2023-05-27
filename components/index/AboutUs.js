@@ -12,6 +12,7 @@ function AboutUs() {
           src="/images/firmarodzinna.jpg"
           alt="logo"
           fill
+          sizes="100vw"
           priority={true}
         />
       </div>

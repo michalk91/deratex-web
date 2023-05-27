@@ -1,14 +1,8 @@
-import React, {
-  memo,
-  useState,
-  useCallback,
-  useId,
-} from "react";
+import React, { memo, useState, useCallback, useId, useMemo } from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
 import TextAndImageLightbox from "./TextAndImageLightbox";
-import { Flipper, Flipped } from "react-flip-toolkit";
-
+import { Flipper} from "react-flip-toolkit";
 
 function RichLightboxGallery({
   lightboxThumbsVisible = true,
@@ -16,12 +10,13 @@ function RichLightboxGallery({
   lightboxContainerClassName,
   imgContainerClassName,
   items,
-  fitToContainer = true,
   thumbnailsOptions,
   virtualized = false,
 }) {
   const [lightboxOpen, setLightBoxOpen] = useState(false);
   const id = useId();
+  const lightboxImgID = useMemo(()=>`lightbox${id}`,[id]);
+  const lightboxForSlider = false;
 
   const {
     onTouchEnd,
@@ -43,9 +38,6 @@ function RichLightboxGallery({
     withoutAxisDetection: lightboxOpen ? true : false,
   });
 
-  const lightboxFor = `gallery${id}`;
-  console.log("lightbox id lightbox", lightboxFor);
-
   const closeGallery = useCallback(() => {
     setLightBoxOpen(false);
   }, [setLightBoxOpen]);
@@ -53,7 +45,7 @@ function RichLightboxGallery({
   const openGallery = useCallback((e) => {
     updateIndex(Number(e.target.closest("[data-id]").dataset.id));
     setLightBoxOpen(true);
-  }, []);
+  }, [updateIndex]);
 
   return clickTextToOpenLightbox ? (
     <TextAndImageLightbox
@@ -78,30 +70,30 @@ function RichLightboxGallery({
     />
   ) : (
     <Flipper flipKey={lightboxOpen} portalKey="modal">
-    <LightboxGallery
-      transitionEnded={transitionEnded}
-      transitionX={transitionX}
-      isSwiping={isSwiping}
-      onTransitionEnd={onTransitionEnd}
-      prevSlide={prevSlide}
-      nextSlide={nextSlide}
-      lightboxOpen={lightboxOpen}
-      closeGallery={closeGallery}
-      openGallery={openGallery}
-      lightboxThumbsVisible={lightboxThumbsVisible}
-      onTouchEnd={onTouchEnd}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      activeIndex={activeIndex}
-      setNavigate={setNavigate}
-      lightboxFor={lightboxFor}
-      lightboxContainerClassName={lightboxContainerClassName}
-      items={items}
-      imgContainerClassName={imgContainerClassName}
-      fitToContainer={fitToContainer}
-      thumbnailsOptions={thumbnailsOptions}
-      virtualized={virtualized}
-    />
+      <LightboxGallery
+      lightboxForSlider={lightboxForSlider}
+        transitionEnded={transitionEnded}
+        transitionX={transitionX}
+        isSwiping={isSwiping}
+        onTransitionEnd={onTransitionEnd}
+        prevSlide={prevSlide}
+        nextSlide={nextSlide}
+        lightboxOpen={lightboxOpen}
+        closeGallery={closeGallery}
+        openGallery={openGallery}
+        lightboxThumbsVisible={lightboxThumbsVisible}
+        onTouchEnd={onTouchEnd}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        activeIndex={activeIndex}
+        setNavigate={setNavigate}
+        lightboxImgID={lightboxImgID}
+        lightboxContainerClassName={lightboxContainerClassName}
+        items={items}
+        imgContainerClassName={imgContainerClassName}
+        thumbnailsOptions={thumbnailsOptions}
+        virtualized={virtualized}
+      />
     </Flipper>
   );
 }

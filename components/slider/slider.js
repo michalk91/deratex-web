@@ -142,10 +142,11 @@ function Slider({ slides }) {
             <Image
               priority
               // loading="eager"
-        fill
+              fill
               src={slide.src}
               alt={slide.alt}
-              quality={80}
+              quality={100}
+              sizes="100vw"
             />
           </div>
         </div>
