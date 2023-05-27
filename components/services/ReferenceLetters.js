@@ -1,7 +1,6 @@
 import React from "react";
-import Image from "next/image";
 import { memo } from "react";
-import styles from "../../styles/servicesStyles/referenceLetters.module.css";
+import styles from "./referenceLetters.module.css";
 import classNames from "classnames";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { CarouselItem } from "../carouselSlider/Carousel";
@@ -22,8 +21,7 @@ function ReferenceLetters() {
             <RichCarousel
               navigationOutside
               withGallery
-
-              thumbnailsOptions={{
+              lightboxThumbsOptions={{
                 keepRatio: true,
                 thumbnailWithBorderRadius: false,
                 thumbnailHeight: 80,

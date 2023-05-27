@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import styles from "../../styles/contactStyles/fbPage.module.css";
+import styles from "./fbPage.module.css";
 import { React, memo, useEffect, useState, useCallback, useRef } from "react";
 import useFbPagePluginResize from "../../hooks/useFbPagePluginResize";
 import { MobileView } from "react-device-detect";

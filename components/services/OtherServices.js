@@ -1,6 +1,5 @@
-import Head from "next/head";
 import Image from "next/image";
-import styles from "../../styles/servicesStyles/otherServices.module.css";
+import styles from "./otherServices.module.css";
 import classNames from "classnames";
 import { memo, useRef } from "react";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
@@ -52,13 +51,9 @@ function OtherServices() {
           <Image
             src="/images/services/OtherServices/pestcontrol.jpg"
             alt="kontrola zywnosci"
-            // height={4912}
-            // width={7360}
-            // height="100%"
-            // width="100%"
-            layout="fill"
-            objectFit="contain"
-            // priority={true}
+            width={0}
+            height={0}
+            sizes="100vw"
           />
           <a
             className="caption"

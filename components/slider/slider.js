@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from "react";
-import styles from "../../styles/slider.module.css";
+import styles from "./slider.module.css";
 import Image from "next/image";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import classNames from "classnames";

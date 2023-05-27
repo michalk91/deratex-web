@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState, useCallback, useEffect } from "react";
-import styles from "../styles/Header.module.css";
+import styles from "./Header.module.css";
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -55,9 +55,9 @@ function Header() {
                 <Image
                   src="/images/logo.svg"
                   alt="logo"
-                  height={80}
-                  width={300}
-                  layout="responsive"
+                  height={0}
+                  width={0}
+                  sizes="100vw"
                   priority={true}
                 />
               </a>

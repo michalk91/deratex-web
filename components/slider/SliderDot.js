@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/SliderDot.module.css";
+import styles from "./SliderDot.module.css";
 import classNames from "classnames";
 import { memo } from "react";
 

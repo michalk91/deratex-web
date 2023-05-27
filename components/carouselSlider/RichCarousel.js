@@ -23,12 +23,13 @@ function RichCarousel({
   navigationOutside,
   width,
   height,
-  thumbnailsOptions,
+  lightboxThumbsOptions,
   virtualized = false,
- sliderRectanglesVisible = true,
+  sliderRectanglesVisible = true,
+  lightboxThumbsVisible = true,
 }) {
   const id = useId();
-  const lightboxImgID = useMemo(()=>`carousel${id}`,[id]);
+  const lightboxImgID = useMemo(() => `carousel${id}`, [id]);
   const [carouselInfo, setCarouselInfo] = useState({
     lightboxOpen: false,
     flipAnimating: false,
@@ -36,10 +37,9 @@ function RichCarousel({
 
   const { lightboxOpen, flipAnimating } = carouselInfo;
 
-  // const containerRef = useRef();
   const ref = useRef();
-  const lightboxForSlider = true;
-  const lightboxThumbsVisible = true;
+  const lightboxForSlider = withGallery ? true : false;
+
 
   const data = useMemo(() => [], []);
 
@@ -98,8 +98,8 @@ function RichCarousel({
 
   return (
     <Flipper
-    flipKey={lightboxOpen}
-    portalKey="modal"
+      flipKey={lightboxOpen}
+      portalKey="modal"
       onStart={(e) => (
         (e.style.zIndex = "12"),
         (e.style.position = "relative"),
@@ -116,7 +116,6 @@ function RichCarousel({
           flipAnimating: false,
         }))
       )}
-
     >
       <Carousel
         ref={ref}
@@ -163,7 +162,7 @@ function RichCarousel({
           onTouchMove={onTouchMove}
           activeIndex={activeIndex}
           setNavigate={setNavigate}
-          thumbnailsOptions={thumbnailsOptions}
+          thumbnailsOptions={lightboxThumbsOptions}
           lightboxImgID={lightboxImgID}
           virtualized={virtualized}
         />

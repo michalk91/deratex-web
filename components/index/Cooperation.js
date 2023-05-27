@@ -1,11 +1,10 @@
-import styles from "../../styles/indexStyles/cooperation.module.css";
+import styles from "./cooperation.module.css";
 import React from "react";
 import Image from "next/image";
 import { CarouselItem } from "../carouselSlider/Carousel";
 import RichCarousel from "../carouselSlider/RichCarousel";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import classNames from "classnames";
-import { useMediaPredicate } from "react-media-hook";
 
 function Cooperation() {
   const images = [
@@ -77,7 +76,7 @@ function Cooperation() {
       },
     ],
   ];
-  const smallerThan630px = useMediaPredicate("(max-width: 630px)");
+
   return (
     <section className={styles.cooperationSection}>
       <div className={styles.cooperationTitleContainer}>
@@ -101,11 +100,6 @@ function Cooperation() {
                       height={199}
                       width={300}
                       sizes="100vw"
-                      // style={{objectFit:"cover"}}
-
-
-
-
                     />
                     <h3>{item.text}</h3>
                   </div>

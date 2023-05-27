@@ -2,7 +2,7 @@ import React, { memo, useState, useCallback, useId, useMemo } from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
 import TextAndImageLightbox from "./TextAndImageLightbox";
-import { Flipper} from "react-flip-toolkit";
+import { Flipper } from "react-flip-toolkit";
 
 function RichLightboxGallery({
   lightboxThumbsVisible = true,
@@ -15,7 +15,7 @@ function RichLightboxGallery({
 }) {
   const [lightboxOpen, setLightBoxOpen] = useState(false);
   const id = useId();
-  const lightboxImgID = useMemo(()=>`lightbox${id}`,[id]);
+  const lightboxImgID = useMemo(() => `lightbox${id}`, [id]);
   const lightboxForSlider = false;
 
   const {
@@ -42,10 +42,13 @@ function RichLightboxGallery({
     setLightBoxOpen(false);
   }, [setLightBoxOpen]);
 
-  const openGallery = useCallback((e) => {
-    updateIndex(Number(e.target.closest("[data-id]").dataset.id));
-    setLightBoxOpen(true);
-  }, [updateIndex]);
+  const openGallery = useCallback(
+    (e) => {
+      updateIndex(Number(e.target.closest("[data-id]").dataset.id));
+      setLightBoxOpen(true);
+    },
+    [updateIndex]
+  );
 
   return clickTextToOpenLightbox ? (
     <TextAndImageLightbox
@@ -71,7 +74,7 @@ function RichLightboxGallery({
   ) : (
     <Flipper flipKey={lightboxOpen} portalKey="modal">
       <LightboxGallery
-      lightboxForSlider={lightboxForSlider}
+        lightboxForSlider={lightboxForSlider}
         transitionEnded={transitionEnded}
         transitionX={transitionX}
         isSwiping={isSwiping}

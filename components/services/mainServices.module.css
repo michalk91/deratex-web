@@ -17,11 +17,17 @@
 
 .imageContainer {
   position: relative;
-
   flex-basis: 200px;
   height: 130px;
   flex-shrink: 0;
 }
+
+.imageContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
 
 .greenBG {
   background-color: rgb(141, 183, 141);

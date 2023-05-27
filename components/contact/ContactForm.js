@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/contactStyles/contactForm.module.css";
+import styles from "./contactForm.module.css";
 import { memo, useState, useCallback, useRef, useEffect } from "react";
 import classNames from "classnames";
 import Script from "next/script";

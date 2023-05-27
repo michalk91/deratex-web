@@ -1,46 +1,4 @@
-/* .lightboxContainer {
-  display: grid;
-} */
 
-/* .containerDots {
-  background-color: transparent;
-  position: absolute;
-  height: 15vh;
-  max-height: 100%;
-  width: 100vw;
-  max-width: 100%;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  display: flex;
-  z-index: 9999999999999999999;
-  align-items: center;
-
-  justify-content: center;
-  background-color: gray;
-
-  overflow: hidden;
-} */
-/* .innerContainer {
-
-  display: flex;
-  flex: 1 1 auto;
-  flex-wrap: nowrap;
-
-
- flex-direction: row;
-  height: 15vh;
-  max-width: 100%;
- position: absolute;
-
-
-
- left: 50%;
-  transition: 0.4s;
-  background-color: transparent;
-
-} */
 
 .inner {
   display: flex;
@@ -132,6 +90,12 @@
   backface-visibility: hidden;
   opacity: 0;
 
+}
+
+.imageContainer img{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .openingAnim {

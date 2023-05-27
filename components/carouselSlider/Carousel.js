@@ -1,5 +1,5 @@
-import React, { memo, useContext, useMemo, useEffect, useRef } from "react";
-import styles from "../../styles/carouselSlider.module.css";
+import React, { memo, useMemo } from "react";
+import styles from "./carouselSlider.module.css";
 import classNames from "classnames";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Flipped } from "react-flip-toolkit";
@@ -17,14 +17,19 @@ const CarouselItem = memo(function CarouselItem({
   ...rest
 }) {
   const { style, ...realRest } = rest;
-  const carouselChild = React.Children.map(children, (child) => {
-    if (child.type === ImageForLightbox) {
-      return React.cloneElement(child, {
-        openGallery,
-        lightboxImgID,
-      });
-    } else return React.cloneElement(child);
-  });
+
+  const carouselChild = useMemo(
+    () =>
+      React.Children.map(children, (child) => {
+        if (child.type === ImageForLightbox) {
+          return React.cloneElement(child, {
+            openGallery,
+            lightboxImgID,
+          });
+        } else return React.cloneElement(child);
+      }),
+    []
+  );
 
   return (
     <div
@@ -52,7 +57,7 @@ const ImageForLightbox = memo(function ImageForLightbox({
   height,
   lightboxImgID,
   openGallery,
-  fillContainer
+  fillContainer,
 }) {
   return (
     <Flipped
@@ -119,7 +124,7 @@ const Carousel = React.forwardRef(function Carousel(
           lightboxImgID: `${lightboxImgID}${index}`,
         });
       }),
-    [flipAnimating, lightboxImgID]
+    [flipAnimating, lightboxImgID, width, height]
   );
 
   console.log("activeindexx w carousel", activeIndex);

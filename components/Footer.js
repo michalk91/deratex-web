@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Footer.module.css";
+import styles from "./Footer.module.css";
 import { memo } from "react";
 import Image from "next/dist/client/image";
 import classNames from "classnames";
@@ -109,10 +109,9 @@ function Footer() {
                 <Image
                   src="/images/logo-white.svg"
                   alt="logo"
-                  height={80}
-                  width={180}
-                  layout="responsive"
-                  priority={true}
+                  height={0}
+                  width={0}
+                  sizes="100vw"
                 />
               </div>
             </div>

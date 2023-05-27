@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/aboutUs.module.css";
+import styles from "./aboutUs.module.css";
 import React from "react";
 import Image from "next/image";
 import { memo } from "react";
@@ -11,7 +11,8 @@ function AboutUs() {
         <Image
           src="/images/firmarodzinna.jpg"
           alt="logo"
-          fill
+          height={0}
+          width={0}
           sizes="100vw"
           priority={true}
         />

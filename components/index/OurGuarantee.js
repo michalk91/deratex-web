@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/ourGuarantee.module.css";
+import styles from "./ourGuarantee.module.css";
 import React from "react";
 import Image from "next/image";
 import { memo, useRef } from "react";
@@ -48,37 +48,39 @@ function OurGuarantee() {
       alt: "Firma jest ubezpieczona",
       text: "Nasza firma jest ubezpieczona",
     },
-
   ];
 
- const containerRef = useRef();
+  const containerRef = useRef();
 
-  const {animate} = useInViewAnimation({animateContainerRef:containerRef});
+  const { animate } = useInViewAnimation({ animateContainerRef: containerRef });
 
   return (
     <section>
       <span className={classNames("title")}>Nasza gwarancja</span>
-      <div className={classNames("graySection")}
-
-      >
-        <section ref={containerRef} className={classNames("innerContentWidth", styles.articleContainer)}>
+      <div className={classNames("graySection")}>
+        <section
+          ref={containerRef}
+          className={classNames("innerContentWidth", styles.articleContainer)}
+        >
           {images.map((item, index) => (
             <article key={index}>
-              <div className={classNames(styles.imageContainer, {["fade-in"]: animate})}>
+              <div
+                className={classNames(styles.imageContainer, {
+                  ["fade-in"]: animate,
+                })}
+              >
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  // height={100}
-                  // width={100}
                   height={0}
                   width={0}
                   sizes="100vw"
-                  // priority={true}
-
                 />
               </div>
 
-              <h2 className={classNames({["fade-in"]: animate})}>{item.text}</h2>
+              <h2 className={classNames({ ["fade-in"]: animate })}>
+                {item.text}
+              </h2>
             </article>
           ))}
         </section>

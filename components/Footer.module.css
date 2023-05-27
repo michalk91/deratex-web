@@ -1,14 +1,8 @@
-
-
 .footer {
   position: relative;
   left: 0;
   right: 0;
-
   background-color: rgb(23, 23, 23);
-  /* z-index: 4; */
-
-  /* justify-content: flex-end; */
 }
 
 .fbLogo:hover {
@@ -28,12 +22,6 @@
   padding: 30px;
 }
 
-/* .phoneNumber {
-
-  font-weight: bold;
-
-} */
-
 .nestedColumnInfo,
 .navlogo {
   padding-top: 20px;
@@ -41,7 +29,6 @@
 
 .columnInfo {
   font-family: "Outfit", sans-serif;
-
   font-size: 1.5rem;
   padding-top: 20px;
 }
@@ -52,20 +39,21 @@
 }
 
 .navlogo {
-  text-align: center;
-  /* box-sizing: content-box; */
   margin-left: -5px;
   margin-right: -5px;
-
   width: 85%;
+}
+
+.navlogo img{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .footerBottomText {
   padding: 30px;
-
   color: white;
   text-align: center;
-  /* border-top: 1px solid white; */
   font-family: "Roboto", sans-serif;
   font-size: 1.2rem;
 }
@@ -73,16 +61,14 @@
 .innerContainer,
 .innerContainer p {
   line-height: 150%;
-  /* margin-top: 2%;
-  padding-left: 10%; */
 }
 .imageContainer {
   position: relative;
-  /* display: block; */
   height: 100%;
   padding: 20px;
-  /* background-color: transparent; */
 }
+
+
 
 .redHover:hover {
   color: red;
@@ -94,9 +80,6 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  /* .gridContainer div:nth-child(3){
-  grid-column: -3/-1;
-} */
   .navlogo {
     grid-column: -1/1;
     width: 350px;

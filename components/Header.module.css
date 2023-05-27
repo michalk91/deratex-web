@@ -10,9 +10,8 @@
   transition: transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s;
 }
 
-.hideHeader{
+.hideHeader {
   transform: translateY(-100%);
-
 }
 
 .telContainer {
@@ -28,7 +27,6 @@
 .tel {
   font-size: 1.2rem;
   font-weight: bold;
-  /* text-shadow: 2px 2px 0px #ffffff, 5px 4px 0px rgba(0, 0, 0, 0.15); */
 }
 .telLogo {
   margin-left: 0 !important;
@@ -190,10 +188,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border-bottom: 1px solid #e2e8f0; */
   height: 100%;
   width: 100%;
-
 }
 
 .hamburger {
@@ -214,8 +210,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-
-  /* max-height: 100%; */
 }
 
 .navitem {
@@ -262,10 +256,16 @@
   transition: 0.4s;
 }
 
-@media only screen and  (min-width: 850px) {
-.scrolledOverMargin{
-  width: 250px;
+.navlogo img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
+
+@media only screen and (min-width: 850px) {
+  .scrolledOverMargin {
+    width: 250px;
+  }
 }
 @media only screen and (orientation: portrait) and (max-width: 1400px) {
   .navlink {
@@ -315,15 +315,11 @@
     margin-right: 2px;
   }
 
-
   .navmenu {
     z-index: -1;
-    /* position: fixed; */
     position: absolute;
     width: 100vw;
-    /* top: calc(-300.77px - 2rem); */
     top: 100%;
-    /* top: 5rem; */
     left: 0;
     right: 0;
 
@@ -339,27 +335,22 @@
   }
 
   .navmenu.active {
-    /* padding-bottom: 2.5rem;
-    left:50%; */
-
     left: 0;
     right: 0;
-
     transform: translateY(0);
     border-top: #e2e8f0 solid 2px;
-    /* transform: translate(-50%, calc(100% + 2rem)); */
   }
 
-.backdrop{
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top:0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 15;
-}
+  .backdrop {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 15;
+  }
   .fbLogo {
     text-align: center;
   }
@@ -439,72 +430,4 @@
   .tel svg {
     width: 20px;
   }
-  /* .navlogo{
-    width: 180px;
-  } */
 }
-
-/* @media only screen and (max-width: 420px) {
-
-
-  .tel {
-    color: black;
-    font-size: 1.2rem;
-  }
-} */
-
-/* @media only screen and (max-width: 360px) {
-
-  .fbLogo svg {
-    font-size: 1.7rem;
-  }
-
-
-} */
-
-/* @media only screen and (orientation: landscape) and (max-width: 915px) {
-  .telContainer h1 {
-    font-size: 1.5rem;
-  }
-  .telContainer p {
-    font-size: 1rem;
-    display: none;
-  }
-  .navlogo {
-    width: 300px;
-    cursor: pointer;
-  }
-
-  .header {
-    height: 85px;
-  }
-  .navitem {
-    margin: 0.9rem;
-  }
-  .fbLogo svg {
-    font-size: 2rem;
-  }
-}
-
-@media only screen and (orientation: landscape) and (max-width: 660px) {
-  .telContainer h1 {
-    font-size: 1rem;
-  }
-  .telContainer p {
-    font-size: 0.5rem;
-    display: none;
-  }
-  .navlogo {
-    width: 250px;
-    cursor: pointer;
-  }
-
-  .header {
-    height: 70px;
-  }
-  .navitem {
-    margin: 0.6rem;
-  }
-
-
-} */

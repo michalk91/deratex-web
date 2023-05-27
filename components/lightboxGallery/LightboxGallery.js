@@ -1,5 +1,5 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import styles from "../../styles/lightboxGallery.module.css";
+import React, { memo, useRef } from "react";
+import styles from "./lightboxGallery.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
@@ -17,7 +17,6 @@ const LightboxImage = memo(function LightboxImage({
   openGallery,
   objectFit,
 }) {
-
   return (
     <Flipped
       onStart={(e) => (
@@ -37,7 +36,11 @@ const LightboxImage = memo(function LightboxImage({
           height={item.height ? item.height : undefined}
           width={item.width ? item.width : undefined}
           sizes="100vw"
-          style={{ objectFit: objectFit ? objectFit : "cover", maxHeight:"100%", maxWidth:"100%" }}
+          style={{
+            objectFit: objectFit ? objectFit : "cover",
+            maxHeight: "100%",
+            maxWidth: "100%",
+          }}
         />
       </div>
     </Flipped>
@@ -48,9 +51,8 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   index,
   item,
   lightboxImgID,
-  activeIndex
+  activeIndex,
 }) {
-
   return (
     <div className={styles.slideWrapper}>
       <div
@@ -61,30 +63,27 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           aspectRatio: `${[item.width]}/${[item.height]}`,
         }}
       >
-         <Flipped
-            onStart={(e) => (e.style.zIndex = "10")}
-            onComplete={(e) => (e.style.zIndex = "")}
-            flipId={
-            index === activeIndex ? lightboxImgID : undefined
-            }
-          >
-        <div data-id={index} className={styles.imageContainer}>
-
+        <Flipped
+          onStart={(e) => (e.style.zIndex = "10")}
+          onComplete={(e) => (e.style.zIndex = "")}
+          flipId={index === activeIndex ? lightboxImgID : undefined}
+        >
+          <div data-id={index} className={styles.imageContainer}>
             <Image
               src={item.src}
               alt={item.alt}
               height={item.height ? item.height : undefined}
               width={item.width ? item.width : undefined}
-              fill={!item.height && !item.width ? true : false }
+              fill={!item.height && !item.width ? true : false}
               sizes="100vw"
             />
 
-          {item.text && index === activeIndex && (
-            <div className={styles.captionContainer}>
-              <p> {item.text} </p>
-            </div>
-          )}
-        </div>
+            {item.text && index === activeIndex && (
+              <div className={styles.captionContainer}>
+                <p> {item.text} </p>
+              </div>
+            )}
+          </div>
         </Flipped>
       </div>
     </div>
@@ -114,7 +113,6 @@ function LightboxGallery({
   imgContainerClassName,
   openGallery,
   virtualized,
-
 }) {
   const thumbsContainerRef = useRef();
 
@@ -127,7 +125,6 @@ function LightboxGallery({
     data: items,
     activeIndex,
   });
-
 
   return (
     <>

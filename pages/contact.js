@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import styles from "../styles/contactStyles/contact.module.css";
+import styles from "./contact.module.css";
 import React from "react";
 import ContactForm from "../components/contact/ContactForm";
 import FbPage from "../components/contact/FbPage";

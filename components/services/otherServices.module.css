@@ -1,4 +1,3 @@
-
 .textContainer {
   padding-left: 25px;
   padding-bottom: 25px;
@@ -6,23 +5,11 @@
   transform: translateY(20px);
 }
 .textContainer li {
-  /* list-style-position: inside; */
   list-style-type: disc;
-
   padding: 8px 0;
-
   text-transform: uppercase;
   font-size: 1.1rem;
-  /* font-weight: bolder; */
-  /* font-family: "Outfit", sans-serif; */
 }
-
-/* .fullWidth{
-  position:absolute;
-  left: 0;
-  right: 0;
- padding-bottom: 100px;
-} */
 
 .underline {
   width: 100%;
@@ -35,6 +22,12 @@
   max-width: 100%;
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+.imgContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .imgContainer a {

@@ -1,6 +1,6 @@
 import React from "react";
 import { memo, useRef } from "react";
-import styles from "../../styles/servicesStyles/quality.module.css";
+import styles from "./quality.module.css";
 import classNames from "classnames";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
 

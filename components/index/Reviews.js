@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/reviews.module.css";
+import styles from "./reviews.module.css";
 import React from "react";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { CarouselItem } from "../carouselSlider/Carousel";
@@ -42,8 +42,6 @@ const Reviews = () => {
                 sliderRectanglesVisible={false}
                 autoPlay
                 slideTime={5000}
-                // width="35vw"
-                // height="25vh"
                 navigationOutside
               >
                 <CarouselItem>

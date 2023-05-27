@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/servicesShort.module.css";
+import styles from "./servicesShort.module.css";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -57,14 +57,9 @@ function ServicesShort() {
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  // fill
                   width={0}
                   height={0}
                   sizes="100vw"
-                  // style={{ width: '100%', height: 'auto' }}
-                  // layout="responsive"
-                  // priority={true}
-                  // objectFit="contain"
                 />
               </div>
               <h1 className={styles.services}>{item.text}</h1>

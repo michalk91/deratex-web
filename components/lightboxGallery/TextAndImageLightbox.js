@@ -1,5 +1,5 @@
-import React, { memo, useRef, useState, useEffect } from "react";
-import styles from "../../styles/textAndImageLightbox.module.css";
+import React, { memo, useRef, useState, useCallback } from "react";
+import styles from "./textAndImageLightbox.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
@@ -27,8 +27,6 @@ function TextAndImageLightbox({
   thumbnailsOptions,
   items,
 }) {
-  // const isMobile = useMediaPredicate("(max-width: 1180px)");
-
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const closingModalDelay = 400;
@@ -44,7 +42,11 @@ function TextAndImageLightbox({
     delay: closingModalDelay,
     functionToDelay: closeGallery,
   });
-  console.log(imageLoaded, "imageloaded");
+
+  const handleImageLoaded = useCallback(() => {
+    setImageLoaded(true);
+  }, []);
+
   return (
     <>
       {items.map((item, index) => (
@@ -92,12 +94,6 @@ function TextAndImageLightbox({
               <div key={index} className={styles.slideWrapper}>
                 <div
                   data-id={index}
-                  style={{
-                    aspectRatio:
-                      item.width && item.height
-                        ? `${[item.width / item.height]}`
-                        : undefined,
-                  }}
                   className={classNames(styles.imageContainer, {
                     [styles.openingAnim]: imageLoaded && !beforeDelay,
                     [styles.closingAnim]: beforeDelay,
@@ -106,14 +102,11 @@ function TextAndImageLightbox({
                   <Image
                     src={item.src}
                     alt={item.alt}
-                    layout="fill"
-                    onLoadingComplete={
-                      index === activeIndex
-                        ? () => setImageLoaded(true)
-                        : undefined
-                    }
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    onLoadingComplete={handleImageLoaded}
                     priority={true}
-                    objectFit="contain"
                   />
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import RichLightboxGallery from "../lightboxGallery/RichLightboxGallery";
 import { memo } from "react";
-import styles from "../../styles/servicesStyles/gallery.module.css";
+import styles from "./gallery.module.css";
 import classNames from "classnames";
 
 
@@ -99,7 +99,6 @@ function Gallery() {
         <span className={classNames("title")}>Galeria</span>
         <div className={classNames("graySection")}>
           <RichLightboxGallery
-          // virtualized
             items={images}
             imgContainerClassName={styles.imgContainer}
             lightboxContainerClassName={classNames(

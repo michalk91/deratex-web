@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/offerFor.module.css";
+import styles from "./offerFor.module.css";
 import React from "react";
 import Image from "next/image";
 import { memo, useRef } from "react";
@@ -48,9 +48,6 @@ function OfferFor() {
             height={0}
             width={0}
             sizes="100vw"
-            //  style={{ width: '100%', height: 'auto' }}
-
-            // priority={true}
           />
         </div>
       </section>

@@ -1,4 +1,4 @@
-import styles from "../../styles/indexStyles/helpForAllSlogan.module.css";
+import styles from "./helpForAllSlogan.module.css";
 import React from "react";
 import { memo } from "react";
 import classNames from "classnames";

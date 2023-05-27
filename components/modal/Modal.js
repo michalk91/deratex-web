@@ -1,4 +1,4 @@
-import styles from "../../styles/modal.module.css";
+import styles from "./modal.module.css";
 import React, {useEffect, useRef } from "react";
 import { memo } from "react";
 import { IoCloseSharp } from "react-icons/io5";

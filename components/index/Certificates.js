@@ -1,12 +1,9 @@
-import styles from "../../styles/indexStyles/certificates.module.css";
-import React, { memo, useState, Ref } from "react";
-import Carousel, { CarouselItem } from "../carouselSlider/Carousel";
+import styles from "./certificates.module.css";
+import React, { memo } from "react";
+import { CarouselItem } from "../carouselSlider/Carousel";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import classNames from "classnames";
-import Image from "next/image";
-import { Flipper, Flipped } from "react-flip-toolkit";
 import { ImageForLightbox } from "../carouselSlider/Carousel";
-import { isMobile } from "react-device-detect";
 
 function Certificates() {
   const certificates = [
@@ -137,15 +134,11 @@ function Certificates() {
 
       <div className={styles.certificatesWrapper}>
         <RichCarousel
-          // slideTime={3000}
-          // width="70vw"
-
-          height= "240px"
+          height="240px"
           virtualized
-          // imagesForLightboxData={certificates} //add this when you want using virtualized and you added "withGallery" prop
           withGallery
           navigationOutside
-          thumbnailsOptions={{
+          lightboxThumbsOptions={{
             keepRatio: true,
             thumbnailWithBorderRadius: false,
             thumbnailHeight: 80,
@@ -153,7 +146,6 @@ function Certificates() {
         >
           {certificates.map((item, index) => (
             <CarouselItem
-
               key={index}
               itemClassName={styles.certificatesSlideContainer}
             >
@@ -162,7 +154,6 @@ function Certificates() {
                 alt={item.alt}
                 height={1600}
                 width={1114}
-                // objectFit="contain"
                 imgClassName={styles.certificatesImage}
               />
 

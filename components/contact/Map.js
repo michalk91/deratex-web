@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import styles from "../../styles/contactStyles/map.module.css";
+import styles from "./map.module.css";
 import { React, memo } from "react";
 
 function Map() {

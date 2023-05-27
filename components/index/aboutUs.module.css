@@ -15,7 +15,12 @@
   -webkit-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
   -moz-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
   box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
-  aspect-ratio: 4/3;
+}
+
+.aboutUsImage img{
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .aboutUs div {
