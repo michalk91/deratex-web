@@ -6,6 +6,7 @@ import classNames from "classnames";
 import SliderDot from "./SliderDot";
 import useSwiping from "../../hooks/useSwiping";
 import useKeyPress from "../../hooks/useKeyPress";
+import { isMobile } from "react-device-detect";
 
 function Slider({ slides }) {
   const [sliderInfo, setSliderInfo] = useState({
@@ -141,12 +142,11 @@ function Slider({ slides }) {
           <div className={styles.imageContainer}>
             <Image
               priority
-              // loading="eager"
               fill
               src={slide.src}
               alt={slide.alt}
-              quality={100}
               sizes="100vw"
+              quality={isMobile ? 40 : 100}
             />
           </div>
         </div>

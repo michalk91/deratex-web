@@ -14,7 +14,6 @@ function AboutUs() {
           height={0}
           width={0}
           sizes="100vw"
-          priority={true}
         />
       </div>
 
