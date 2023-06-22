@@ -16,7 +16,6 @@
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
-    "react-flip-toolkit": "^7.1.0",
     "react-fps": "^1.0.6",
     "react-hooks-global-state": "^2.1.0",
     "react-icons": "^4.8.0",

@@ -26,6 +26,7 @@ function ReferenceLetters() {
                 thumbnailWithBorderRadius: false,
                 thumbnailHeight: 80,
               }}
+              lightboxZoomedImgSizes="(max-width: 680px) 100vw, (max-width: 900px) 80vw,(max-width: 1200px) 50vw, (max-width: 1600px) 40vw, 33vw"
             >
               {images.map((item, index) => (
                 <CarouselItem itemClassName={styles.slideContainer} key={index}>
@@ -35,6 +36,7 @@ function ReferenceLetters() {
                     alt={item.alt}
                     width={464}
                     height={621}
+                    sizes="20vw"
                   />
                   <div className={styles.textContainer}>
                     <p>Spółdzielnia Mieszkaniowa Lokatorsko-własnościowa</p>

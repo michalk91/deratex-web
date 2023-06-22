@@ -11,15 +11,13 @@
   max-height: 100%;
   max-width: 100%; */
   background-color: rgba(255, 255, 255, 80%);
-  z-index: 9999999999999999;
+  transition: 0.3s;
+  z-index: 20;
   outline: none;
   touch-action: pan-x;
 
-
   /* backdrop-filter: blur(2px); */
 }
-
-
 
 .closeBtn {
   background-color: transparent;

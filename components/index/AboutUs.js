@@ -13,7 +13,7 @@ function AboutUs() {
           alt="logo"
           height={0}
           width={0}
-          sizes="100vw"
+          sizes="(max-width: 500px) 100vw, (max-width: 860px) 50vw, 33vw"
         />
       </div>
 

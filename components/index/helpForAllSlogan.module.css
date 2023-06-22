@@ -4,7 +4,6 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-
   height: 40vh;
   background-image: url(../../public/images/index/HelpForAllSlogan/backgroundImage.jpg);
 }
@@ -26,37 +25,33 @@
   font-size: 1.6rem;
   max-width: 100%;
   width: 100vw;
-
 }
 
-@media only screen and (max-width:1000px) and (orientation: landscape){
-  .helpForAll{
+@media only screen and (max-width: 1000px) and (orientation: landscape) {
+  .helpForAll {
     height: 60vh;
   }
 }
 
-@media only screen and (max-width: 1270px) and (orientation: portrait){
- .helpForAllSlogan{
-  font-size: 1.4rem;
- }
+@media only screen and (max-width: 1270px) and (orientation: portrait) {
+  .helpForAllSlogan {
+    font-size: 1.4rem;
+  }
 }
 
-@media only screen and (max-width: 1270px) and (orientation: portrait){
-  .helpForAllSlogan{
-   font-size: 1.3rem;
+@media only screen and (max-width: 1270px) and (orientation: portrait) {
+  .helpForAllSlogan {
+    font-size: 1.3rem;
   }
- }
+}
 
- @media only screen and (max-width: 640px) and (orientation: portrait){
-  .helpForAllSlogan{
-   font-size: 1.2rem;
+@media only screen and (max-width: 640px) and (orientation: portrait) {
+  .helpForAllSlogan {
+    font-size: 1.2rem;
   }
- }
- @media only screen and (max-width: 480px) and (orientation: portrait){
-  .helpForAllSlogan{
-   font-size: 1.1rem;
+}
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .helpForAllSlogan {
+    font-size: 1.1rem;
   }
- }
-
-
-
+}

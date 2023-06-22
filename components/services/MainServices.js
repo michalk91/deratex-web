@@ -94,7 +94,7 @@ function MainServices() {
                 <Image
                   width={0}
                   height={0}
-                  sizes="100vw"
+                  sizes="(max-width: 280px) 100vw, (max-width: 1030px) 20vw, 15vw"
                   src={item.src}
                   alt={item.alt}
                   priority={true}

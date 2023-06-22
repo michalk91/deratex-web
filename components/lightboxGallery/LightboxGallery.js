@@ -4,7 +4,6 @@ import classNames from "classnames";
 import Modal from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
 import useIsScrollableX from "../../hooks/useIsScrollableX";
-import { Flipped } from "react-flip-toolkit";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
@@ -12,46 +11,42 @@ import useVirtualized from "../../hooks/useVirtualized";
 const LightboxImage = memo(function LightboxImage({
   index,
   item,
-  lightboxImgID,
   imgContainerClassName,
   openGallery,
   objectFit,
+  firstElemRef,
+  activeIndex,
 }) {
   return (
-    <Flipped
-      onStart={(e) => (
-        (e.style.zIndex = "10"), (e.style.position = "relative")
-      )}
-      onComplete={(e) => ((e.style.zIndex = ""), (e.style.position = ""))}
-      flipId={lightboxImgID}
+    <div
+      ref={index === activeIndex ? firstElemRef : null}
+      data-id={index}
+      onClick={openGallery}
+      className={classNames(imgContainerClassName)}
     >
-      <div
-        data-id={index}
-        onClick={openGallery}
-        className={classNames(imgContainerClassName)}
-      >
-        <Image
-          src={item.src}
-          alt={item.alt}
-          height={item.height ? item.height : undefined}
-          width={item.width ? item.width : undefined}
-          sizes="100vw"
-          style={{
-            objectFit: objectFit ? objectFit : "cover",
-            maxHeight: "100%",
-            maxWidth: "100%",
-          }}
-        />
-      </div>
-    </Flipped>
+      <Image
+        src={item.src}
+        alt={item.alt}
+        height={item.height ? item.height : undefined}
+        width={item.width ? item.width : undefined}
+        style={{
+          objectFit: objectFit ? objectFit : "cover",
+          maxHeight: "100%",
+          maxWidth: "100%",
+        }}
+        sizes="20vw"
+      />
+    </div>
   );
 });
 
 const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   index,
   item,
-  lightboxImgID,
   activeIndex,
+  modalElemRef,
+  setImgLoaded,
+  zoomedImgSizes,
 }) {
   return (
     <div className={styles.slideWrapper}>
@@ -63,28 +58,30 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           aspectRatio: `${[item.width]}/${[item.height]}`,
         }}
       >
-        <Flipped
-          onStart={(e) => (e.style.zIndex = "10")}
-          onComplete={(e) => (e.style.zIndex = "")}
-          flipId={index === activeIndex ? lightboxImgID : undefined}
+        <div
+          data-id={index}
+          className={styles.imageContainer}
+          ref={index === activeIndex ? modalElemRef : null}
         >
-          <div data-id={index} className={styles.imageContainer}>
-            <Image
-              src={item.src}
-              alt={item.alt}
-              height={item.height ? item.height : undefined}
-              width={item.width ? item.width : undefined}
-              fill={!item.height && !item.width ? true : false}
-              sizes="100vw"
-            />
+          <Image
+            src={item.src}
+            alt={item.alt}
+            height={item.height ? item.height : undefined}
+            width={item.width ? item.width : undefined}
+            fill={!item.height && !item.width ? true : false}
+            sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
+            priority={index === activeIndex ? true : false}
+            onLoadingComplete={() => {
+              index === activeIndex && setImgLoaded(true);
+            }}
+          />
 
-            {item.text && index === activeIndex && (
-              <div className={styles.captionContainer}>
-                <p> {item.text} </p>
-              </div>
-            )}
-          </div>
-        </Flipped>
+          {item.text && index === activeIndex && (
+            <div className={styles.captionContainer}>
+              <p> {item.text} </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -107,12 +104,15 @@ function LightboxGallery({
   onTransitionEnd,
   transitionEnded,
   thumbnailsOptions,
-  lightboxImgID,
   lightboxContainerClassName,
   items,
   imgContainerClassName,
   openGallery,
   virtualized,
+  firstElemRef,
+  modalElemRef,
+  setImgLoaded,
+  zoomedImgSizes,
 }) {
   const thumbsContainerRef = useRef();
 
@@ -125,6 +125,7 @@ function LightboxGallery({
     data: items,
     activeIndex,
   });
+  console.log("dajana dupa", lightboxOpen);
 
   return (
     <>
@@ -132,12 +133,13 @@ function LightboxGallery({
         {!lightboxForSlider &&
           items.map((item, index) => (
             <LightboxImage
+              firstElemRef={firstElemRef}
+              activeIndex={activeIndex}
               openGallery={openGallery}
               key={index}
               index={index}
               item={item}
               imgContainerClassName={imgContainerClassName}
-              lightboxImgID={`${lightboxImgID}${index}`}
             />
           ))}
       </div>
@@ -178,20 +180,24 @@ function LightboxGallery({
               {!virtualized
                 ? items?.map((item, index) => (
                     <ZoomedLightboxImage
+                      modalElemRef={modalElemRef}
                       key={index}
                       index={index}
                       item={item}
                       activeIndex={activeIndex}
-                      lightboxImgID={`${lightboxImgID}${activeIndex}`}
+                      setImgLoaded={setImgLoaded}
+                      zoomedImgSizes={zoomedImgSizes}
                     />
                   ))
                 : virtualizedData?.map((item) => (
                     <ZoomedLightboxImage
+                      modalElemRef={modalElemRef}
                       key={item.index}
                       index={item.index}
                       item={item}
                       activeIndex={activeIndex}
-                      lightboxImgID={`${lightboxImgID}${activeIndex}`}
+                      setImgLoaded={setImgLoaded}
+                      zoomedImgSizes={zoomedImgSizes}
                     />
                   ))}
             </div>

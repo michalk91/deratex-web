@@ -12,8 +12,7 @@ import React, {
 import useCarousel from "../../hooks/useCarousel";
 import Carousel, { ImageForLightbox } from "./Carousel";
 import LightboxGallery from "../lightboxGallery/LightboxGallery";
-import { Flipper, Flipped } from "react-flip-toolkit";
-// import useId from "@accessible/use-id";
+import useFlipAnimation from "../../hooks/useFlipAnimation";
 
 function RichCarousel({
   children,
@@ -27,21 +26,27 @@ function RichCarousel({
   virtualized = false,
   sliderRectanglesVisible = true,
   lightboxThumbsVisible = true,
+  lightboxZoomedImgSizes,
 }) {
-  const id = useId();
-  const lightboxImgID = useMemo(() => `carousel${id}`, [id]);
   const [carouselInfo, setCarouselInfo] = useState({
     lightboxOpen: false,
     flipAnimating: false,
+    imgLoaded: false,
   });
 
-  const { lightboxOpen, flipAnimating } = carouselInfo;
+  const [imgLoaded, setImgLoaded] = useState(false);
 
+  const { lightboxOpen, flipAnimating } = carouselInfo;
+  const firstElemRef = useRef();
+  const modalElemRef = useRef();
   const ref = useRef();
   const lightboxForSlider = withGallery ? true : false;
 
-
   const data = useMemo(() => [], []);
+
+  useEffect(() => {
+    if (!lightboxOpen) setImgLoaded(false);
+  }, [lightboxOpen]);
 
   const {
     onTouchEnd,
@@ -69,10 +74,12 @@ function RichCarousel({
   const openGallery = useCallback(() => {
     if (!withGallery) return;
 
-    setCarouselInfo((state) => ({
-      ...state,
-      lightboxOpen: true,
-    }));
+    setTimeout(() =>
+      setCarouselInfo((state) => ({
+        ...state,
+        lightboxOpen: true,
+      }))
+    );
   }, [withGallery]);
   const closeGallery = useCallback(() => {
     setCarouselInfo((state) => ({
@@ -95,28 +102,33 @@ function RichCarousel({
   );
 
   if (withGallery && data.length === 0) getImageForLightboxProps(children);
+  const onCloseAnimationStart = (e) => {
+    console.log("animacja start");
+    e.style.zIndex = "10";
+    setCarouselInfo((state) => ({
+      ...state,
+      flipAnimating: true,
+    }));
+  };
+  const onCloseAnimationEnd = (e) => {
+    console.log("animacja koniec");
+    e.style.zIndex = "5";
+    setCarouselInfo((state) => ({
+      ...state,
+      flipAnimating: false,
+    }));
+  };
+  useFlipAnimation({
+    firstElemRef,
+    modalElemRef,
+    flipKey: lightboxOpen,
+    onCloseAnimationEnd,
+    onCloseAnimationStart,
+    imgLoaded,
+  });
 
   return (
-    <Flipper
-      flipKey={lightboxOpen}
-      portalKey="modal"
-      onStart={(e) => (
-        (e.style.zIndex = "12"),
-        (e.style.position = "relative"),
-        setCarouselInfo((state) => ({
-          ...state,
-          flipAnimating: true,
-        }))
-      )}
-      onComplete={(e) => (
-        (e.style.zIndex = ""),
-        (e.style.position = ""),
-        setCarouselInfo((state) => ({
-          ...state,
-          flipAnimating: false,
-        }))
-      )}
-    >
+    <>
       <Carousel
         ref={ref}
         sliderRectanglesVisible={sliderRectanglesVisible}
@@ -136,16 +148,17 @@ function RichCarousel({
         openGallery={openGallery}
         lightboxOpen={lightboxOpen}
         flipAnimating={flipAnimating}
-        lightboxImgID={lightboxImgID}
         virtualized={virtualized}
         height={height}
         width={width}
+        firstElemRef={firstElemRef}
       >
         {children}
       </Carousel>
 
       {withGallery && (
         <LightboxGallery
+          modalElemRef={modalElemRef}
           lightboxForSlider={lightboxForSlider}
           lightboxThumbsVisible={lightboxThumbsVisible}
           transitionEnded={transitionEnded}
@@ -163,11 +176,12 @@ function RichCarousel({
           activeIndex={activeIndex}
           setNavigate={setNavigate}
           thumbnailsOptions={lightboxThumbsOptions}
-          lightboxImgID={lightboxImgID}
           virtualized={virtualized}
+          setImgLoaded={setImgLoaded}
+          zoomedImgSizes={lightboxZoomedImgSizes}
         />
       )}
-    </Flipper>
+    </>
   );
 }
 

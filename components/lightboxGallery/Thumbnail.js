@@ -34,38 +34,40 @@ const Thumbnail = memo(function Thumbnail({
   } = thumbnailsOptions ?? {};
 
   return (
-    <div
-      ref={thumbRef}
-      data-id={index}
-      className={classNames(styles.thumbnail, {
-        [styles.thumbnailWithBorderRadius]: thumbnailWithBorderRadius,
-        [styles.active]: index === activeIndex,
-        [styles.thumbnailBasicDim]: !keepRatio,
-      })}
-      style={{
-        aspectRatio: keepRatio ? `${[item.width / item.height]}` : undefined,
-        width:
-          (!keepRatio && thumbnailWidth && thumbnailHeight) ||
-          (keepRatio && thumbnailWidth && !thumbnailHeight)
-            ? thumbnailWidth
-            : undefined,
-        height:
-          (!keepRatio && thumbnailHeight && thumbnailWidth) ||
-          (keepRatio && thumbnailHeight && !thumbnailWidth)
-            ? thumbnailHeight
-            : undefined,
-      }}
-      onClick={onNavigate}
-    >
-      <Image
-        src={item.src}
-        alt={item.alt}
-        fill
-        priority={true}
-        sizes="100vw"
-        style={{ objectFit: "cover" }}
-        quality={1}
-      />
+    <div className={styles.container}>
+      <div
+        ref={thumbRef}
+        data-id={index}
+        className={classNames(styles.thumbnail, {
+          [styles.thumbnailWithBorderRadius]: thumbnailWithBorderRadius,
+          [styles.active]: index === activeIndex,
+          [styles.thumbnailBasicDim]: !keepRatio,
+        })}
+        style={{
+          aspectRatio: keepRatio ? `${[item.width / item.height]}` : undefined,
+          width:
+            (!keepRatio && thumbnailWidth && thumbnailHeight) ||
+            (keepRatio && thumbnailWidth && !thumbnailHeight)
+              ? thumbnailWidth
+              : undefined,
+          height:
+            (!keepRatio && thumbnailHeight && thumbnailWidth) ||
+            (keepRatio && thumbnailHeight && !thumbnailWidth)
+              ? thumbnailHeight
+              : undefined,
+        }}
+        onClick={onNavigate}
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          priority={true}
+          sizes="5vw"
+          style={{ objectFit: "cover" }}
+          quality={1}
+        />
+      </div>
     </div>
   );
 });

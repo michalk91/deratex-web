@@ -53,7 +53,7 @@ function OtherServices() {
             alt="kontrola zywnosci"
             width={0}
             height={0}
-            sizes="100vw"
+            sizes="(max-width: 1200px) 100vw, 80vw"
           />
           <a
             className="caption"

@@ -8,7 +8,7 @@ function useIsScrollableX({ scrollContainerRef, enabled }) {
     scrollContainerRef.current?.offsetWidth
       ? setIsScrollableX(true)
       : setIsScrollableX(false);
-  }, [enabled]);
+  }, [enabled, scrollContainerRef]);
 
   return isScrollableX;
 }

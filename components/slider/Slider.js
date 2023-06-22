@@ -141,7 +141,7 @@ function Slider({ slides }) {
         >
           <div className={styles.imageContainer}>
             <Image
-              priority
+              priority={true}
               fill
               src={slide.src}
               alt={slide.alt}

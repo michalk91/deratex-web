@@ -143,6 +143,7 @@ function Certificates() {
             thumbnailWithBorderRadius: false,
             thumbnailHeight: 80,
           }}
+          lightboxZoomedImgSizes="(max-width: 680px) 100vw, (max-width: 900px) 80vw,(max-width: 1200px) 50vw, (max-width: 1600px) 40vw, 33vw"
         >
           {certificates.map((item, index) => (
             <CarouselItem
@@ -155,6 +156,7 @@ function Certificates() {
                 height={1600}
                 width={1114}
                 imgClassName={styles.certificatesImage}
+                sizes="20vw"
               />
 
               <div className={classNames(styles.certificatesText)}>

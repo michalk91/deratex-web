@@ -31,8 +31,7 @@
 
 .certificatesImage img {
   transition: 0.3s;
-  width: 100%;
-  height: auto;
+  height: 100%;
 }
 @media (hover: hover) {
   .certificatesImage img:hover {

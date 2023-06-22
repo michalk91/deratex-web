@@ -1,6 +1,4 @@
 .carousel {
-  /* overflow-x: hidden; */
-  /* overflow-x: clip; */
   position: relative;
   max-width: 100%;
   max-height: 100%;
@@ -31,18 +29,11 @@
 }
 
 .inner {
-  /* max-width: 100%;
-  white-space: nowrap; */
   position: relative;
-
   max-width: 100%;
   width: 100%;
   height: 100%;
   max-height: 100%;
-  /* touch-action: pan-y; */
-
-  /* transition: transform 0.5s; */
-  /* transition : all 0.3s ease-in-out; */
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
@@ -58,16 +49,6 @@
 }
 
 .carouselItem {
-  /* display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: top;
-  color: rgb(218, 42, 42);
-  max-width: 100%;
-  max-height: 100%;
-  flex-grow: 1;
-  flex-basis: 0; */
-
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -79,10 +60,6 @@
   user-select: none;
 }
 
-/* .carouselItem::-webkit-scrollbar {
-  display: none;
-  width: 0;
-} */
 
 .buttonLeft {
   left: -10%;

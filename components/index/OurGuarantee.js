@@ -74,7 +74,7 @@ function OurGuarantee() {
                   alt={item.alt}
                   height={0}
                   width={0}
-                  sizes="100vw"
+                  sizes="(max-width: 300px) 100vw, (max-width: 800px) 50vw, (max-width: 1000px) 33vw, 20vw"
                 />
               </div>
 

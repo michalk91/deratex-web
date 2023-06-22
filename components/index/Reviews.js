@@ -14,17 +14,17 @@ const Reviews = () => {
 
   const fbSDKLoaded = useGlobalState(`fbSDKLoaded`)[0];
 
-
   useEffect(() => {
     if (!fbSDKLoaded) return;
 
     FB.XFBML.parse(ref?.current, function () {
       //FB.XFBML.parse callback function invoked when elements are rendered
-      setTimeout(() => {         //HACK! Using setTimeout without second argument(time) to read height value after call stack is empty
-        if (ref.current.clientHeight < 150) {
+      setTimeout(() => {
+        //HACK! Using setTimeout without second argument(time) to read height value after call stack is empty
+        if (ref?.current?.clientHeight < 150) {
           setIframeError(true);
         }
-      });
+      }, 1000);
       //When the iframe is rendered we check if its height is greater than 150px. if so, we are sure that the iframe has been rendered correctly
     });
   }, [fbSDKLoaded]); // When the error "'<URL>' was refused to be displayed in the frame because 'X-Frame-Options' is set to 'deny'" the iframe will not load and the height will not increase

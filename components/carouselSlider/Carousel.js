@@ -1,8 +1,7 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useState } from "react";
 import styles from "./carouselSlider.module.css";
 import classNames from "classnames";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { Flipped } from "react-flip-toolkit";
 import Image from "next/image";
 
 const CarouselItem = memo(function CarouselItem({
@@ -13,7 +12,12 @@ const CarouselItem = memo(function CarouselItem({
   height,
   itemClassName,
   openGallery,
-  lightboxImgID,
+  flipAnimation,
+  lightboxOpen,
+  activeIndex,
+  firstElemRef,
+  index,
+
   ...rest
 }) {
   const { style, ...realRest } = rest;
@@ -24,13 +28,14 @@ const CarouselItem = memo(function CarouselItem({
         if (child.type === ImageForLightbox) {
           return React.cloneElement(child, {
             openGallery,
-            lightboxImgID,
+            lightboxOpen,
+            firstElemRef,
           });
         } else return React.cloneElement(child);
       }),
-    []
+    [firstElemRef, children, lightboxOpen, openGallery]
   );
-
+  console.log("manieczki", firstElemRef);
   return (
     <div
       className={classNames(styles.carouselItem, itemClassName)}
@@ -55,30 +60,35 @@ const ImageForLightbox = memo(function ImageForLightbox({
   imgClassName,
   width,
   height,
-  lightboxImgID,
+
   openGallery,
   fillContainer,
+  lightboxOpen,
+  sizes,
+  firstElemRef,
 }) {
   return (
-    <Flipped
-      onStart={(e) => (
-        (e.style.zIndex = "10"), (e.style.position = "relative")
-      )}
-      onComplete={(e) => ((e.style.zIndex = ""), (e.style.position = ""))}
-      flipId={lightboxImgID}
+    <div
+      ref={firstElemRef}
+      onClick={openGallery}
+      className={classNames(imgClassName)}
     >
-      <div onClick={openGallery} className={classNames(imgClassName)}>
-        <Image
-          src={src}
-          alt={alt}
-          height={height ? height : undefined}
-          width={width ? width : undefined}
-          sizes="100vw"
-          fill={fillContainer ? true : false}
-          style={{ objectFit: objectFit ? objectFit : "contain" }}
-        />
-      </div>
-    </Flipped>
+      <Image
+        src={src}
+        alt={alt}
+        height={height ? height : undefined}
+        width={width ? width : undefined}
+        sizes={sizes ? sizes : "100vw"}
+        fill={fillContainer ? true : false}
+        style={{
+          objectFit: objectFit ? objectFit : "contain",
+          display: "block",
+        }}
+        onLoadingComplete={() => {
+          console.log("imgLoaded dupa");
+        }}
+      />
+    </div>
   );
 });
 
@@ -103,9 +113,9 @@ const Carousel = React.forwardRef(function Carousel(
     lightboxOpen,
     flipAnimating,
     openGallery,
-    lightboxImgID,
     virtualized,
     withGallery,
+    firstElemRef,
   },
   ref
 ) {
@@ -120,13 +130,24 @@ const Carousel = React.forwardRef(function Carousel(
           },
           width,
           height,
+          firstElemRef: index === activeIndex ? firstElemRef : null,
           openGallery,
-          lightboxImgID: `${lightboxImgID}${index}`,
+          lightboxOpen,
         });
       }),
-    [flipAnimating, lightboxImgID, width, height]
+    [
+      width,
+      height,
+      lightboxOpen,
+      activeIndex,
+      children,
+      virtualized,
+      openGallery,
+      firstElemRef,
+      flipAnimating,
+    ]
   );
-
+  console.log("dajana dupa", lightboxOpen);
   console.log("activeindexx w carousel", activeIndex);
   const virtualizedChildren = useMemo(() => {
     if (!withGallery ?? !virtualized) return;
@@ -136,22 +157,35 @@ const Carousel = React.forwardRef(function Carousel(
 
     return children.slice(start, end).map((child, index) =>
       React.cloneElement(child, {
-        width,
-        height,
         style: {
           opacity: flipAnimating && index + start !== activeIndex ? 0 : 1,
         },
+        width,
+        height,
+        firstElemRef: index + start === activeIndex ? firstElemRef : null,
         index: index + start,
-        lightboxImgID: `${lightboxImgID}${index + start}`,
         openGallery,
+        lightboxOpen,
       })
     );
-  }, [activeIndex, flipAnimating, lightboxImgID, height, width]);
+  }, [
+    width,
+    height,
+    lightboxOpen,
+    activeIndex,
+    children,
+    virtualized,
+    openGallery,
+    firstElemRef,
+    flipAnimating,
+    withGallery,
+  ]);
 
   return (
     <>
       <div
         style={{
+          zIndex: flipAnimating ? 10 : 1,
           position: "relative",
           marginLeft: "auto",
           marginRight: "auto",

@@ -26,6 +26,7 @@ function TextAndImageLightbox({
   transitionEnded,
   thumbnailsOptions,
   items,
+  zoomedImgSizes,
 }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -104,7 +105,7 @@ function TextAndImageLightbox({
                     alt={item.alt}
                     width={0}
                     height={0}
-                    sizes="100vw"
+                    sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
                     onLoadingComplete={handleImageLoaded}
                     priority={true}
                   />

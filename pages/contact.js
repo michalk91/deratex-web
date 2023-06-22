@@ -6,18 +6,12 @@ import FbPage from "../components/contact/FbPage";
 import Map from "../components/contact/Map";
 import Head from "next/head";
 
-
 export default function Contact() {
-
   return (
     <>
       <Head>
         <title>Kontakt</title>
-        <meta
-          name="description"
-          content=""
-        />
-
+        <meta name="description" content="" />
       </Head>
       <Map />
       <div className={classNames(styles.gridContainer, "innerContentWidth")}>
