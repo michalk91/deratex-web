@@ -1,12 +1,12 @@
 import styles from "./modal.module.css";
-import React, {useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { memo } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { createPortal } from "react-dom";
 import useKeyPress from "../../hooks/useKeyPress";
 import classNames from "classnames";
 import useScrollLock from "../../hooks/useScrollLock";
-import {FpsView} from "react-fps";
+import { FpsView } from "react-fps";
 
 function Modal({
   children,
@@ -42,7 +42,7 @@ function Modal({
             onKeyDown={handleUserKeyPress}
             tabIndex={0}
           >
-             <FpsView/>
+            <FpsView />
             <IoCloseSharp className={styles.closeBtn} onClick={onClose} />
             {children}
           </div>,

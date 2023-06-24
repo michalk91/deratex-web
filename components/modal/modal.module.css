@@ -6,17 +6,10 @@
   right: 0;
   max-height: 100%;
   max-width: 100%;
-  /* width: 100vw;
-  height: 100vh;
-  max-height: 100%;
-  max-width: 100%; */
-  background-color: rgba(255, 255, 255, 80%);
-  transition: 0.3s;
   z-index: 20;
   outline: none;
   touch-action: pan-x;
-
-  /* backdrop-filter: blur(2px); */
+  background-color: rgba(255, 255, 255, 80%);
 }
 
 .closeBtn {

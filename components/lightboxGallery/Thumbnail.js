@@ -34,36 +34,38 @@ const Thumbnail = memo(function Thumbnail({
   } = thumbnailsOptions ?? {};
 
   return (
-    <div className={styles.container}>
+    <div
+      ref={thumbRef}
+      data-id={index}
+      className={classNames(styles.thumbnail)}
+      style={{
+        aspectRatio: keepRatio ? `${[item.width / item.height]}` : `1/1`,
+        width:
+          (!keepRatio && thumbnailWidth && thumbnailHeight) ||
+          (keepRatio && thumbnailWidth && !thumbnailHeight)
+            ? thumbnailWidth
+            : undefined,
+        height:
+          (!keepRatio && thumbnailHeight && thumbnailWidth) ||
+          (keepRatio && thumbnailHeight && !thumbnailWidth)
+            ? thumbnailHeight
+            : undefined,
+      }}
+      onClick={onNavigate}
+    >
       <div
-        ref={thumbRef}
-        data-id={index}
-        className={classNames(styles.thumbnail, {
-          [styles.thumbnailWithBorderRadius]: thumbnailWithBorderRadius,
-          [styles.active]: index === activeIndex,
+        className={classNames(styles.imgWrapper, {
           [styles.thumbnailBasicDim]: !keepRatio,
+          [styles.active]: index === activeIndex,
+          [styles.thumbnailWithBorderRadius]: thumbnailWithBorderRadius,
         })}
-        style={{
-          aspectRatio: keepRatio ? `${[item.width / item.height]}` : undefined,
-          width:
-            (!keepRatio && thumbnailWidth && thumbnailHeight) ||
-            (keepRatio && thumbnailWidth && !thumbnailHeight)
-              ? thumbnailWidth
-              : undefined,
-          height:
-            (!keepRatio && thumbnailHeight && thumbnailWidth) ||
-            (keepRatio && thumbnailHeight && !thumbnailWidth)
-              ? thumbnailHeight
-              : undefined,
-        }}
-        onClick={onNavigate}
       >
         <Image
           src={item.src}
           alt={item.alt}
           fill
           priority={true}
-          sizes="5vw"
+          sizes="10vw"
           style={{ objectFit: "cover" }}
         />
       </div>
