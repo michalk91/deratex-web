@@ -10,13 +10,13 @@ import { isMobile } from "react-device-detect";
 
 function Slider({ slides }) {
   const [sliderInfo, setSliderInfo] = useState({
-    current: 0,
+    activeIndex: 0,
     paused: false,
     wasHovered: false,
     pressed: false,
   });
 
-  const { current, paused, wasHovered, pressed } = sliderInfo;
+  const { activeIndex, paused, wasHovered, pressed } = sliderInfo;
 
   const slidesCount = slides.length;
 
@@ -27,7 +27,8 @@ function Slider({ slides }) {
       ...state,
       wasHovered: false,
       pressed: !state.pressed,
-      current: state.current !== slidesCount - 1 ? state.current + 1 : 0,
+      activeIndex:
+        state.activeIndex !== slidesCount - 1 ? state.activeIndex + 1 : 0,
     }));
   }, []);
 
@@ -35,7 +36,8 @@ function Slider({ slides }) {
     setSliderInfo((state) => ({
       ...state,
       pressed: !state.pressed,
-      current: state.current !== 0 ? state.current - 1 : slidesCount - 1,
+      activeIndex:
+        state.activeIndex !== 0 ? state.activeIndex - 1 : slidesCount - 1,
     }));
   }, []);
 
@@ -47,7 +49,7 @@ function Slider({ slides }) {
   });
 
   const { onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
-    currentSlide: current,
+    currentSlide: activeIndex,
     nextSlide,
     prevSlide,
     slidesCount,
@@ -88,7 +90,7 @@ function Slider({ slides }) {
   const setNavigate = useCallback((index) => {
     setSliderInfo((state) => ({
       ...state,
-      current: index,
+      activeIndex: index,
     }));
   }, []);
 
@@ -107,7 +109,7 @@ function Slider({ slides }) {
 
       {slides.map(
         (slide, index) =>
-          index === current && (
+          index === activeIndex && (
             <div className={styles.textContainer} key={index}>
               {slide.text && (
                 <span className={styles.sliderText}>{slide.text}</span>
@@ -126,7 +128,7 @@ function Slider({ slides }) {
         {slides.map((_, index) => (
           <div key={index} onClick={() => setNavigate(index)}>
             <SliderDot
-              active={current === index}
+              active={activeIndex === index}
               paused={paused || !inViewport}
             />
           </div>
@@ -135,13 +137,13 @@ function Slider({ slides }) {
       {slides.map((slide, index) => (
         <div
           className={classNames(styles.slide, {
-            [styles.activeSlide]: inViewport && current === index,
+            [styles.activeSlide]: inViewport && activeIndex === index,
           })}
           key={index}
         >
           <div className={styles.imageContainer}>
             <Image
-              priority={true}
+              priority
               fill
               src={slide.src}
               alt={slide.alt}
