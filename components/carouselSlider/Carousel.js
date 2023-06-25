@@ -35,7 +35,7 @@ const CarouselItem = memo(function CarouselItem({
       }),
     [firstElemRef, children, lightboxOpen, openGallery]
   );
-  console.log("manieczki", firstElemRef);
+
   return (
     <div
       className={classNames(styles.carouselItem, itemClassName)}
@@ -83,9 +83,6 @@ const ImageForLightbox = memo(function ImageForLightbox({
         style={{
           objectFit: objectFit ? objectFit : "contain",
           display: "block",
-        }}
-        onLoadingComplete={() => {
-          console.log("imgLoaded dupa");
         }}
       />
     </div>
@@ -147,8 +144,7 @@ const Carousel = React.forwardRef(function Carousel(
       flipAnimating,
     ]
   );
-  console.log("dajana dupa", lightboxOpen);
-  console.log("activeindexx w carousel", activeIndex);
+
   const virtualizedChildren = useMemo(() => {
     if (!withGallery ?? !virtualized) return;
 

@@ -78,38 +78,55 @@ function Cooperation() {
   ];
 
   return (
-    <section className={styles.cooperationSection}>
-      <div className={styles.cooperationTitleContainer}>
-        <span>
-          <b className={classNames("short-underline")}>
-            Szczególnie Naszą współpracę kierujemy do:
-          </b>
-        </span>
+    <>
+      {/* ------------------------------------------version for mobile------------------------------------------------ */}
+      <div className={styles.cooperationSectionMobile}>
+        <div className={styles.cooperationTitleContainer}>
+          <span className={classNames(styles.underline)}>
+            <b>Szczególnie Naszą współpracę kierujemy do:</b>
+          </span>
+        </div>
+        <div className={styles.mobileText}>
+          {images.map((item) =>
+            item.map((item, index) => <p key={index}>{item.text}</p>)
+          )}
+        </div>
       </div>
 
-      <RichCarousel sliderRectanglesVisible={false} navigationOutside>
-        {images.map((item, index) => (
-          <CarouselItem key={index}>
-            <div className={styles.cooperationArticleSliderContainer}>
-              {item.map((item, index) => (
-                <article key={index}>
-                  <div className={styles.imgContainer}>
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      height={199}
-                      width={300}
-                      sizes="100vw"
-                    />
-                    <h3>{item.text}</h3>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </CarouselItem>
-        ))}
-      </RichCarousel>
-    </section>
+      {/* -------------------------------------------version for desktop----------------------------------------------- */}
+
+      <section className={styles.cooperationSection}>
+        <div className={styles.cooperationTitleContainer}>
+          <span>
+            <b className={classNames("short-underline")}>
+              Szczególnie Naszą współpracę kierujemy do:
+            </b>
+          </span>
+        </div>
+        <RichCarousel sliderRectanglesVisible={false} navigationOutside>
+          {images.map((item, index) => (
+            <CarouselItem key={index}>
+              <div className={styles.cooperationArticleSliderContainer}>
+                {item.map((item, index) => (
+                  <article key={index}>
+                    <div className={styles.imgContainer}>
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        height={199}
+                        width={300}
+                        sizes="100vw"
+                      />
+                      <h3>{item.text}</h3>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </CarouselItem>
+          ))}
+        </RichCarousel>
+      </section>
+    </>
   );
 }
 

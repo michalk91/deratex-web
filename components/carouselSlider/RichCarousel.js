@@ -103,7 +103,6 @@ function RichCarousel({
 
   if (withGallery && data.length === 0) getImageForLightboxProps(children);
   const onCloseAnimationStart = (e) => {
-    console.log("animacja start");
     e.style.zIndex = "10";
     setCarouselInfo((state) => ({
       ...state,
@@ -111,7 +110,6 @@ function RichCarousel({
     }));
   };
   const onCloseAnimationEnd = (e) => {
-    console.log("animacja koniec");
     e.style.zIndex = "5";
     setCarouselInfo((state) => ({
       ...state,

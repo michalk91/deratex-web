@@ -125,7 +125,6 @@ function LightboxGallery({
     data: items,
     activeIndex,
   });
-  console.log("dajana dupa", lightboxOpen);
 
   return (
     <>
