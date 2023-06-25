@@ -70,6 +70,7 @@ function useFlipAnimation({
 
     const closeAnimation = () => {
       if (!modalElemDimCache) return;
+
       const animDir = "close";
       const delta = getDelta(modalElemDimCache, firstDim);
 
