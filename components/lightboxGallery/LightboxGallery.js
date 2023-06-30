@@ -66,8 +66,6 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           <Image
             src={item.src}
             alt={item.alt}
-            height={0}
-            width={0}
             fill
             sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
             priority={index === activeIndex ? true : false}
