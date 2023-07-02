@@ -51,6 +51,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   return (
     <div className={styles.slideWrapper}>
       <div
+        data-id={index}
         className={styles.imageWrapper}
         style={{
           height: !item.height && !item.width && "100%",
@@ -58,28 +59,27 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           aspectRatio: `${[item.width]}/${[item.height]}`,
         }}
       >
-        <div
-          data-id={index}
-          className={styles.imageContainer}
+        <Image
           ref={index === activeIndex ? modalElemRef : null}
-        >
-          <Image
-            src={item.src}
-            alt={item.alt}
-            fill
-            sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
-            priority={index === activeIndex ? true : false}
-            onLoadingComplete={() => {
-              index === activeIndex && setImgLoaded(true);
-            }}
-          />
+          src={item.src}
+          alt={item.alt}
+          fill
+          sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
+          priority={index === activeIndex ? true : false}
+          onLoadingComplete={(e) => {
+            index === activeIndex && setImgLoaded(true);
+            console.log("natural", e.naturalWidth);
+          }}
+        />
 
-          {item.text && index === activeIndex && (
-            <div className={styles.captionContainer}>
-              <p> {item.text} </p>
-            </div>
-          )}
-        </div>
+        {item.text && index === activeIndex && (
+          <div
+            // style={{ maxWidth: `${naturalWidth}px` }}
+            className={styles.captionContainer}
+          >
+            <p> {item.text} </p>
+          </div>
+        )}
       </div>
     </div>
   );
