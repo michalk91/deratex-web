@@ -60,10 +60,8 @@ const ImageForLightbox = memo(function ImageForLightbox({
   imgClassName,
   width,
   height,
-
   openGallery,
   fillContainer,
-  lightboxOpen,
   sizes,
   firstElemRef,
 }) {

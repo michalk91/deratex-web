@@ -131,6 +131,7 @@ function RichLightboxGallery({
       modalElemRef={modalElemRef}
       setImgLoaded={setImgLoaded}
       zoomedImgSizes={zoomedImgSizes}
+      imgLoaded={imgLoaded}
     />
   );
 }

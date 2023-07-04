@@ -9,7 +9,6 @@
   z-index: 20;
   outline: none;
   touch-action: pan-x;
-  background-color: rgba(255, 255, 255, 80%);
 }
 
 .closeBtn {

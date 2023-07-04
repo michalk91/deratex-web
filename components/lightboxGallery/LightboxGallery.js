@@ -66,17 +66,13 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           fill
           sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
           priority={index === activeIndex ? true : false}
-          onLoadingComplete={(e) => {
+          onLoadingComplete={() => {
             index === activeIndex && setImgLoaded(true);
-            console.log("natural", e.naturalWidth);
           }}
         />
 
         {item.text && index === activeIndex && (
-          <div
-            // style={{ maxWidth: `${naturalWidth}px` }}
-            className={styles.captionContainer}
-          >
+          <div className={styles.captionContainer}>
             <p> {item.text} </p>
           </div>
         )}
@@ -111,6 +107,7 @@ function LightboxGallery({
   modalElemRef,
   setImgLoaded,
   zoomedImgSizes,
+  imgLoaded,
 }) {
   const thumbsContainerRef = useRef();
 
@@ -146,7 +143,9 @@ function LightboxGallery({
         onClose={closeGallery}
         nextSlide={nextSlide}
         prevSlide={prevSlide}
-        containerClassName={styles.wrapper}
+        containerClassName={classNames(styles.wrapper, {
+          [styles.wrapperWithAnim]: imgLoaded,
+        })}
       >
         <div
           className={classNames(styles.outerImagesContainerWithThumbs, {

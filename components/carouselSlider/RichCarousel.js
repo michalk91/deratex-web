@@ -176,6 +176,7 @@ function RichCarousel({
           thumbnailsOptions={lightboxThumbsOptions}
           virtualized={virtualized}
           setImgLoaded={setImgLoaded}
+          imgLoaded={imgLoaded}
           zoomedImgSizes={lightboxZoomedImgSizes}
         />
       )}
