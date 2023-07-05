@@ -47,6 +47,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   modalElemRef,
   setImgLoaded,
   zoomedImgSizes,
+  imgLoaded,
 }) {
   const [imgWidth, setImgWidth] = useState(0);
 
@@ -77,7 +78,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           }}
         />
 
-        {item.text && index === activeIndex && (
+        {item.text && imgLoaded && index === activeIndex && (
           <div className={styles.captionContainer}>
             <p> {item.text} </p>
           </div>
@@ -189,6 +190,7 @@ function LightboxGallery({
                       activeIndex={activeIndex}
                       setImgLoaded={setImgLoaded}
                       zoomedImgSizes={zoomedImgSizes}
+                      imgLoaded={imgLoaded}
                     />
                   ))
                 : virtualizedData?.map((item) => (
@@ -200,6 +202,7 @@ function LightboxGallery({
                       activeIndex={activeIndex}
                       setImgLoaded={setImgLoaded}
                       zoomedImgSizes={zoomedImgSizes}
+                      imgLoaded={imgLoaded}
                     />
                   ))}
             </div>
