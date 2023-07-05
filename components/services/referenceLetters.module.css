@@ -1,6 +1,5 @@
 .container {
   max-width: 1100px;
-
   padding-bottom: 10px;
 }
 .slideContainer {
@@ -13,14 +12,9 @@
   justify-content: center;
 }
 .imgContainer {
-  flex-shrink: 0;
   position: relative;
   flex-basis: 120px;
-
-  /* height: 179px; */
-  transform-origin: center;
-  /* transition: 0.3s; */
-
+  overflow: visible;
   border: 1px solid gray;
 }
 
@@ -33,12 +27,8 @@
   font-weight: bold;
   text-align: left;
 }
-.imgContainer span {
-  overflow: visible !important;
-}
 
 .imgContainer img {
-  display: block;
   transition: 0.3s;
   height: 100%;
 }
@@ -53,7 +43,6 @@
 @media only screen and (max-width: 480px) {
   .imgContainer {
     flex-basis: 100px;
-    /* height: 149px; */
   }
 }
 
@@ -70,7 +59,6 @@
   }
   .imgContainer {
     flex-basis: 90px;
-    /* height: 129px; */
   }
 }
 
@@ -80,6 +68,5 @@
   }
   .imgContainer {
     flex-basis: 70px;
-    /* height: 109px; */
   }
 }

@@ -25,8 +25,10 @@
 
 .certificatesImage {
   position: relative;
+  overflow: visible;
   flex-basis: 90px;
   cursor: zoom-in;
+  border: 1px solid gray;
 }
 
 .certificatesImage img {
@@ -35,11 +37,7 @@
 }
 @media (hover: hover) {
   .certificatesImage img:hover {
-    scale: 1.1;
-  }
-  .certificatesImage img:hover {
-    transform: scale(1.05);
-    cursor: zoom-in;
+    transform: scale(1.1);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }
