@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useState } from "react";
 import styles from "./lightboxGallery.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
@@ -48,6 +48,8 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   setImgLoaded,
   zoomedImgSizes,
 }) {
+  const [imgWidth, setImgWidth] = useState(0);
+
   return (
     <div className={styles.slideWrapper}>
       <div
@@ -57,6 +59,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           height: !item.height && !item.width && "100%",
           maxHeight: !item.height && !item.width && "100%",
           aspectRatio: `${[item.width]}/${[item.height]}`,
+          maxWidth: imgWidth !== 0 ? imgWidth : "100%", //HACK for Safari, When we use "aspect-ratio" in flex row container Safari stretch width to parent size
         }}
       >
         <Image
@@ -66,8 +69,11 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           fill
           sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
           priority={index === activeIndex ? true : false}
-          onLoadingComplete={() => {
-            index === activeIndex && setImgLoaded(true);
+          onLoadingComplete={(e) => {
+            if (index !== activeIndex) return;
+
+            setImgWidth(e.clientWidth);
+            setImgLoaded(true);
           }}
         />
 

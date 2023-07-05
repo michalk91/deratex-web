@@ -11,9 +11,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-
   z-index: 20;
-
   animation: fadeInText ease 0.9s;
 }
 
@@ -98,6 +96,7 @@
   background-color: white;
 }
 .text p {
+  display: unset;
   text-align: center;
   user-select: none;
 
@@ -130,9 +129,7 @@
 }
 
 .slideWrapper {
-  display: inline-flex;
-  height: 100%;
-  width: 100%;
+  flex-basis: 100%;
   flex-shrink: 0;
   padding: 20px;
   position: relative;
@@ -146,6 +143,11 @@
   position: relative;
   outline: none;
   background-color: transparent;
+}
+.imageWrapper img {
+  margin: 0 auto;
+  height: 100%;
+  width: auto !important;
 }
 
 .outerImagesContainer {
