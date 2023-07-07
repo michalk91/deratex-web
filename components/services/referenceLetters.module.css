@@ -12,9 +12,9 @@
   justify-content: center;
 }
 .imgContainer {
+  flex-shrink: 0;
   position: relative;
   flex-basis: 120px;
-  overflow: visible;
   border: 1px solid gray;
 }
 
@@ -27,8 +27,12 @@
   font-weight: bold;
   text-align: left;
 }
+.imgContainer span {
+  overflow: visible !important;
+}
 
 .imgContainer img {
+  display: block;
   transition: 0.3s;
   height: 100%;
 }
