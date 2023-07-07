@@ -17,12 +17,6 @@ function useFlipAnimation({
     const firstDim = firstElem?.getBoundingClientRect();
     const modalDim = modalElem?.getBoundingClientRect();
 
-    if (!imgLoaded && modalElem) {
-      modalElem.style.opacity = "0";
-    } else if (imgLoaded && modalElem) {
-      modalElem.style.opacity = "1";
-    } //hide element when image isn't fully loaded
-
     const getDelta = (first, second) => ({
       translateY: first.top - second.top,
       translateX: first.left - second.left,

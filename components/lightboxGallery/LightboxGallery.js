@@ -57,8 +57,6 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
         data-id={index}
         className={styles.imageWrapper}
         style={{
-          height: !item.height && !item.width && "100%",
-          maxHeight: !item.height && !item.width && "100%",
           aspectRatio: `${[item.width]}/${[item.height]}`,
           maxWidth: imgWidth !== 0 ? imgWidth : "100%", //HACK for Safari, When we use "aspect-ratio" in flex row container Safari stretch width to parent size
         }}
