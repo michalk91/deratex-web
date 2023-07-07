@@ -18,8 +18,14 @@ export default function Home() {
         <title>Strona główna</title>
         <meta
           name="description"
-          content="I hope this tutorial is helpful for you"
+          content="Deratex Zakład DDD Tuchola - deratyzacja (odszczurzanie), dezynsekcja (odrobaczanie), dezynfekcja. Gazowanie zbóż, silosów. Usuwanie os, szerszeni, kretów."
         />
+        <meta
+          name="keywords"
+          content="deratyzacja, odszczurzanie, dezynsekcja, odrobaczanie, dezynfekcja, gazowanie, tuchola"
+        />
+        <meta property="og:title" content="DDD Deratex"></meta>
+        <meta property="og:type" content="website"></meta>
       </Head>
       <Slider slides={SliderData} />
       <div>
