@@ -1,9 +1,6 @@
 .offerFor {
   display: flex;
   flex-direction: column;
-  /* max-width: 80rem;
-  padding-left: 6%;
-  padding-right: 6%; */
 }
 
 .offerForText {
@@ -16,8 +13,6 @@
 }
 
 .offerForImageContainer {
-  /* padding-left: 30%;
-  padding-right: 30%; */
   text-align: center;
   margin-bottom: 5%;
   margin-top: 3%;
@@ -52,14 +47,7 @@
   transition: 0.3s;
   font-weight: normal;
   font-family: "Open Sans", sans-serif;
-  /* text-transform: uppercase; */
 }
-
-/* @media (hover: hover) {
-  .offerForImageContainer div:hover {
-    transform: scale(1.2);
-  }
-} */
 
 .offerForImageContainer div:nth-child(1) {
   top: 26%;
