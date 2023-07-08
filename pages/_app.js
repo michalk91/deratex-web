@@ -23,8 +23,7 @@ function MyApp({ Component, pageProps }) {
         </Layout>
       )}
       <Script
-        async
-        defer
+        strategy="lazyOnload"
         crossOrigin="anonymous"
         src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v15.0"
         nonce="jY8mMkvQ"
