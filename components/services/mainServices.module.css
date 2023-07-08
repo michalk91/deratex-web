@@ -28,7 +28,6 @@
   object-fit: contain;
 }
 
-
 .greenBG {
   background-color: rgb(141, 183, 141);
 }
@@ -71,7 +70,6 @@
 }
 
 .title {
-  font-family: "Outfit", sans-serif;
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -80,9 +78,7 @@
   padding-bottom: 10px;
   letter-spacing: 2px;
   border-bottom: 2px solid red;
-
   font-size: 1.3rem;
-  font-weight: bolder;
 }
 
 .wrapper {

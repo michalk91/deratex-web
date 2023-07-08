@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
 import { useState } from "react";
+import { roboto } from "../fonts/fonts";
 
 export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
 
@@ -18,9 +19,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       {mounted && (
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <div className={roboto.className}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </div>
       )}
       <Script
         strategy="lazyOnload"

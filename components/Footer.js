@@ -5,11 +5,9 @@ import Image from "next/dist/client/image";
 import classNames from "classnames";
 import { RiFacebookBoxLine } from "react-icons/ri";
 import RichLightboxGallery from "./lightboxGallery/RichLightboxGallery";
+import { outfit, roboto, robotoBolder } from "../fonts/fonts";
 
 function Footer() {
-
-
-
   const texts = [
     {
       src: "/images/reference.jpg",
@@ -35,19 +33,43 @@ function Footer() {
         <div className={classNames("innerContentWidth")}>
           <div className={classNames(styles.gridContainer)}>
             <div className={styles.innerContainer}>
-              <p className={classNames(styles.columnInfo)}>Kontakt</p>
-              <div className={classNames(styles.nestedColumnInfo)}>
-                <p className={classNames(styles.nestedColumnTitle)}>Adres:</p>
-                <p>ul. Cegielniana 28/41,</p>
-                <p>89-500 Tuchola</p>
+              <p className={classNames(styles.columnInfo, outfit.className)}>
+                Kontakt
+              </p>
+              <div
+                className={classNames(
+                  styles.nestedColumnInfo,
+                  robotoBolder.className
+                )}
+              >
+                <p
+                  className={classNames(
+                    styles.nestedColumnTitle,
+                    robotoBolder.className
+                  )}
+                >
+                  Adres:
+                </p>
+                <p className={roboto.className}>ul. Cegielniana 28/41,</p>
+                <p className={roboto.className}>89-500 Tuchola</p>
               </div>
-              <div className={classNames(styles.nestedColumnInfo)}>
-                <p className={classNames(styles.nestedColumnTitle)}>
+              <div
+                className={classNames(
+                  styles.nestedColumnInfo,
+                  robotoBolder.className
+                )}
+              >
+                <p
+                  className={classNames(
+                    styles.nestedColumnTitle,
+                    robotoBolder.className
+                  )}
+                >
                   Numery telefonów:
                 </p>
                 <p>
                   <a
-                    className={classNames(styles.redHover)}
+                    className={classNames(styles.redHover, roboto.className)}
                     href="tel:660826121"
                   >
                     tel. 660 826 121
@@ -55,7 +77,7 @@ function Footer() {
                 </p>
                 <p>
                   <a
-                    className={classNames(styles.redHover)}
+                    className={classNames(styles.redHover, roboto.className)}
                     href="tel:660906327"
                   >
                     tel. 660 906 327
@@ -63,7 +85,14 @@ function Footer() {
                 </p>
               </div>
               <div className={classNames(styles.nestedColumnInfo)}>
-                <p className={classNames(styles.nestedColumnTitle)}>E-mail: </p>
+                <p
+                  className={classNames(
+                    styles.nestedColumnTitle,
+                    robotoBolder.className
+                  )}
+                >
+                  E-mail:
+                </p>
                 <a
                   className={classNames(styles.redHover)}
                   href="mailto:ul50@wp.pl"
@@ -74,9 +103,16 @@ function Footer() {
             </div>
 
             <div className={styles.innerContainer}>
-              <p className={classNames(styles.columnInfo)}>Nasze referencje</p>
+              <p className={classNames(styles.columnInfo, outfit.className)}>
+                Nasze referencje
+              </p>
               <div className={classNames(styles.nestedColumnInfo)}>
-                <p className={classNames(styles.nestedColumnTitle)}>
+                <p
+                  className={classNames(
+                    styles.nestedColumnTitle,
+                    robotoBolder.className
+                  )}
+                >
                   Listy referencyjne:
                 </p>
                 <RichLightboxGallery
@@ -84,12 +120,13 @@ function Footer() {
                   items={texts}
                   thumbnailsOptions={{
                     thumbnailWithBorderRadius: false,
-                    keepRatio:true,
+                    keepRatio: true,
                     thumbnailHeight: 85,
-
                   }}
                 ></RichLightboxGallery>
-                <p className={classNames(styles.columnInfo)}>Nasz facebook </p>
+                <p className={classNames(styles.columnInfo, outfit.className)}>
+                  Nasz facebook
+                </p>
                 <a href="https://www.facebook.com/deratexdddtuchola">
                   <RiFacebookBoxLine
                     size={70}
@@ -99,7 +136,9 @@ function Footer() {
               </div>
             </div>
             <div className={styles.innerContainer}>
-              <p className={classNames(styles.columnInfo)}>Godziny pracy</p>
+              <p className={classNames(styles.columnInfo, outfit.className)}>
+                Godziny pracy
+              </p>
               <div className={classNames(styles.nestedColumnInfo)}>
                 <p>Poniedziałek - Piątek: 8:00 - 16:00</p>
                 <p>Sobota: 8:00 - 15:00</p>
@@ -117,7 +156,9 @@ function Footer() {
             </div>
           </div>
 
-          <div className={classNames(styles.footerBottomText)}>
+          <div
+            className={classNames(styles.footerBottomText, roboto.className)}
+          >
             &copy; 2023 DERATEX - Zakład Dezynfekcji, Dezynsekcji i Deratyzacji
           </div>
         </div>

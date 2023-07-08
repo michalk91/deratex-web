@@ -28,14 +28,12 @@
 }
 
 .columnInfo {
-  font-family: "Outfit", sans-serif;
   font-size: 1.5rem;
   padding-top: 20px;
 }
 
 .nestedColumnTitle {
   font-size: 1.1rem;
-  font-weight: bolder;
 }
 
 .navlogo {
@@ -44,7 +42,7 @@
   width: 85%;
 }
 
-.navlogo img{
+.navlogo img {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -54,7 +52,6 @@
   padding: 30px;
   color: white;
   text-align: center;
-  font-family: "Roboto", sans-serif;
   font-size: 1.2rem;
 }
 
@@ -67,8 +64,6 @@
   height: 100%;
   padding: 20px;
 }
-
-
 
 .redHover:hover {
   color: red;

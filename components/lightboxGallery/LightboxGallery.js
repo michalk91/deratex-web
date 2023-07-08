@@ -7,6 +7,7 @@ import useIsScrollableX from "../../hooks/useIsScrollableX";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
+import { roboto } from "../../fonts/fonts";
 
 const LightboxImage = memo(function LightboxImage({
   index,
@@ -78,7 +79,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
 
         {item.text && imgLoaded && index === activeIndex && (
           <div className={styles.captionContainer}>
-            <p> {item.text} </p>
+            <p className={roboto.className}> {item.text} </p>
           </div>
         )}
       </div>

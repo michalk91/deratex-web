@@ -3,6 +3,7 @@ import styles from "./mainServices.module.css";
 import classNames from "classnames";
 import { memo, useRef } from "react";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
+import { outfitBolder } from "../../fonts/fonts";
 
 function MainServices() {
   const items = [
@@ -108,7 +109,9 @@ function MainServices() {
               </div>
 
               <div className={styles.textContainer}>
-                <p className={styles.title}>{item.title}</p>
+                <p className={classNames(styles.title, outfitBolder.className)}>
+                  {item.title}
+                </p>
                 <p className={styles.text}>{item.text}</p>
               </div>
             </div>
