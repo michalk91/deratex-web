@@ -10,19 +10,19 @@ import { outfit, roboto, robotoBolder } from "../fonts/fonts";
 function Footer() {
   const texts = [
     {
-      src: "/images/reference.jpg",
+      src: "/images/services/ReferenceLetters/reference.jpg",
       alt: "reference list",
-      text: "Kliknij aby zobaczyć list",
+      text: "Spółdzielnia Mieszkaniowa",
       width: 464,
       height: 621,
       textClassName: styles.redHover,
     },
     {
-      src: "/images/reference.jpg",
-      alt: "reference list",
-      text: "Kliknij aby zobaczyć list",
-      width: 464,
-      height: 621,
+      src: "/images/services/ReferenceLetters/reference_second.jpg",
+      alt: "reference list 2",
+      text: "Burmistrz Świecia",
+      width: 1414,
+      height: 2000,
       textClassName: styles.redHover,
     },
   ];

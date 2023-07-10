@@ -8,8 +8,20 @@ import { ImageForLightbox } from "../carouselSlider/Carousel";
 
 function ReferenceLetters() {
   const images = [
-    { src: "/images/reference.jpg", alt: "reference letter" },
-    { src: "/images/reference.jpg", alt: "reference letter" },
+    {
+      src: "/images/services/ReferenceLetters/reference.jpg",
+      alt: "reference letter",
+      height: 621,
+      width: 464,
+      text: "Spółdzielnia Mieszkaniowa",
+    },
+    {
+      src: "/images/services/ReferenceLetters/reference_second.jpg",
+      alt: "reference letter 2",
+      height: 2000,
+      width: 1414,
+      text: "Burmistrz Świecia",
+    },
   ];
 
   return (
@@ -34,12 +46,12 @@ function ReferenceLetters() {
                     imgClassName={styles.imgContainer}
                     src={item.src}
                     alt={item.alt}
-                    width={464}
-                    height={621}
+                    width={item.width}
+                    height={item.height}
                     sizes="20vw"
                   />
                   <div className={styles.textContainer}>
-                    <p>Spółdzielnia Mieszkaniowa Lokatorsko-własnościowa</p>
+                    <p>{item.text}</p>
                   </div>
                 </CarouselItem>
               ))}
