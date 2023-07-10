@@ -31,7 +31,6 @@ function RichCarousel({
   const [carouselInfo, setCarouselInfo] = useState({
     lightboxOpen: false,
     flipAnimating: false,
-    imgLoaded: false,
   });
 
   const [imgLoaded, setImgLoaded] = useState(false);
