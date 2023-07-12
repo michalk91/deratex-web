@@ -27,9 +27,9 @@ function TextAndImageLightbox({
   thumbnailsOptions,
   items,
   zoomedImgSizes,
+  imgLoaded,
+  setImgLoaded,
 }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   const closingModalDelay = 400;
 
   const thumbsContainerRef = useRef();
@@ -43,10 +43,6 @@ function TextAndImageLightbox({
     delay: closingModalDelay,
     functionToDelay: closeGallery,
   });
-
-  const handleImageLoaded = useCallback(() => {
-    setImageLoaded(true);
-  }, []);
 
   return (
     <>
@@ -96,7 +92,7 @@ function TextAndImageLightbox({
                 <div
                   data-id={index}
                   className={classNames(styles.imageContainer, {
-                    [styles.openingAnim]: imageLoaded && !beforeDelay,
+                    [styles.openingAnim]: imgLoaded && !beforeDelay,
                     [styles.closingAnim]: beforeDelay,
                   })}
                 >
@@ -106,7 +102,7 @@ function TextAndImageLightbox({
                     width={0}
                     height={0}
                     sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
-                    onLoadingComplete={handleImageLoaded}
+                    onLoadingComplete={index === activeIndex && setImgLoaded}
                     priority={true}
                   />
                 </div>

@@ -103,6 +103,8 @@ function RichLightboxGallery({
       items={items}
       thumbnailsOptions={thumbnailsOptions}
       zoomedImgSizes={zoomedImgSizes}
+      setImgLoaded={setImgLoaded}
+      imgLoaded={imgLoaded}
     />
   ) : (
     <LightboxGallery
