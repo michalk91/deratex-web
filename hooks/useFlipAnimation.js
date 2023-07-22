@@ -18,8 +18,10 @@ function useFlipAnimation({
     const modalDim = modalElem?.getBoundingClientRect();
 
     const getDelta = (first, second) => ({
-      translateY: first.top - second.top,
-      translateX: first.left - second.left,
+      translateY:
+        first.top + first.height / 2 - (second.top + second.height / 2),
+      translateX:
+        first.left + first.width / 2 - (second.left + second.width / 2),
       scaleWidth: first.width / second.width,
       scaleHeight: first.height / second.height,
     });
@@ -43,7 +45,6 @@ function useFlipAnimation({
       );
       animation.ready.then(
         () => (elem.style.zIndex = "10"),
-        (elem.style.transformOrigin = "0px 0px"),
         animDir === "close" &&
           onCloseAnimationStart &&
           onCloseAnimationStart(elem)
