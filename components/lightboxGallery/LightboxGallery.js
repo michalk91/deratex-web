@@ -76,7 +76,6 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           onMouseDown={onMouseDown}
           onTouchStart={onDragStart}
           style={{
-            zIndex: index === activeIndex && zoom > 1 && "15",
             cursor: zoom > 1 && "grab",
             transform:
               index === activeIndex &&
