@@ -62,6 +62,8 @@ const useCarousel = ({
     transitionX,
     isSwiping,
     transitionEnded,
+    disableSwiping,
+    enableSwiping,
   } = useSwiping({
     currentSlide: activeIndex,
     nextSlide,
@@ -108,6 +110,8 @@ const useCarousel = ({
     transitionX,
     isSwiping,
     transitionEnded,
+    disableSwiping,
+    enableSwiping,
   };
 };
 

@@ -38,7 +38,8 @@ function RichLightboxGallery({
     transitionX,
     isSwiping,
     onTransitionEnd,
-
+    enableSwiping,
+    disableSwiping,
     transitionEnded,
   } = useCarousel({
     childrenCount: items?.length,
@@ -105,6 +106,8 @@ function RichLightboxGallery({
       zoomedImgSizes={zoomedImgSizes}
       setImgLoaded={setImgLoaded}
       imgLoaded={imgLoaded}
+      enableSwiping={enableSwiping}
+      disableSwiping={disableSwiping}
     />
   ) : (
     <LightboxGallery
@@ -134,6 +137,8 @@ function RichLightboxGallery({
       setImgLoaded={setImgLoaded}
       zoomedImgSizes={zoomedImgSizes}
       imgLoaded={imgLoaded}
+      enableSwiping={enableSwiping}
+      disableSwiping={disableSwiping}
     />
   );
 }

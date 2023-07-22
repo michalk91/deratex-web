@@ -16,6 +16,7 @@ const useSwiping = ({
   const [swipeInfo, setSwipeInfo] = useState({
     transitionX: 0,
     transitionEnded: true,
+    allowSwiping: true,
   });
 
   const swipingRef = useRef({
@@ -28,6 +29,20 @@ const useSwiping = ({
     swipeAxisChanged: false,
     preventTouchScroll: false,
   }).current;
+
+  const enableSwiping = useCallback(() => {
+    setSwipeInfo((state) => ({
+      ...state,
+      allowSwiping: true,
+    }));
+  }, []);
+
+  const disableSwiping = useCallback(() => {
+    setSwipeInfo((state) => ({
+      ...state,
+      allowSwiping: false,
+    }));
+  }, []);
 
   useEffect(() => {
     const preventTouchScrolling = (e) => {
@@ -63,15 +78,22 @@ const useSwiping = ({
     }));
   }, []);
 
-  const onTouchStart = useCallback((e) => {
-    swipingRef.originX = Number(e.touches[0].clientX);
-    swipingRef.originY = Number(e.touches[0].clientY);
-    swipingRef.startTime = Date.now();
-    swipingRef.isSwiping = true;
-  }, []);
+  const onTouchStart = useCallback(
+    (e) => {
+      if (!swipeInfo.allowSwiping) return;
+
+      swipingRef.originX = Number(e.touches[0].clientX);
+      swipingRef.originY = Number(e.touches[0].clientY);
+      swipingRef.startTime = Date.now();
+      swipingRef.isSwiping = true;
+    },
+    [swipeInfo.allowSwiping]
+  );
 
   const onTouchMove = useCallback(
     (e) => {
+      if (!swipeInfo.allowSwiping) return;
+
       const distanceX = Number(e.touches[0].clientX) - swipingRef.originX;
       const distanceY = Number(e.touches[0].clientY) - swipingRef.originY;
 
@@ -95,11 +117,13 @@ const useSwiping = ({
         }));
       }
     },
-    [swipeInfo.transitionX]
+    [swipeInfo.transitionX, swipeInfo.allowSwiping]
   );
 
   const onTouchEnd = useCallback(
     (e) => {
+      if (!swipeInfo.allowSwiping) return;
+
       const endTime = Date.now();
       const swipingTime = endTime - swipingRef.startTime;
       const swipingSpeed = Math.floor(
@@ -127,7 +151,7 @@ const useSwiping = ({
       swipingRef.swipeAxis = "";
       swipingRef.preventTouchScroll = false;
     },
-    [swipeInfo.transitionX]
+    [swipeInfo.transitionX, swipeInfo.allowSwiping]
   );
 
   return {
@@ -138,6 +162,8 @@ const useSwiping = ({
     isSwiping: swipingRef.isSwiping,
     onTransitionEnd,
     transitionEnded: swipeInfo.transitionEnded,
+    enableSwiping,
+    disableSwiping,
   };
 };
 

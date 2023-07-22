@@ -61,6 +61,8 @@ function RichCarousel({
     isSwiping,
     onTransitionEnd,
     transitionEnded,
+    disableSwiping,
+    enableSwiping,
   } = useCarousel({
     childrenCount: React.Children.count(children),
     containerRef: ref,
@@ -177,6 +179,8 @@ function RichCarousel({
           setImgLoaded={setImgLoaded}
           imgLoaded={imgLoaded}
           zoomedImgSizes={lightboxZoomedImgSizes}
+          disableSwiping={disableSwiping}
+          enableSwiping={enableSwiping}
         />
       )}
     </>
