@@ -66,12 +66,10 @@ const ImageForLightbox = memo(function ImageForLightbox({
   firstElemRef,
 }) {
   return (
-    <div
-      ref={firstElemRef}
-      onClick={openGallery}
-      className={classNames(imgClassName)}
-    >
+    <div className={classNames(imgClassName)}>
       <Image
+        ref={firstElemRef}
+        onClick={openGallery}
         src={src}
         alt={alt}
         height={height ? height : undefined}

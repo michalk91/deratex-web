@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./lightboxGallery.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
@@ -8,6 +8,10 @@ import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
 import { roboto } from "../../fonts/fonts";
+import { SlMagnifierAdd } from "react-icons/sl";
+import { SlMagnifierRemove } from "react-icons/sl";
+import useZoomAndDrag from "../../hooks/useZoomAndDrag";
+import { SlFrame } from "react-icons/sl";
 
 const LightboxImage = memo(function LightboxImage({
   index,
@@ -49,6 +53,12 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   setImgLoaded,
   zoomedImgSizes,
   imgLoaded,
+  dragTransitionX,
+  dragTransitionY,
+  zoom,
+  isDragging,
+  onMouseDown,
+  onDragStart,
 }) {
   const [imgWidth, setImgWidth] = useState(0);
 
@@ -63,6 +73,17 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
         }}
       >
         <Image
+          onMouseDown={onMouseDown}
+          onTouchStart={onDragStart}
+          style={{
+            zIndex: index === activeIndex && zoom > 1 && "15",
+            cursor: zoom > 1 && "grab",
+            transform:
+              index === activeIndex &&
+              zoom > 1 &&
+              `scale(${zoom}) translate3d(${dragTransitionX}px, ${dragTransitionY}px, 0)`,
+            transitionDuration: isDragging ? "0s" : "0.3s",
+          }}
           ref={index === activeIndex ? modalElemRef : null}
           src={item.src}
           alt={item.alt}
@@ -77,7 +98,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           }}
         />
 
-        {item.text && imgLoaded && index === activeIndex && (
+        {zoom === 1 && item.text && imgLoaded && index === activeIndex && (
           <div className={styles.captionContainer}>
             <p className={roboto.className}> {item.text} </p>
           </div>
@@ -114,6 +135,8 @@ function LightboxGallery({
   setImgLoaded,
   zoomedImgSizes,
   imgLoaded,
+  enableSwiping,
+  disableSwiping,
 }) {
   const thumbsContainerRef = useRef();
 
@@ -126,6 +149,26 @@ function LightboxGallery({
     data: items,
     activeIndex,
   });
+
+  const {
+    handleDecreaseZoom,
+    handleIncreaseZoom,
+    handleResetZoom,
+    dragTransitionX,
+    dragTransitionY,
+    onMouseDown,
+    onDragStart,
+    isDragging,
+    zoom,
+  } = useZoomAndDrag({ resetZoom: { lightboxOpen, activeIndex } });
+
+  useEffect(() => {
+    if (zoom > 1) {
+      disableSwiping();
+    } else {
+      enableSwiping();
+    }
+  }, [zoom]);
 
   return (
     <>
@@ -153,6 +196,23 @@ function LightboxGallery({
           [styles.wrapperWithAnim]: imgLoaded,
         })}
       >
+        <div className={styles.btnsContainer}>
+          <SlFrame
+            style={{ display: zoom > 1 && zoom <= 2 ? "block" : "none" }}
+            className={styles.alignToFrameBtn}
+            onClick={handleResetZoom}
+          />
+          <SlMagnifierAdd
+            style={{ color: zoom >= 1 && zoom < 2 ? "black" : "lightGray" }}
+            onClick={handleIncreaseZoom}
+            className={styles.increaseBtn}
+          />
+          <SlMagnifierRemove
+            style={{ color: zoom > 1 && zoom <= 2 ? "black" : "lightGray" }}
+            onClick={handleDecreaseZoom}
+            className={styles.decreaseBtn}
+          />
+        </div>
         <div
           className={classNames(styles.outerImagesContainerWithThumbs, {
             [styles.outerImagesContainer]: !lightboxThumbsVisible,
@@ -190,6 +250,12 @@ function LightboxGallery({
                       setImgLoaded={setImgLoaded}
                       zoomedImgSizes={zoomedImgSizes}
                       imgLoaded={imgLoaded}
+                      dragTransitionX={dragTransitionX}
+                      dragTransitionY={dragTransitionY}
+                      zoom={zoom}
+                      onMouseDown={onMouseDown}
+                      isDragging={isDragging}
+                      onDragStart={onDragStart}
                     />
                   ))
                 : virtualizedData?.map((item) => (
@@ -202,6 +268,12 @@ function LightboxGallery({
                       setImgLoaded={setImgLoaded}
                       zoomedImgSizes={zoomedImgSizes}
                       imgLoaded={imgLoaded}
+                      dragTransitionX={dragTransitionX}
+                      dragTransitionY={dragTransitionY}
+                      zoom={zoom}
+                      onMouseDown={onMouseDown}
+                      isDragging={isDragging}
+                      onDragStart={onDragStart}
                     />
                   ))}
             </div>
