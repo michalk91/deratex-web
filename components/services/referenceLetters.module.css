@@ -15,7 +15,6 @@
   flex-shrink: 0;
   position: relative;
   flex-basis: 120px;
-  border: 1px solid gray;
 }
 
 .textContainer {
@@ -27,14 +26,12 @@
   font-weight: bold;
   text-align: left;
 }
-.imgContainer span {
-  overflow: visible !important;
-}
 
 .imgContainer img {
   display: block;
   transition: 0.3s;
   height: 100%;
+  border: 1px solid gray;
 }
 
 @media (hover: hover) {

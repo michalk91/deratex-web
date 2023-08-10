@@ -12,7 +12,7 @@
   position: fixed;
   display: flex;
   justify-content: space-between;
-  right: 90px;
+  right: 95px;
   z-index: 10;
   gap: 10px;
   top: 4%;
@@ -101,7 +101,8 @@
 }
 
 .containerThumbs {
-  align-items: center;
+  height: 12%;
+  align-items: flex-start;
   padding-top: 10px;
   flex-shrink: 1;
   margin-left: 10px;
@@ -113,6 +114,11 @@
   opacity: 100%;
   display: flex;
   touch-action: pan-x;
+  transition: 0.3s;
+}
+
+.hideThumbsContainer {
+  transform: translateY(100%);
 }
 
 .text {
@@ -126,7 +132,6 @@
   display: unset;
   text-align: center;
   user-select: none;
-
   font-size: 1.3rem;
   text-shadow: black 0.1em 0.1em 0.2em !important;
 }
@@ -145,10 +150,19 @@
   transform: translateY(-50%);
   z-index: 999999999999999999999999999;
   background-color: transparent;
+  transition: 0.3s;
 }
 
 .nextSlide {
   right: 5%;
+}
+
+.hiddenNextSlide {
+  transform: translateX(250%);
+}
+
+.hiddenPrevSlide {
+  transform: translateX(-250%);
 }
 
 .prevSlide {

@@ -28,6 +28,9 @@
   overflow: visible;
   flex-basis: 90px;
   cursor: zoom-in;
+}
+
+.certificatesImage img {
   border: 1px solid gray;
 }
 

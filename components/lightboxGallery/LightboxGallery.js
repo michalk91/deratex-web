@@ -159,7 +159,10 @@ function LightboxGallery({
     onDragStart,
     isDragging,
     zoom,
-  } = useZoomAndDrag({ resetZoom: { lightboxOpen, activeIndex } });
+  } = useZoomAndDrag({
+    resetZoom: { lightboxOpen, activeIndex },
+    bottomCompensation: thumbsContainerRef?.current?.offsetHeight,
+  });
 
   useEffect(() => {
     if (zoom > 1) {
@@ -277,11 +280,23 @@ function LightboxGallery({
                   ))}
             </div>
           </div>
-          <IoCaretForward className={styles.nextSlide} onClick={nextSlide} />
-          <IoCaretBack className={styles.prevSlide} onClick={prevSlide} />
+          <IoCaretForward
+            className={classNames(styles.nextSlide, {
+              [styles.hiddenNextSlide]: zoom > 1,
+            })}
+            onClick={nextSlide}
+          />
+          <IoCaretBack
+            className={classNames(styles.prevSlide, {
+              [styles.hiddenPrevSlide]: zoom > 1,
+            })}
+            onClick={prevSlide}
+          />
         </div>
         <div
-          className={styles.containerThumbs}
+          className={classNames(styles.containerThumbs, {
+            [styles.hideThumbsContainer]: zoom > 1,
+          })}
           ref={thumbsContainerRef}
           style={{
             justifyContent: isScrollableX ? "flex-start" : "center",
