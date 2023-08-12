@@ -181,6 +181,7 @@ function useZoomAndDrag({
     (e) => {
       dragMargin.target = e.currentTarget;
       if (dragInfo.zoom === 1) return;
+      e.preventDefault();
 
       const currentPosX = Number(e.touches[0].clientX) / dragInfo.zoom;
       const currentPosY = Number(e.touches[0].clientY) / dragInfo.zoom;
@@ -290,19 +291,21 @@ function useZoomAndDrag({
       lastX: state.transitionX - overMarginX,
       lastY: state.transitionY - overMarginY,
     }));
+
+    console.log("hehe", dragInfo, dragMargin);
   }, [bottomCompensation, dragInfo, dragMargin, calculateOverMargin]);
 
   useEffect(() => {
-    document.addEventListener("mouseup", onMouseUp);
-    document.addEventListener("touchend", onMouseUp);
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("touchmove", onDraging);
+    window.addEventListener("mouseup", onMouseUp);
+    window.addEventListener("touchend", onMouseUp);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchmove", onDraging);
 
     return () => {
-      document.removeEventListener("mouseup", onMouseUp);
-      document.removeEventListener("touchend", onMouseUp);
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("touchmove", onDraging);
+      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchend", onMouseUp);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchmove", onDraging);
     };
   }, [onMouseUp, onMouseMove, onDraging]);
 
