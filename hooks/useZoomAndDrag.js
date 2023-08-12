@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 function useZoomAndDrag({
   resetZoom,
   bottomCompensation,
-  boundaryResistance = 30,
+  boundaryResistance = 20,
 }) {
   const [dragInfo, setDragInfo] = useState({
     isDragging: false,
@@ -58,8 +58,10 @@ function useZoomAndDrag({
 
   const isBiggerThanViewport = useCallback(
     ({ offsetHeight, offsetWidth, zoom }) => {
-      const isWidderThanViewport = offsetWidth * zoom > window.innerWidth;
-      const isHigherThanViewport = offsetHeight * zoom > window.innerHeight;
+      const isWidderThanViewport =
+        offsetWidth * zoom + bottomCompensation > window.innerWidth;
+      const isHigherThanViewport =
+        offsetHeight * zoom + bottomCompensation > window.innerHeight;
 
       return { isWidderThanViewport, isHigherThanViewport };
     },
