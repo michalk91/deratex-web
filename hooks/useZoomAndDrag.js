@@ -65,7 +65,7 @@ function useZoomAndDrag({
 
       return { isWidderThanViewport, isHigherThanViewport };
     },
-    []
+    [bottomCompensation]
   );
 
   const getLimitedState = useCallback(
