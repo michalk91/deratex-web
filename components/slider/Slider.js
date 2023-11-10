@@ -41,10 +41,14 @@ function Slider({ slides }) {
     }));
   }, []);
 
+  const keys = [
+    { key: "ArrowRight", action: nextSlide },
+    { key: "ArrowLeft", action: prevSlide },
+  ];
+
   const { inViewport } = useKeyPress({
     inViewportRef: containerRef,
-    nextSlide,
-    prevSlide,
+    keys,
     hover: paused,
   });
 

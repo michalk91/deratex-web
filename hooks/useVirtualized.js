@@ -1,6 +1,6 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useRef } from "react";
 
-function useVirtualized({ data, activeIndex}) {
+function useVirtualized({ data, activeIndex }) {
   const virtualizedDataRef = useRef([]);
 
   const start = activeIndex > 0 ? activeIndex - 1 : 0;

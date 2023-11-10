@@ -14,13 +14,13 @@ const useSwiping = ({
   const RESISTANCE = 3; // Resistance on first and last slide
 
   const [swipeInfo, setSwipeInfo] = useState({
+    isSwiping: false,
     transitionX: 0,
     transitionEnded: true,
     allowSwiping: true,
   });
 
   const swipingRef = useRef({
-    isSwiping: false,
     resistanceOnEnds: false,
     startTime: 0,
     originX: 0,
@@ -28,6 +28,7 @@ const useSwiping = ({
     swipeAxis: "",
     swipeAxisChanged: false,
     preventTouchScroll: false,
+    fingers: 0,
   }).current;
 
   const enableSwiping = useCallback(() => {
@@ -80,19 +81,21 @@ const useSwiping = ({
 
   const onTouchStart = useCallback(
     (e) => {
-      if (!swipeInfo.allowSwiping) return;
-
       swipingRef.originX = Number(e.touches[0].clientX);
       swipingRef.originY = Number(e.touches[0].clientY);
       swipingRef.startTime = Date.now();
-      swipingRef.isSwiping = true;
+      swipingRef.fingers = e.touches.length;
+      setSwipeInfo((state) => ({
+        ...state,
+        isSwiping: e.touches.length === 1 && state.allowSwiping ? true : false,
+      }));
     },
-    [swipeInfo.allowSwiping]
+    [swipingRef]
   );
 
   const onTouchMove = useCallback(
     (e) => {
-      if (!swipeInfo.allowSwiping) return;
+      if (!swipeInfo.isSwiping || !swipeInfo.allowSwiping) return;
 
       const distanceX = Number(e.touches[0].clientX) - swipingRef.originX;
       const distanceY = Number(e.touches[0].clientY) - swipingRef.originY;
@@ -117,13 +120,20 @@ const useSwiping = ({
         }));
       }
     },
-    [swipeInfo.transitionX, swipeInfo.allowSwiping]
+    [
+      currentSlide,
+      disableResistanceOnEnds,
+      getSwipeAxis,
+      slidesCount,
+      swipingRef,
+      withoutAxisDetection,
+      swipeInfo.isSwiping,
+      swipeInfo.allowSwiping,
+    ]
   );
 
   const onTouchEnd = useCallback(
     (e) => {
-      if (!swipeInfo.allowSwiping) return;
-
       const endTime = Date.now();
       const swipingTime = endTime - swipingRef.startTime;
       const swipingSpeed = Math.floor(
@@ -135,6 +145,7 @@ const useSwiping = ({
 
       setSwipeInfo((state) => ({
         ...state,
+        isSwiping: false,
         transitionX: 0,
         transitionEnded: withoutTransitionEndHandling ? true : false,
       }));
@@ -146,7 +157,6 @@ const useSwiping = ({
       }
 
       swipingRef.resistanceOnEnds = false;
-      swipingRef.isSwiping = false;
       swipingRef.swipeAxisChanged = false;
       swipingRef.swipeAxis = "";
       swipingRef.preventTouchScroll = false;
@@ -159,7 +169,7 @@ const useSwiping = ({
     onTouchStart,
     onTouchMove,
     transitionX: swipeInfo.transitionX,
-    isSwiping: swipingRef.isSwiping,
+    isSwiping: swipeInfo.isSwiping,
     onTransitionEnd,
     transitionEnded: swipeInfo.transitionEnded,
     enableSwiping,

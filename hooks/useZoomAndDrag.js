@@ -1,76 +1,128 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 
 function useZoomAndDrag({
-  resetZoom,
   bottomCompensation,
-  boundaryResistance = 20,
+  boundaryResistance = 50,
+  maxZoom = 3,
+  doubleTapSensivity = 300,
+  minDistBetweenFingers = 80,
 }) {
-  const [dragInfo, setDragInfo] = useState({
+  const [zoomInfo, setZoomInfo] = useState({
+    allowDragAndZoom: true,
     isDragging: false,
+    isZooming: false,
+    doubleTapped: false,
     originX: 0,
     originY: 0,
     transitionX: 0,
     transitionY: 0,
-    lastX: 0,
-    lastY: 0,
     zoom: 1,
   });
 
-  const dragMargin = useRef({
-    target: null,
-    marginSetY: false,
-    marginSetX: false,
+  const zoomInfoRef = useRef({
+    startDistance: 0,
+    lastX: 0,
+    lastY: 0,
+    lastZoom: 1,
     marginTop: 0,
     marginLeft: 0,
+    fingersStart: 0,
     widderThanViewport: false,
     higherThanViewport: false,
+    startZoomPosX: 0,
+    startZoomPosY: 0,
   }).current;
 
-  const depArray =
-    typeof resetZoom === Object || Array
-      ? JSON.stringify(resetZoom)
-      : resetZoom;
+  const tapInfoRef = useRef({
+    lastTap: 0,
+    timeout: null,
+  }).current;
+
+  const enableDragAndZoom = useCallback(() => {
+    setZoomInfo((state) => ({
+      ...state,
+      allowDragAndZoom: true,
+    }));
+  }, []);
+
+  const disableDragAndZoom = useCallback(() => {
+    setZoomInfo((state) => ({
+      ...state,
+      allowDragAndZoom: false,
+    }));
+  }, []);
+
+  const getLimitedState = useCallback(
+    ({ min, max, value }) => Math.min(max, Math.max(value, min)),
+    []
+  );
+
+  const getDragBoundries = useCallback(
+    ({ target, zoom }) => {
+      const marginTop =
+        (target?.clientHeight * zoom -
+          (window.innerHeight - bottomCompensation)) /
+        2 /
+        zoom;
+
+      const marginLeft =
+        (target?.clientWidth * zoom - window.innerWidth) / 2 / zoom;
+
+      return { marginTop, marginLeft };
+    },
+    [bottomCompensation]
+  );
 
   const handleIncreaseZoom = useCallback(() => {
-    setDragInfo((state) => ({
+    setZoomInfo((state) => ({
       ...state,
-      zoom: state.zoom < 2 ? state.zoom + 0.5 : 2,
-    }));
-  }, []);
-
-  const handleDecreaseZoom = useCallback(() => {
-    setDragInfo((state) => ({
-      ...state,
-      zoom: state.zoom > 1 ? state.zoom - 0.5 : 1,
+      zoom: getLimitedState({
+        min: 1,
+        max: maxZoom,
+        value: state.zoom + 0.5,
+      }),
       transitionX: 0,
       transitionY: 0,
-      lastX: 0,
-      lastY: 0,
     }));
-  }, []);
+  }, [maxZoom, getLimitedState]);
+
+  const handleDecreaseZoom = useCallback(() => {
+    setZoomInfo((state) => ({
+      ...state,
+      zoom: getLimitedState({
+        min: 1,
+        max: maxZoom,
+        value: state.zoom - 0.5,
+      }),
+      transitionX: 0,
+      transitionY: 0,
+    }));
+  }, [maxZoom, getLimitedState]);
 
   const handleResetZoom = useCallback(() => {
-    setDragInfo((state) => ({
+    setZoomInfo((state) => ({
       ...state,
+      isDragging: false,
+      isZooming: false,
+      doubleTapped: false,
       zoom: 1,
+      transitionX: 0,
+      transitionY: 0,
     }));
   }, []);
 
   const isBiggerThanViewport = useCallback(
     ({ offsetHeight, offsetWidth, zoom }) => {
-      const isWidderThanViewport =
-        offsetWidth * zoom + bottomCompensation > window.innerWidth;
+      const isWidderThanViewport = offsetWidth * zoom > window.innerWidth;
       const isHigherThanViewport =
         offsetHeight * zoom + bottomCompensation > window.innerHeight;
 
-      return { isWidderThanViewport, isHigherThanViewport };
+      return {
+        isWidderThanViewport,
+        isHigherThanViewport,
+      };
     },
     [bottomCompensation]
-  );
-
-  const getLimitedState = useCallback(
-    ({ min, max, value }) => Math.min(min, Math.max(value, max)),
-    []
   );
 
   const calculateOverMargin = useCallback(
@@ -106,221 +158,491 @@ function useZoomAndDrag({
     []
   );
 
-  useEffect(() => {
-    dragMargin.marginSetY = false;
-    dragMargin.marginSetX = false;
+  const getDistanceBetweenFingers = useCallback(({ fingerOne, fingerTwo }) => {
+    const X1 = fingerOne.clientX;
+    const Y1 = fingerOne.clientY;
+    const X2 = fingerTwo.clientX;
+    const Y2 = fingerTwo.clientY;
 
-    if (dragInfo.zoom === 1) {
-      setDragInfo((state) => ({
-        ...state,
-        isDragging: false,
-        originX: 0,
-        originY: 0,
-        transitionX: 0,
-        transitionY: 0,
-        lastX: 0,
-        lastY: 0,
-      }));
-    }
-  }, [dragInfo.zoom, dragMargin]);
+    return Number(Math.sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1)));
+  }, []);
 
-  useEffect(() => {
-    const top = dragMargin?.target?.getBoundingClientRect?.().top;
-    const left = dragMargin?.target?.getBoundingClientRect?.().left;
+  const handleDoubleTap = useCallback(
+    ({ e, originX, originY }) => {
+      if (
+        e.target !== e.currentTarget ||
+        zoomInfo.isZooming ||
+        zoomInfo.isDragging
+      )
+        return;
 
-    if (dragInfo.isDragging && !dragMargin.marginSetY) {
-      dragMargin.marginTop = Math.abs(top / dragInfo.zoom) + dragInfo.lastY;
-      dragMargin.marginSetY = true;
-    }
-    if (dragInfo.isDragging && !dragMargin.marginSetX) {
-      dragMargin.marginLeft = Math.abs(left / dragInfo.zoom) + dragInfo.lastX;
-      dragMargin.marginSetX = true;
-    }
-  }, [
-    dragMargin,
-    dragInfo.isDragging,
-    dragInfo.zoom,
-    dragInfo.lastY,
-    dragInfo.lastX,
-  ]);
+      const curTime = new Date().getTime();
+      const tapLen = curTime - tapInfoRef.lastTap;
 
-  useEffect(() => {
-    const { isHigherThanViewport, isWidderThanViewport } = isBiggerThanViewport(
-      {
-        offsetHeight: dragMargin?.target?.offsetHeight,
-        offsetWidth: dragMargin?.target?.offsetWidth,
-        zoom: dragInfo.zoom,
+      const { marginTop, marginLeft } = getDragBoundries({
+        target: e.currentTarget,
+        zoom: maxZoom,
+      });
+
+      if (
+        tapLen < doubleTapSensivity &&
+        tapLen > 0 &&
+        zoomInfo.allowDragAndZoom
+      ) {
+        const startZoomPosX = window.innerWidth / 2 - originX;
+        const startZoomPosY = window.innerHeight / 2 - originY;
+
+        const dx = startZoomPosX - startZoomPosX / maxZoom;
+        const dy = startZoomPosY - startZoomPosY / maxZoom;
+
+        setZoomInfo((state) => ({
+          ...state,
+          doubleTapped: true,
+          isDragging: false,
+          isZooming: false,
+          zoom: state.zoom === 1 ? maxZoom : 1,
+          transitionX: getLimitedState({
+            max: marginLeft,
+            min: -marginLeft,
+            value: state.zoom === 1 ? state.transitionX + dx : 0,
+          }),
+          transitionY: getLimitedState({
+            max: marginTop,
+            min: -marginTop,
+            value: state.zoom === 1 ? state.transitionY + dy : 0,
+          }),
+        }));
+      } else {
+        tapInfoRef.timeout = setTimeout(() => {
+          clearTimeout(tapInfoRef.timeout);
+        }, doubleTapSensivity);
       }
-    );
-    dragMargin.higherThanViewport = isHigherThanViewport;
-    dragMargin.widderThanViewport = isWidderThanViewport;
-  }, [dragInfo, dragMargin, isBiggerThanViewport]);
-
-  useEffect(() => {
-    handleResetZoom();
-  }, [depArray]);
+      tapInfoRef.lastTap = curTime;
+    },
+    [
+      tapInfoRef,
+      doubleTapSensivity,
+      maxZoom,
+      zoomInfo.isZooming,
+      getDragBoundries,
+      getLimitedState,
+      zoomInfo.isDragging,
+      zoomInfo.allowDragAndZoom,
+    ]
+  );
 
   const onMouseDown = useCallback(
     (e) => {
-      dragMargin.target = e.currentTarget;
-      if (dragInfo.zoom === 1) return;
+      if (zoomInfo.zoom === 1 || zoomInfo.isZooming || zoomInfo.isDragging)
+        return;
+
       e.preventDefault();
 
-      const currentPosX = e.clientX / dragInfo.zoom;
-      const currentPosY = e.clientY / dragInfo.zoom;
+      const { marginTop, marginLeft } = getDragBoundries({
+        target: e.currentTarget,
+        zoom: zoomInfo.zoom,
+      });
 
-      setDragInfo((state) => ({
+      zoomInfoRef.marginTop = marginTop;
+      zoomInfoRef.marginLeft = marginLeft;
+
+      const currentPosX = e.clientX / zoomInfo.zoom;
+      const currentPosY = e.clientY / zoomInfo.zoom;
+
+      zoomInfoRef.lastZoom = zoomInfo.zoom;
+      zoomInfoRef.lastX = zoomInfo.transitionX;
+      zoomInfoRef.lastY = zoomInfo.transitionY;
+
+      setZoomInfo((state) => ({
         ...state,
-        isDragging: true,
-        originX: currentPosX - state.lastX,
-        originY: currentPosY - state.lastY,
+        isDragging: state.allowDragAndZoom ? true : false,
+        originX: currentPosX,
+        originY: currentPosY,
       }));
+
+      const { isHigherThanViewport, isWidderThanViewport } =
+        isBiggerThanViewport({
+          offsetHeight: e.currentTarget?.offsetHeight,
+          offsetWidth: e.currentTarget?.offsetWidth,
+          zoom: zoomInfo.zoom,
+        });
+
+      zoomInfoRef.higherThanViewport = isHigherThanViewport;
+      zoomInfoRef.widderThanViewport = isWidderThanViewport;
     },
-    [dragInfo.zoom, dragMargin]
+    [
+      zoomInfo.zoom,
+      zoomInfoRef,
+      zoomInfo.isZooming,
+      getDragBoundries,
+      zoomInfo.isDragging,
+      zoomInfo.transitionX,
+      zoomInfo.transitionY,
+      isBiggerThanViewport,
+    ]
   );
 
   const onDragStart = useCallback(
     (e) => {
-      dragMargin.target = e.currentTarget;
-      if (dragInfo.zoom === 1) return;
-      e.preventDefault();
+      if (e.target !== e.currentTarget) return;
 
-      const currentPosX = Number(e.touches[0].clientX) / dragInfo.zoom;
-      const currentPosY = Number(e.touches[0].clientY) / dragInfo.zoom;
+      zoomInfoRef.fingersStart = e.targetTouches.length;
 
-      setDragInfo((state) => ({
-        ...state,
-        isDragging: true,
-        originX: currentPosX - state.lastX,
-        originY: currentPosY - state.lastY,
-      }));
+      zoomInfoRef.lastZoom = zoomInfo.zoom;
+      zoomInfoRef.lastX = zoomInfo.transitionX;
+      zoomInfoRef.lastY = zoomInfo.transitionY;
+
+      if (zoomInfoRef.fingersStart === 2) {
+        const fingerOne = e.touches[0];
+        const fingerTwo = e.touches[1];
+
+        const startMidPointX = (fingerOne.clientX + fingerTwo.clientX) / 2;
+        const startMidPointY = (fingerOne.clientY + fingerTwo.clientY) / 2;
+
+        const distance =
+          e.targetTouches.length === 2 &&
+          zoomInfoRef.fingersStart === 2 &&
+          getDistanceBetweenFingers({
+            fingerOne,
+            fingerTwo,
+          });
+        zoomInfoRef.startZoomPosX =
+          (window.innerWidth / 2 - startMidPointX) * zoomInfoRef.lastZoom;
+
+        zoomInfoRef.startZoomPosY =
+          ((window.innerHeight - bottomCompensation) / 2 - startMidPointY) *
+          zoomInfoRef.lastZoom;
+
+        zoomInfoRef.startDistance = distance ? distance : 0;
+
+        setZoomInfo((state) => ({
+          ...state,
+          isZooming: state.allowDragAndZoom ? true : false,
+          isDragging: false,
+          originX: startMidPointX,
+          originY: startMidPointY,
+        }));
+      }
+      if (zoomInfoRef.fingersStart === 1) {
+        const fingerOne = e.touches[0];
+
+        const startPointX = fingerOne.clientX;
+        const startPointY = fingerOne.clientY;
+
+        handleDoubleTap({ e, originX: startPointX, originY: startPointY });
+
+        const { isHigherThanViewport, isWidderThanViewport } =
+          isBiggerThanViewport({
+            offsetHeight: e.currentTarget?.offsetHeight,
+            offsetWidth: e.currentTarget?.offsetWidth,
+            zoom: zoomInfo.zoom,
+          });
+
+        zoomInfoRef.higherThanViewport = isHigherThanViewport;
+        zoomInfoRef.widderThanViewport = isWidderThanViewport;
+
+        if (!zoomInfo.doubleTapped) {
+          const { marginTop, marginLeft } = getDragBoundries({
+            target: e.currentTarget,
+            zoom: zoomInfo.zoom,
+          });
+
+          zoomInfoRef.marginTop = marginTop;
+          zoomInfoRef.marginLeft = marginLeft;
+        }
+
+        setZoomInfo((state) => ({
+          ...state,
+          isDragging:
+            state.doubleTapped || (state.zoom === 1 && !state.allowDragAndZoom)
+              ? false
+              : true,
+          isZooming: false,
+          originX: startPointX,
+          originY: startPointY,
+        }));
+      }
     },
-    [dragInfo.zoom, dragMargin]
+    [
+      getDistanceBetweenFingers,
+      zoomInfoRef,
+      bottomCompensation,
+      zoomInfo,
+      handleDoubleTap,
+      getDragBoundries,
+      isBiggerThanViewport,
+    ]
   );
 
   const onMouseMove = useCallback(
     (e) => {
-      if (!dragInfo.isDragging) return;
+      if (!zoomInfo.isDragging) return;
 
-      setDragInfo((state) => ({
+      setZoomInfo((state) => ({
         ...state,
-
-        transitionX: dragMargin.widderThanViewport
+        transitionX: zoomInfoRef.widderThanViewport
           ? getLimitedState({
-              min: dragMargin.marginLeft + boundaryResistance,
-              max: -dragMargin.marginLeft - boundaryResistance,
-              value: e.clientX / state.zoom - state.originX,
+              max: zoomInfoRef.marginLeft + boundaryResistance / state.zoom,
+              min: -zoomInfoRef.marginLeft - boundaryResistance / state.zoom,
+              value: zoomInfoRef.lastX + e.clientX / state.zoom - state.originX,
             })
           : 0,
 
-        transitionY: dragMargin.higherThanViewport
+        transitionY: zoomInfoRef.higherThanViewport
           ? getLimitedState({
-              min: dragMargin.marginTop + boundaryResistance,
-              max:
-                -dragMargin.marginTop +
+              max: zoomInfoRef.marginTop + boundaryResistance / state.zoom,
+              min:
+                -zoomInfoRef.marginTop +
                 bottomCompensation / state.zoom -
-                boundaryResistance,
-              value: e.clientY / state.zoom - state.originY,
+                boundaryResistance / state.zoom,
+              value: zoomInfoRef.lastY + e.clientY / state.zoom - state.originY,
             })
           : 0,
       }));
     },
     [
-      dragMargin,
+      zoomInfoRef,
       bottomCompensation,
       boundaryResistance,
-      dragInfo,
+      zoomInfo,
       getLimitedState,
     ]
   );
 
   const onDraging = useCallback(
     (e) => {
-      if (!dragInfo.isDragging) return;
+      if (e.target !== e.currentTarget) return;
 
-      setDragInfo((state) => ({
-        ...state,
+      if (zoomInfo.isZooming && e.targetTouches.length === 2) {
+        const fingerOne = e.touches[0];
+        const fingerTwo = e.touches[1];
 
-        transitionX: dragMargin.widderThanViewport
-          ? getLimitedState({
-              min: dragMargin.marginLeft + boundaryResistance,
-              max: -dragMargin.marginLeft - boundaryResistance,
-              value: Number(e.touches[0].clientX) / state.zoom - state.originX,
-            })
-          : 0,
+        const distance =
+          e.targetTouches.length === 2 &&
+          zoomInfoRef.fingersStart === 2 &&
+          getDistanceBetweenFingers({
+            fingerOne,
+            fingerTwo,
+          });
 
-        transitionY: dragMargin.higherThanViewport
-          ? getLimitedState({
-              min: dragMargin.marginTop + boundaryResistance,
-              max:
-                -dragMargin.marginTop +
+        const endDist = distance ? distance : 0;
+
+        const endMidPointX = (fingerOne.clientX + fingerTwo.clientX) / 2;
+        const endMidPointY = (fingerOne.clientY + fingerTwo.clientY) / 2;
+
+        const dx =
+          (zoomInfoRef.startZoomPosX / zoomInfoRef.lastZoom -
+            zoomInfoRef.startZoomPosX / zoomInfo.zoom) /
+          zoomInfoRef.lastZoom;
+
+        const dy =
+          (zoomInfoRef.startZoomPosY / zoomInfoRef.lastZoom -
+            zoomInfoRef.startZoomPosY / zoomInfo.zoom) /
+          zoomInfoRef.lastZoom;
+
+        setZoomInfo((state) => ({
+          ...state,
+          transitionX:
+            zoomInfoRef.startDistance > minDistBetweenFingers
+              ? Number(
+                  zoomInfoRef.lastX +
+                    (endMidPointX - state.originX) / state.zoom +
+                    dx
+                )
+              : state.transitionX,
+          transitionY:
+            zoomInfoRef.startDistance > minDistBetweenFingers
+              ? Number(
+                  zoomInfoRef.lastY +
+                    (endMidPointY - state.originY) / state.zoom +
+                    dy
+                )
+              : state.transitionY,
+
+          zoom: getLimitedState({
+            min: 1,
+            max: maxZoom,
+            value:
+              zoomInfoRef.startDistance > minDistBetweenFingers
+                ? (zoomInfoRef.lastZoom * endDist) / zoomInfoRef.startDistance
+                : state.zoom,
+          }),
+        }));
+      }
+      if (zoomInfo.isDragging && e.targetTouches.length === 1) {
+        const fingerOne = e.touches[0];
+
+        setZoomInfo((state) => ({
+          ...state,
+          transitionX: getLimitedState({
+            min: zoomInfoRef.widderThanViewport
+              ? -zoomInfoRef.marginLeft - boundaryResistance / state.zoom
+              : false,
+            max: zoomInfoRef.widderThanViewport
+              ? zoomInfoRef.marginLeft + boundaryResistance / state.zoom
+              : false,
+            value: Number(
+              zoomInfoRef.lastX +
+                (fingerOne.clientX - state.originX) / state.zoom
+            ),
+          }),
+          transitionY: getLimitedState({
+            max: zoomInfoRef.higherThanViewport
+              ? zoomInfoRef.marginTop + boundaryResistance / state.zoom
+              : false,
+
+            min: zoomInfoRef.higherThanViewport
+              ? -zoomInfoRef.marginTop +
                 bottomCompensation / state.zoom -
-                boundaryResistance,
-              value: Number(e.touches[0].clientY) / state.zoom - state.originY,
-            })
-          : 0,
-      }));
+                boundaryResistance / state.zoom
+              : false,
+
+            value:
+              e.targetTouches.length === 1 &&
+              zoomInfoRef.fingersStart === 1 &&
+              Number(
+                zoomInfoRef.lastY +
+                  (fingerOne.clientY - state.originY) / state.zoom
+              ),
+          }),
+        }));
+      }
     },
     [
-      dragInfo.isDragging,
+      zoomInfo,
       bottomCompensation,
       boundaryResistance,
       getLimitedState,
-      dragMargin.higherThanViewport,
-      dragMargin.widderThanViewport,
-      dragMargin.marginLeft,
-      dragMargin.marginTop,
+      maxZoom,
+      minDistBetweenFingers,
+      zoomInfoRef,
+      getDistanceBetweenFingers,
     ]
   );
 
-  const onMouseUp = useCallback(() => {
-    const { overMarginX, overMarginY } = calculateOverMargin({
-      transitionX: dragInfo.transitionX,
-      transitionY: dragInfo.transitionY,
-      zoom: dragInfo.zoom,
-      marginTop: dragMargin.marginTop,
-      marginLeft: dragMargin.marginLeft,
-      bottomCompensation: bottomCompensation,
-    });
+  const onMouseUp = useCallback(
+    (e) => {
+      if (zoomInfo.isZooming) {
+        zoomInfoRef.startDistance = 0;
+        const { marginTop, marginLeft } = getDragBoundries({
+          target: e.currentTarget,
+          zoom: zoomInfo.zoom,
+        });
 
-    setDragInfo((state) => ({
-      ...state,
-      isDragging: false,
-      originX: 0,
-      originY: 0,
-      transitionX: state.transitionX - overMarginX,
-      transitionY: state.transitionY - overMarginY,
-      lastX: state.transitionX - overMarginX,
-      lastY: state.transitionY - overMarginY,
-    }));
+        zoomInfoRef.marginTop = marginTop;
+        zoomInfoRef.marginLeft = marginLeft;
 
-    console.log("hehe", dragInfo, dragMargin);
-  }, [bottomCompensation, dragInfo, dragMargin, calculateOverMargin]);
+        const { isHigherThanViewport, isWidderThanViewport } =
+          isBiggerThanViewport({
+            offsetHeight: e.currentTarget?.offsetHeight,
+            offsetWidth: e.currentTarget?.offsetWidth,
+            zoom: zoomInfo.zoom,
+          });
+
+        zoomInfoRef.higherThanViewport = isHigherThanViewport;
+        zoomInfoRef.widderThanViewport = isWidderThanViewport;
+      }
+      const { overMarginX, overMarginY } = calculateOverMargin({
+        transitionX: zoomInfo.transitionX,
+        transitionY: zoomInfo.transitionY,
+        zoom: zoomInfo.zoom,
+        marginTop: zoomInfoRef.marginTop,
+        marginLeft: zoomInfoRef.marginLeft,
+        bottomCompensation: bottomCompensation,
+      });
+
+      if (zoomInfo.doubleTapped) {
+        setZoomInfo((state) => ({
+          ...state,
+          doubleTapped: false,
+        }));
+      } else {
+        setZoomInfo((state) => ({
+          ...state,
+          isDragging: false,
+          isZooming: false,
+          transitionX: zoomInfoRef.widderThanViewport
+            ? state.transitionX - overMarginX
+            : 0,
+          transitionY: zoomInfoRef.higherThanViewport
+            ? state.transitionY - overMarginY
+            : 0,
+        }));
+      }
+    },
+    [
+      bottomCompensation,
+      zoomInfo,
+      zoomInfoRef,
+      calculateOverMargin,
+      getDragBoundries,
+      isBiggerThanViewport,
+    ]
+  );
+
+  const onMouseWheel = useCallback(
+    (e) => {
+      if (e.target !== e.currentTarget) return;
+
+      const { isHigherThanViewport } = isBiggerThanViewport({
+        offsetHeight: e.currentTarget?.offsetHeight,
+        offsetWidth: e.currentTarget?.offsetWidth,
+        zoom: zoomInfo.zoom,
+      });
+
+      if (!isHigherThanViewport) return;
+
+      const { marginTop } = getDragBoundries({
+        target: e.currentTarget,
+        zoom: zoomInfo.zoom,
+      });
+
+      setZoomInfo((state) => ({
+        ...state,
+        transitionY: getLimitedState({
+          max: marginTop,
+          min: -marginTop + bottomCompensation / state.zoom,
+          value: state.transitionY + e.deltaY / state.zoom,
+        }),
+      }));
+    },
+
+    [
+      zoomInfo.zoom,
+      getDragBoundries,
+      getLimitedState,
+      bottomCompensation,
+      isBiggerThanViewport,
+    ]
+  );
 
   useEffect(() => {
-    window.addEventListener("mouseup", onMouseUp);
-    window.addEventListener("touchend", onMouseUp);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onDraging);
+    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mousemove", onMouseMove);
 
     return () => {
-      window.removeEventListener("mouseup", onMouseUp);
-      window.removeEventListener("touchend", onMouseUp);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onDraging);
+      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mousemove", onMouseMove);
     };
-  }, [onMouseUp, onMouseMove, onDraging]);
+  }, [onMouseUp, onMouseMove]);
 
   return {
     onMouseDown,
     onDragStart,
-    dragTransitionX: dragInfo.transitionX,
-    dragTransitionY: dragInfo.transitionY,
+    pinchZoomTransitionX: zoomInfo.transitionX,
+    pinchZoomTransitionY: zoomInfo.transitionY,
     handleDecreaseZoom,
     handleIncreaseZoom,
     handleResetZoom,
-    zoom: dragInfo.zoom,
-    isDragging: dragInfo.isDragging,
+    zoom: zoomInfo.zoom,
+    isDragging: zoomInfo.isDragging,
+    isZooming: zoomInfo.isZooming,
+    wasDoubleTapped: zoomInfo.doubleTapped,
+    onDraging,
+    onMouseUp,
+    zoomMouseWheel: onMouseWheel,
+    enableDragAndZoom,
+    disableDragAndZoom,
   };
 }
 
