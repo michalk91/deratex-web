@@ -1,10 +1,11 @@
 import "../styles/globals.css";
 import Layout from "../components/Layout";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
 import { useState } from "react";
 import { roboto } from "../fonts/fonts";
+import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
 
 export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
 
@@ -16,10 +17,17 @@ function MyApp({ Component, pageProps }) {
     setMounted(true);
   }, []); //added to fix react hydration error
 
+  const handleDisableRightClickMenu = useDisableRightClickMenu({
+    tagName: "IMG",
+  });
+
   return (
     <>
       {mounted && (
-        <div className={roboto.className}>
+        <div
+          className={roboto.className}
+          onContextMenu={handleDisableRightClickMenu}
+        >
           <Layout>
             <Component {...pageProps} />
           </Layout>
