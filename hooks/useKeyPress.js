@@ -8,15 +8,7 @@ const initialState = {
 };
 const { useGlobalState } = createGlobalState(initialState);
 
-const useKeyPress = ({
-  inViewportRef,
-  nextSlide,
-  prevSlide,
-  hover,
-  modalIsOpen,
-  modalRef,
-  onClose,
-}) => {
+const useKeyPress = ({ inViewportRef, hover, modalIsOpen, modalRef, keys }) => {
   const { inViewport } = useInViewport(
     inViewportRef !== undefined ? inViewportRef : ""
   );
@@ -38,18 +30,15 @@ const useKeyPress = ({
       if (modalIsOpen) {
         e.stopPropagation();
         e.preventDefault();
-        if (key === "Escape") onClose();
       }
 
-      if (!nextSlide || !prevSlide) return;
-
-      if (key === "ArrowRight") {
-        nextSlide();
-      } else if (key === "ArrowLeft") {
-        prevSlide();
-      }
+      keys?.map((item) => {
+        if (key === item.key) {
+          item.action();
+        }
+      });
     },
-    [nextSlide, prevSlide, modalIsOpen]
+    [modalIsOpen, keys]
   );
 
   useEffect(() => {

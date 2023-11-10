@@ -1,5 +1,5 @@
 import styles from "./modal.module.css";
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { memo } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { createPortal } from "react-dom";
@@ -8,14 +8,7 @@ import classNames from "classnames";
 import useScrollLock from "../../hooks/useScrollLock";
 import { FpsView } from "react-fps";
 
-function Modal({
-  children,
-  isOpen,
-  onClose,
-  nextSlide,
-  prevSlide,
-  containerClassName,
-}) {
+function Modal({ children, isOpen, onClose, keys, containerClassName }) {
   const ref = useRef();
 
   const { lockScroll, unlockScroll } = useScrollLock();
@@ -25,11 +18,9 @@ function Modal({
   }, [isOpen, lockScroll, unlockScroll]);
 
   const { handleUserKeyPress } = useKeyPress({
-    nextSlide,
-    prevSlide,
     modalIsOpen: isOpen,
     modalRef: ref,
-    onClose,
+    keys,
   });
 
   return (

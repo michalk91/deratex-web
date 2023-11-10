@@ -73,10 +73,14 @@ const useCarousel = ({
     withoutAxisDetection: withoutAxisDetection ? true : false,
   });
 
+  const keys = [
+    { key: "ArrowRight", action: nextSlide },
+    { key: "ArrowLeft", action: prevSlide },
+  ];
+
   const { inViewport, handleUserKeyPress } = useKeyPress({
     inViewportRef: containerRef,
-    nextSlide,
-    prevSlide,
+    keys,
     hover: paused,
   });
 
