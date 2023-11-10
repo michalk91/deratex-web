@@ -8,6 +8,15 @@
   user-select: none;
 }
 
+.transparent {
+  backface-visibility: hidden;
+  opacity: 0;
+}
+
+.backgroundColorGray {
+  background-color: rgba(255, 255, 255, 80%) !important;
+}
+
 .btnsContainer {
   position: fixed;
   display: flex;
@@ -32,12 +41,18 @@
   margin-right: 10px;
 }
 
+.virtualizedContainer {
+  height: 100%;
+}
+
 .captionContainer {
   position: absolute;
   bottom: 0;
   width: 100%;
   z-index: 20;
   animation: fadeInText ease 0.9s;
+  touch-action: none;
+  pointer-events: none;
 }
 
 @keyframes fadeInText {
@@ -92,12 +107,13 @@
   position: relative;
 }
 
-.withoutTransition {
-  transition: none;
+.addTransition {
+  transition: transform 0.4s cubic-bezier(0.15, 0.3, 0.25, 1) 0s;
+  transition-duration: 0.3s;
 }
 
-.withTransition {
-  transition: transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s;
+.resetTransitionTime {
+  transition-duration: 0s;
 }
 
 .containerThumbs {
@@ -186,9 +202,16 @@
   background-color: transparent;
 }
 .imageWrapper img {
+  max-width: 100%;
+  max-height: 100%;
   margin: 0 auto;
   height: 100%;
   width: auto !important;
+}
+
+.smallImage img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .outerImagesContainer {
@@ -197,6 +220,47 @@
   padding-bottom: 20px;
 }
 
+.grab {
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+}
+
+.flexStart {
+  justify-content: flex-start;
+}
+
+.flexCenter {
+  justify-content: center;
+}
+
+.scrollPadding {
+  scroll-padding: 15px;
+}
+
+.withoutScrollPadding {
+  scroll-padding: 0;
+}
+
+.openingAnim {
+  animation: fadeDown 0.4s ease-in-out forwards;
+}
+
+.closingAnim {
+  animation: fadeUp 0.4s ease-in-out forwards;
+}
+
+.backgroundOpeningAnim {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+.backgroundClosingAnim {
+  animation: fadeOut 0.4s ease-in-out forwards;
+}
 @keyframes slidein {
   from {
     opacity: 40%;
@@ -204,6 +268,61 @@
 
   to {
     opacity: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeDown {
+  0% {
+    backface-visibility: hidden;
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  100% {
+    backface-visibility: hidden;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    backface-visibility: hidden;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+
+  80% {
+    backface-visibility: hidden;
+    transform: translate(-50%, -160%);
+    opacity: 0;
+  }
+  100% {
+    backface-visibility: hidden;
+    transform: translate(-50%, -160%);
+    opacity: 0;
   }
 }
 

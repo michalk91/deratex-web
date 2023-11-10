@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import styles from "./lightboxGallery.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
@@ -8,10 +8,22 @@ import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
 import { roboto } from "../../fonts/fonts";
-import { SlMagnifierAdd } from "react-icons/sl";
-import { SlMagnifierRemove } from "react-icons/sl";
 import useZoomAndDrag from "../../hooks/useZoomAndDrag";
-import { SlFrame } from "react-icons/sl";
+import useFuncDelay from "../../hooks/useFuncDelay";
+import { SlMagnifierAdd, SlFrame, SlMagnifierRemove } from "react-icons/sl";
+
+const LightboxText = memo(function ZoomedLightboxImage({
+  index,
+  textClassName,
+  openGallery,
+  item,
+}) {
+  return (
+    <p className={textClassName} onClick={openGallery} data-id={index}>
+      {item}
+    </p>
+  );
+});
 
 const LightboxImage = memo(function LightboxImage({
   index,
@@ -27,7 +39,7 @@ const LightboxImage = memo(function LightboxImage({
       ref={index === activeIndex ? firstElemRef : null}
       data-id={index}
       onClick={openGallery}
-      className={classNames(imgContainerClassName)}
+      className={classNames(imgContainerClassName, styles.smallImage)}
     >
       <Image
         src={item.src}
@@ -36,8 +48,6 @@ const LightboxImage = memo(function LightboxImage({
         width={item.width ? item.width : undefined}
         style={{
           objectFit: objectFit ? objectFit : "cover",
-          maxHeight: "100%",
-          maxWidth: "100%",
         }}
         sizes="20vw"
       />
@@ -53,12 +63,19 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   setImgLoaded,
   zoomedImgSizes,
   imgLoaded,
-  dragTransitionX,
-  dragTransitionY,
+  pinchZoomTransitionX,
+  pinchZoomTransitionY,
   zoom,
   isDragging,
   onMouseDown,
   onDragStart,
+  onDraging,
+  onMouseUp,
+  isZooming,
+  zoomMouseWheel,
+  wasDoubleTapped,
+  clickTextToOpenLightbox,
+  beforeDelay,
 }) {
   const [imgWidth, setImgWidth] = useState(0);
 
@@ -66,24 +83,44 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
     <div className={styles.slideWrapper}>
       <div
         data-id={index}
-        className={styles.imageWrapper}
+        className={classNames(styles.imageWrapper, {
+          [styles.transparent]: clickTextToOpenLightbox,
+          [styles.withTransition]: clickTextToOpenLightbox,
+          [styles.openingAnim]:
+            clickTextToOpenLightbox && imgLoaded && !beforeDelay,
+          [styles.closingAnim]: clickTextToOpenLightbox && beforeDelay,
+        })}
         style={{
           aspectRatio: `${[item.width]}/${[item.height]}`,
           maxWidth: imgWidth !== 0 ? imgWidth : "100%", //HACK for Safari, When we use "aspect-ratio" in flex row container Safari stretch width to parent size
         }}
       >
         <Image
+          className={classNames({
+            [styles.grab]: zoom > 1 && !isDragging,
+            [styles.grabbing]: zoom > 1 && isDragging,
+            [styles.addTransition]:
+              !isDragging || !isZooming || wasDoubleTapped,
+            [styles.resetTransitionTime]: isDragging || isZooming,
+          })}
           onMouseDown={onMouseDown}
+          onTouchCancel={() => {
+            alert("canceled");
+          }}
+          onTouchMove={onDraging}
+          onTouchEnd={onMouseUp}
           onTouchStart={onDragStart}
+          onWheel={zoomMouseWheel}
           style={{
-            cursor: zoom > 1 && "grab",
             transform:
               index === activeIndex &&
-              zoom > 1 &&
-              `scale(${zoom}) translate3d(${dragTransitionX}px, ${dragTransitionY}px, 0)`,
-            transitionDuration: isDragging ? "0s" : "0.3s",
+              `scale(${zoom}) translate3d(${pinchZoomTransitionX}px, ${pinchZoomTransitionY}px, 0)`,
           }}
-          ref={index === activeIndex ? modalElemRef : null}
+          ref={
+            !clickTextToOpenLightbox && index === activeIndex
+              ? modalElemRef
+              : null
+          }
           src={item.src}
           alt={item.alt}
           fill
@@ -97,11 +134,16 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           }}
         />
 
-        {zoom === 1 && item.text && imgLoaded && index === activeIndex && (
-          <div className={styles.captionContainer}>
-            <p className={roboto.className}> {item.text} </p>
-          </div>
-        )}
+        {!isDragging &&
+          !isZooming &&
+          zoom === 1 &&
+          item.caption &&
+          imgLoaded &&
+          index === activeIndex && (
+            <div className={styles.captionContainer}>
+              <p className={roboto.className}> {item.caption} </p>
+            </div>
+          )}
       </div>
     </div>
   );
@@ -136,6 +178,7 @@ function LightboxGallery({
   imgLoaded,
   enableSwiping,
   disableSwiping,
+  clickTextToOpenLightbox,
 }) {
   const thumbsContainerRef = useRef();
 
@@ -149,68 +192,129 @@ function LightboxGallery({
     activeIndex,
   });
 
+  const closingModalDelay = 400;
+
+  const { beforeDelay, delayedFunc } = useFuncDelay({
+    delay: closingModalDelay,
+    functionToDelay: closeGallery,
+  });
+
+  const maxZoom = 4;
+
   const {
     handleDecreaseZoom,
     handleIncreaseZoom,
     handleResetZoom,
-    dragTransitionX,
-    dragTransitionY,
+    pinchZoomTransitionX,
+    pinchZoomTransitionY,
     onMouseDown,
     onDragStart,
     isDragging,
     zoom,
+    onDraging,
+    onMouseUp,
+    isZooming,
+    zoomMouseWheel,
+    enableDragAndZoom,
+    disableDragAndZoom,
+    wasDoubleTapped,
   } = useZoomAndDrag({
-    resetZoom: { lightboxOpen, activeIndex },
-    bottomCompensation: thumbsContainerRef?.current?.offsetHeight,
+    maxZoom,
+    bottomCompensation:
+      lightboxOpen && thumbsContainerRef?.current?.clientHeight,
   });
 
   useEffect(() => {
-    if (zoom > 1) {
+    if (zoom > 1 || isZooming) {
       disableSwiping();
-    } else {
+    } else if (!isZooming && zoom === 1) {
       enableSwiping();
     }
-  }, [zoom]);
+  }, [isZooming, disableSwiping, enableSwiping, zoom]);
+
+  useEffect(() => {
+    if (transitionX !== 0) {
+      disableDragAndZoom();
+    } else if (transitionX === 0) {
+      enableDragAndZoom();
+    }
+  }, [transitionX, disableDragAndZoom, enableDragAndZoom]);
+
+  useEffect(() => {
+    handleResetZoom();
+  }, [lightboxOpen, handleResetZoom, activeIndex]);
+
+  const closeLightbox = clickTextToOpenLightbox ? delayedFunc : closeGallery;
+
+  const keys = [
+    {
+      key: "Escape",
+      action: zoom > 1 ? handleResetZoom : closeLightbox,
+    },
+    { key: "ArrowRight", action: zoom === 1 ? nextSlide : handleResetZoom },
+    { key: "ArrowLeft", action: zoom === 1 ? prevSlide : handleResetZoom },
+    { key: "+", action: handleIncreaseZoom },
+    { key: "-", action: handleDecreaseZoom },
+  ];
 
   return (
     <>
-      <div className={lightboxContainerClassName}>
-        {!lightboxForSlider &&
-          items.map((item, index) => (
-            <LightboxImage
-              firstElemRef={firstElemRef}
-              activeIndex={activeIndex}
-              openGallery={openGallery}
-              key={index}
-              index={index}
-              item={item}
-              imgContainerClassName={imgContainerClassName}
-            />
-          ))}
-      </div>
+      {!lightboxForSlider && (
+        <div className={lightboxContainerClassName}>
+          {!clickTextToOpenLightbox
+            ? items.map((item, index) => (
+                <LightboxImage
+                  firstElemRef={firstElemRef}
+                  activeIndex={activeIndex}
+                  openGallery={openGallery}
+                  key={index}
+                  index={index}
+                  item={item}
+                  imgContainerClassName={imgContainerClassName}
+                />
+              ))
+            : items.map((item, index) => (
+                <LightboxText
+                  key={index}
+                  item={item.text}
+                  index={index}
+                  textClassName={item.textClassName}
+                  openGallery={openGallery}
+                />
+              ))}
+        </div>
+      )}
 
       <Modal
         isOpen={lightboxOpen}
-        onClose={closeGallery}
-        nextSlide={nextSlide}
-        prevSlide={prevSlide}
+        onClose={clickTextToOpenLightbox ? delayedFunc : closeGallery}
+        keys={keys}
         containerClassName={classNames(styles.wrapper, {
-          [styles.wrapperWithAnim]: imgLoaded,
+          [styles.wrapperWithAnim]: !clickTextToOpenLightbox && imgLoaded,
+          [styles.backgroundColorGray]: clickTextToOpenLightbox,
+          [styles.backgroundClosingAnim]:
+            clickTextToOpenLightbox && beforeDelay,
+          [styles.backgroundOpeningAnim]:
+            clickTextToOpenLightbox && !beforeDelay,
         })}
       >
         <div className={styles.btnsContainer}>
           <SlFrame
-            style={{ display: zoom > 1 && zoom <= 2 ? "block" : "none" }}
+            style={{ display: zoom > 1 && zoom <= maxZoom ? "block" : "none" }}
             className={styles.alignToFrameBtn}
             onClick={handleResetZoom}
           />
           <SlMagnifierAdd
-            style={{ color: zoom >= 1 && zoom < 2 ? "black" : "lightGray" }}
+            style={{
+              color: zoom >= 1 && zoom < maxZoom ? "black" : "lightGray",
+            }}
             onClick={handleIncreaseZoom}
             className={styles.increaseBtn}
           />
           <SlMagnifierRemove
-            style={{ color: zoom > 1 && zoom <= 2 ? "black" : "lightGray" }}
+            style={{
+              color: zoom > 1 && zoom <= maxZoom ? "black" : "lightGray",
+            }}
             onClick={handleDecreaseZoom}
             className={styles.decreaseBtn}
           />
@@ -221,8 +325,8 @@ function LightboxGallery({
           })}
         >
           <div
+            className={classNames(styles.virtualizedContainer)}
             style={{
-              height: "100%",
               transform: virtualized
                 ? activeIndex > 1 && `translateX(${activeIndex - 1}00%`
                 : undefined,
@@ -234,8 +338,8 @@ function LightboxGallery({
               onTouchMove={onTouchMove}
               onTransitionEnd={onTransitionEnd}
               className={classNames(styles.inner, {
-                ["without-transition"]: isSwiping && !transitionEnded,
-                [styles.withTransition]: !isSwiping && !transitionEnded,
+                [styles.resetTransitionTime]: isSwiping && !transitionEnded,
+                [styles.addTransition]: !isSwiping && !transitionEnded,
               })}
               style={{
                 transform: `translateX(calc(${transitionX}px - ${activeIndex}00%)`,
@@ -252,12 +356,19 @@ function LightboxGallery({
                       setImgLoaded={setImgLoaded}
                       zoomedImgSizes={zoomedImgSizes}
                       imgLoaded={imgLoaded}
-                      dragTransitionX={dragTransitionX}
-                      dragTransitionY={dragTransitionY}
+                      pinchZoomTransitionX={pinchZoomTransitionX}
+                      pinchZoomTransitionY={pinchZoomTransitionY}
                       zoom={zoom}
                       onMouseDown={onMouseDown}
                       isDragging={isDragging}
                       onDragStart={onDragStart}
+                      onDraging={onDraging}
+                      onMouseUp={onMouseUp}
+                      isZooming={isZooming}
+                      zoomMouseWheel={zoomMouseWheel}
+                      wasDoubleTapped={wasDoubleTapped}
+                      clickTextToOpenLightbox={clickTextToOpenLightbox}
+                      beforeDelay={beforeDelay}
                     />
                   ))
                 : virtualizedData?.map((item) => (
@@ -270,40 +381,47 @@ function LightboxGallery({
                       setImgLoaded={setImgLoaded}
                       zoomedImgSizes={zoomedImgSizes}
                       imgLoaded={imgLoaded}
-                      dragTransitionX={dragTransitionX}
-                      dragTransitionY={dragTransitionY}
+                      pinchZoomTransitionX={pinchZoomTransitionX}
+                      pinchZoomTransitionY={pinchZoomTransitionY}
                       zoom={zoom}
                       onMouseDown={onMouseDown}
                       isDragging={isDragging}
                       onDragStart={onDragStart}
+                      onDraging={onDraging}
+                      onMouseUp={onMouseUp}
+                      isZooming={isZooming}
+                      zoomMouseWheel={zoomMouseWheel}
+                      wasDoubleTapped={wasDoubleTapped}
+                      clickTextToOpenLightbox={clickTextToOpenLightbox}
+                      beforeDelay={beforeDelay}
                     />
                   ))}
             </div>
           </div>
           <IoCaretForward
             className={classNames(styles.nextSlide, {
-              [styles.hiddenNextSlide]: zoom > 1,
+              [styles.hiddenNextSlide]: isZooming || zoom > 1,
             })}
             onClick={nextSlide}
           />
           <IoCaretBack
             className={classNames(styles.prevSlide, {
-              [styles.hiddenPrevSlide]: zoom > 1,
+              [styles.hiddenPrevSlide]: isZooming || zoom > 1,
             })}
             onClick={prevSlide}
           />
         </div>
         <div
           className={classNames(styles.containerThumbs, {
-            [styles.hideThumbsContainer]: zoom > 1,
+            [styles.hideThumbsContainer]: pinchZoomTransitionY !== 0,
+            [styles.flexStart]: isScrollableX,
+            [styles.flexCenter]: !isScrollableX,
+            [styles.scrollPadding]:
+              thumbnailsOptions?.thumbnailWithBorderRadius,
+            [styles.withoutScrollPadding]:
+              !thumbnailsOptions?.thumbnailWithBorderRadius,
           })}
           ref={thumbsContainerRef}
-          style={{
-            justifyContent: isScrollableX ? "flex-start" : "center",
-            scrollPadding: thumbnailsOptions?.thumbnailWithBorderRadius
-              ? "15px"
-              : "",
-          }}
         >
           {lightboxThumbsVisible &&
             items?.map((item, index) => (

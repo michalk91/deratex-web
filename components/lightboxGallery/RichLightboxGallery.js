@@ -1,14 +1,6 @@
-import React, {
-  memo,
-  useState,
-  useCallback,
-  useMemo,
-  useRef,
-  useEffect,
-} from "react";
+import React, { memo, useState, useCallback, useRef, useEffect } from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
-import TextAndImageLightbox from "./TextAndImageLightbox";
 
 import useFlipAnimation from "../../hooks/useFlipAnimation";
 
@@ -74,6 +66,7 @@ function RichLightboxGallery({
   const onCloseAnimationEnd = (e) => {
     e.style.zIndex = "2";
   };
+
   useFlipAnimation({
     firstElemRef,
     modalElemRef,
@@ -83,33 +76,7 @@ function RichLightboxGallery({
     imgLoaded,
   });
 
-  return clickTextToOpenLightbox ? (
-    <TextAndImageLightbox
-      transitionEnded={transitionEnded}
-      transitionX={transitionX}
-      isSwiping={isSwiping}
-      onTransitionEnd={onTransitionEnd}
-      openGallery={openGallery}
-      lightboxOpen={lightboxOpen}
-      closeGallery={closeGallery}
-      prevSlide={prevSlide}
-      nextSlide={nextSlide}
-      lightboxThumbsVisible={lightboxThumbsVisible}
-      onTouchEnd={onTouchEnd}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      activeIndex={activeIndex}
-      setNavigate={setNavigate}
-      lightboxContainerClassName={lightboxContainerClassName}
-      items={items}
-      thumbnailsOptions={thumbnailsOptions}
-      zoomedImgSizes={zoomedImgSizes}
-      setImgLoaded={setImgLoaded}
-      imgLoaded={imgLoaded}
-      enableSwiping={enableSwiping}
-      disableSwiping={disableSwiping}
-    />
-  ) : (
+  return (
     <LightboxGallery
       lightboxForSlider={lightboxForSlider}
       transitionEnded={transitionEnded}
@@ -139,6 +106,7 @@ function RichLightboxGallery({
       imgLoaded={imgLoaded}
       enableSwiping={enableSwiping}
       disableSwiping={disableSwiping}
+      clickTextToOpenLightbox={clickTextToOpenLightbox}
     />
   );
 }
