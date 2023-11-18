@@ -104,9 +104,6 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
             [styles.resetTransitionTime]: isDragging || isZooming,
           })}
           onMouseDown={onMouseDown}
-          onTouchCancel={() => {
-            alert("canceled");
-          }}
           onTouchMove={onDraging}
           onTouchEnd={onMouseUp}
           onTouchStart={onDragStart}
