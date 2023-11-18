@@ -602,7 +602,7 @@ function useZoomAndDrag({
         transitionY: getLimitedState({
           max: marginTop,
           min: -marginTop + bottomCompensation / state.zoom,
-          value: state.transitionY + e.deltaY / state.zoom,
+          value: state.transitionY - e.deltaY / state.zoom,
         }),
       }));
     },
