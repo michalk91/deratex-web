@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p>&nbsp;</p>
+<p align='center'>
+  <img src="https://deratex-web.vercel.app/images/logo.svg" width="280" />   
+</p>
+  <p align='center'><strong>DERATEX DDD Company Website</strong></p>
+<p>&nbsp;</p>
 
-## Getting Started
+<p align='center'>
 
-First, run the development server:
+## Description
+This is a website for a pest control company.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Features
+- Fully responsive design.
+- Animations on scroll.
+- All images on the website have the "right-click" menu disabled.
+- Main Page Slider contains:
+  - autoplay (stops on hover),
+  - keyboard handling occurs only when it is in viewport (⬅️- previous slide, ➡️ - next slide),
+  - touchscreen handling.
+- Carousels contain:
+  - you can insert any HTML tag (text, image, iFrame),
+  - virtualized feature (created on my own),
+  - keyboard handling only when it is in viewport (⬅️- previous slide, ➡️ - next slide),
+  - touchscreen handling (draggable),
+  - the carousels within the viewport are counted; when there's more than one on the viewport, only the one being hovered or previously hovered have keyboard handling,
+  - autoplay (stops on hover).
+- Lightbox contains:
+  - you can use it with carousel, then the carousel and lightbox are synchronized and share their state,
+  - you can set images or texts that will open lightbox,
+  - you can put in images and texts for caption,
+  - virtualized feature (created on my own),
+  - opening animation using the FLIP Animation technique (I created my own hook for this technique). The animation starts only when the image is fully loaded,
+  - keyboard handling ("ESC" - close/initial zoom, ⬅️- previous slide, ➡️ - next slide, ➕ - increase zoom, ➖ - decrease zoom),
+  - touchscreen handling (drabbable, zoomable - my own implementation of pinch zoom, double tap zoom),
+  - when lightbox is zoomed you can use mouse-wheel to scroll,
+  - thumbnails move and center when they do not fit on the screen.
+- Used APIs:
+  - Facebook SDK for JavaScript (for Facebook reviews at the bottom of the main page and the Facebook page on the contact page),
+  - Google reCaptcha v3 for email sending protection.
+- For email sending: Nodemailer (emails are sent from a special Gmail account).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  
+    
+## NPM Packages used: 
+- React,
+- NextJS,
+- Nodemailer,
+- CSS Modules
+- use-debounce,
+- react-in-viewport,
+- classnames,
+- react-hooks-global-state,
+- react-icons,
+- react-device-detect
+ 
+  
+  <p>&nbsp;</p>
