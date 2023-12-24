@@ -169,7 +169,11 @@ function ContactForm() {
             required
           />
           <p className={styles.requiredInfo}>* Pola obowiązkowe</p>
-          <button type="submit" className={styles.button}>
+          <button
+            title="Continue here after you’ve filled out all form elements"
+            type="submit"
+            className={styles.button}
+          >
             Wyślij
           </button>
           {form.state === "loading" ? (

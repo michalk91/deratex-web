@@ -3,7 +3,7 @@ import styles from "./fbPage.module.css";
 import { React, memo, useEffect, useState, useCallback, useRef } from "react";
 import useFbPagePluginResize from "../../hooks/useFbPagePluginResize";
 import { MobileView } from "react-device-detect";
-import useScrollLock from "../../hooks/useScrollLock"
+import useScrollLock from "../../hooks/useScrollLock";
 
 function FbPage() {
   const [touched, setTouched] = useState(false);
@@ -11,7 +11,7 @@ function FbPage() {
 
   const containerRef = useRef();
 
-   const { lockScroll, unlockScroll } = useScrollLock();
+  const { lockScroll, unlockScroll } = useScrollLock();
 
   const { fbPageWidth, fbPageHeight } = useFbPagePluginResize({
     minFbPageHeight: 70,
@@ -21,11 +21,11 @@ function FbPage() {
   });
 
   const handleTouchStart = useCallback(() => {
-      setTouched(true);
+    setTouched(true);
   }, []);
 
   const handleTouchEnd = useCallback(() => {
-     setTouched(false);
+    setTouched(false);
   }, []);
 
   const handleBackdropClick = useCallback(() => {
@@ -49,8 +49,6 @@ function FbPage() {
     }, 30); // HACK: Fixes horizontal scrolling using scrollIntoView
   }, [clicked]);
 
-
-
   return (
     <div className={styles.fbPageContainer}>
       <p className={classNames("title", styles.title)}>
@@ -72,7 +70,10 @@ function FbPage() {
             cite="https://www.facebook.com/deratexdddtuchola"
             className="fb-xfbml-parse-ignore"
           >
-            <a href="https://www.facebook.com/deratexdddtuchola">
+            <a
+              aria-label="Our facebook page"
+              href="https://www.facebook.com/deratexdddtuchola"
+            >
               Deratex Zakład DDD
             </a>
           </blockquote>
@@ -97,7 +98,11 @@ function FbPage() {
             </p>
           </div>
           {clicked && (
-            <button onClick={handleButtonClick} className={styles.btn}>
+            <button
+              aria-label="Disable Scrolling"
+              onClick={handleButtonClick}
+              className={styles.btn}
+            >
               Nacisnij aby wyłączyć przewijanie
             </button>
           )}

@@ -64,7 +64,9 @@ function ServicesShort() {
               </div>
               <h1 className={styles.services}>{item.text}</h1>
               <Link href="/services">
-                <button className={styles.services}>Czytaj więcej</button>
+                <button aria-label="Czytaj więcej" className={styles.services}>
+                  Czytaj więcej
+                </button>
               </Link>
             </article>
           ))}

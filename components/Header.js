@@ -55,7 +55,7 @@ function Header() {
 
           <div className={styles.telContainer}>
             <p>Zadzwoń do Nas!</p>
-            <a href="tel:660826121">
+            <a aria-label="Phone number" href="tel:660826121">
               <h1 className={styles.tel}>
                 <FaPhoneAlt size={19} className={styles.telLogo} /> 660 826 121
               </h1>
@@ -107,13 +107,14 @@ function Header() {
               <div className={styles.contactContainer}>
                 <a
                   className={styles.fbLogo}
+                  aria-label="Our facebook page"
                   href="https://www.facebook.com/deratexdddtuchola"
                 >
                   <GrFacebook />
                 </a>
 
                 {smallerThan550px && (
-                  <a href="tel:660826121">
+                  <a aria-label="Phone number" href="tel:660826121">
                     <h1 className={styles.tel}>
                       <FaPhoneAlt size={25} className={styles.telLogo} /> 660
                       826 121
@@ -124,6 +125,7 @@ function Header() {
             </ul>
           </div>
           <button
+            aria-label="Menu"
             className={classNames(styles.hamburger, {
               [styles.active]: isOpen,
             })}

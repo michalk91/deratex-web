@@ -57,6 +57,7 @@ function OtherServices() {
           />
           <a
             className="caption"
+            aria-label="Click to see other photos by this author"
             href="https://www.freepik.com/free-vector/isometric-pest-control-service-house-disinfection-infographics-with-workers-insects-rodents-3d-vector-illustration_34481859.htm#query=pest%20control&position=1&from_view=search&track=sph"
           >
             Image by macrovector on Freepik

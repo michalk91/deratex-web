@@ -69,6 +69,7 @@ function Footer() {
                 </p>
                 <p>
                   <a
+                    aria-label="Phone number"
                     className={classNames(styles.redHover, roboto.className)}
                     href="tel:660826121"
                   >
@@ -77,6 +78,7 @@ function Footer() {
                 </p>
                 <p>
                   <a
+                    aria-label="Phone number"
                     className={classNames(styles.redHover, roboto.className)}
                     href="tel:660906327"
                   >
@@ -94,6 +96,7 @@ function Footer() {
                   E-mail:
                 </p>
                 <a
+                  aria-label="e-mail"
                   className={classNames(styles.redHover)}
                   href="mailto:ul50@wp.pl"
                 >
@@ -127,7 +130,10 @@ function Footer() {
                 <p className={classNames(styles.columnInfo, outfit.className)}>
                   Nasz facebook
                 </p>
-                <a href="https://www.facebook.com/deratexdddtuchola">
+                <a
+                  aria-label="Our facebook page"
+                  href="https://www.facebook.com/deratexdddtuchola"
+                >
                   <RiFacebookBoxLine
                     size={70}
                     className={classNames(styles.fbLogo)}
