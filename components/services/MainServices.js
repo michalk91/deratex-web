@@ -102,9 +102,11 @@ function MainServices() {
                 />
 
                 <div className="captionContainer">
-                  <a className="caption" href={item.imgAuthorHref}>
-                    {item.captionText}
-                  </a>
+                  {item.imgAuthorHref && item.captionText && (
+                    <a className="caption" href={item.imgAuthorHref}>
+                      {item.captionText}
+                    </a>
+                  )}
                 </div>
               </div>
 
