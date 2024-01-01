@@ -4,15 +4,13 @@ import React, {
   useEffect,
   useCallback,
   useRef,
-  useLayoutEffect,
   useMemo,
-  useId,
 } from "react";
 
 import useCarousel from "../../hooks/useCarousel";
 import Carousel, { ImageForLightbox } from "./Carousel";
 import LightboxGallery from "../lightboxGallery/LightboxGallery";
-import useFlipAnimation from "../../hooks/useFlipAnimation";
+import useModalTransition from "use-modal-transition";
 
 function RichCarousel({
   children,
@@ -103,27 +101,31 @@ function RichCarousel({
   );
 
   if (withGallery && data.length === 0) getImageForLightboxProps(children);
-  const onCloseAnimationStart = (e) => {
+
+  const onCloseAnimationStart = useCallback((e) => {
     e.style.zIndex = "10";
     setCarouselInfo((state) => ({
       ...state,
       flipAnimating: true,
     }));
-  };
-  const onCloseAnimationEnd = (e) => {
+  }, []);
+  const onCloseAnimationEnd = useCallback((e) => {
     e.style.zIndex = "5";
     setCarouselInfo((state) => ({
       ...state,
       flipAnimating: false,
     }));
-  };
-  useFlipAnimation({
+  }, []);
+
+  useModalTransition({
     firstElemRef,
     modalElemRef,
-    flipKey: lightboxOpen,
+    modalOpened: lightboxOpen,
     onCloseAnimationEnd,
     onCloseAnimationStart,
     imgLoaded,
+    hideFirstElem: false,
+    modalSelector: "#modal",
   });
 
   return (

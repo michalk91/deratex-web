@@ -1,8 +1,7 @@
 import React, { memo, useState, useCallback, useRef, useEffect } from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
-
-import useFlipAnimation from "../../hooks/useFlipAnimation";
+import useModalTransition from "use-modal-transition";
 
 function RichLightboxGallery({
   lightboxThumbsVisible = true,
@@ -60,20 +59,23 @@ function RichLightboxGallery({
     setImgLoaded(false);
   }, [lightboxOpen]);
 
-  const onCloseAnimationStart = (e) => {
+  const onCloseAnimationStart = useCallback((e) => {
     e.style.zIndex = "5";
-  };
-  const onCloseAnimationEnd = (e) => {
+  }, []);
+  const onCloseAnimationEnd = useCallback((e) => {
     e.style.zIndex = "2";
-  };
+  }, []);
 
-  useFlipAnimation({
+  useModalTransition({
     firstElemRef,
     modalElemRef,
-    flipKey: lightboxOpen,
+    modalOpened: lightboxOpen,
     onCloseAnimationEnd,
     onCloseAnimationStart,
+    modalSelector: "#modal",
     imgLoaded,
+    activeIndex,
+    hideFirstElem: false,
   });
 
   return (

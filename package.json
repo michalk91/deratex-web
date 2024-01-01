@@ -22,7 +22,8 @@
     "react-in-viewport": "^1.0.0-alpha.30",
     "react-media-hook": "^0.4.9",
     "sharp": "^0.32.1",
-    "use-debounce": "^9.0.4"
+    "use-debounce": "^9.0.4",
+    "use-modal-transition": "^1.0.20"
   },
   "devDependencies": {
     "@svgr/cli": "^6.5.1",
