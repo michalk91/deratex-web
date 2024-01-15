@@ -15,6 +15,7 @@
   flex-shrink: 0;
   position: relative;
   flex-basis: 120px;
+  transition: 0.3s;
 }
 
 .textContainer {
@@ -29,13 +30,12 @@
 
 .imgContainer img {
   display: block;
-  transition: 0.3s;
   height: 100%;
   border: 1px solid gray;
 }
 
 @media (hover: hover) {
-  .imgContainer img:hover {
+  .imgContainer:hover {
     transform: scale(1.1);
     cursor: zoom-in;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
