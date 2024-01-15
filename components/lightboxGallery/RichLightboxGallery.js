@@ -13,8 +13,13 @@ function RichLightboxGallery({
   virtualized = false,
   zoomedImgSizes,
 }) {
-  const [lightboxOpen, setLightBoxOpen] = useState(false);
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [lightboxInfo, setLightboxInfo] = useState({
+    lightboxOpen: false,
+    imgLoaded: false,
+  });
+
+  const { lightboxOpen, imgLoaded } = lightboxInfo;
+
   const lightboxForSlider = false;
 
   const {
@@ -39,24 +44,25 @@ function RichLightboxGallery({
   });
 
   const closeGallery = useCallback(() => {
-    setLightBoxOpen(false);
-  }, [setLightBoxOpen]);
+    setLightboxInfo((state) => ({ ...state, lightboxOpen: false }));
+  }, []);
 
   const openGallery = useCallback(
     (e) => {
       updateIndex(Number(e.target.closest("[data-id]").dataset.id));
-      setLightBoxOpen(true);
+      setLightboxInfo((state) => ({ ...state, lightboxOpen: true }));
     },
     [updateIndex]
   );
 
   const firstElemRef = useRef(null);
   const modalElemRef = useRef(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     if (lightboxOpen) return;
 
-    setImgLoaded(false);
+    setLightboxInfo((state) => ({ ...state, imgLoaded: false }));
   }, [lightboxOpen]);
 
   const onCloseAnimationStart = useCallback((e) => {
@@ -72,14 +78,14 @@ function RichLightboxGallery({
     modalOpened: lightboxOpen,
     onCloseAnimationEnd,
     onCloseAnimationStart,
-    modalSelector: "#modal",
     imgLoaded,
+    modalRef,
     activeIndex,
-    hideFirstElem: false,
   });
 
   return (
     <LightboxGallery
+      modalRef={modalRef}
       lightboxForSlider={lightboxForSlider}
       transitionEnded={transitionEnded}
       transitionX={transitionX}
@@ -103,7 +109,7 @@ function RichLightboxGallery({
       virtualized={virtualized}
       firstElemRef={firstElemRef}
       modalElemRef={modalElemRef}
-      setImgLoaded={setImgLoaded}
+      setParentInfo={setLightboxInfo}
       zoomedImgSizes={zoomedImgSizes}
       imgLoaded={imgLoaded}
       enableSwiping={enableSwiping}

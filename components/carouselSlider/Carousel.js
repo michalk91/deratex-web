@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useMemo } from "react";
 import styles from "./carouselSlider.module.css";
 import classNames from "classnames";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";

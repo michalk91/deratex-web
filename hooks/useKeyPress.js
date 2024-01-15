@@ -8,7 +8,7 @@ const initialState = {
 };
 const { useGlobalState } = createGlobalState(initialState);
 
-const useKeyPress = ({ inViewportRef, hover, modalIsOpen, modalRef, keys }) => {
+const useKeyPress = ({ inViewportRef, hover, modalIsOpen, keys }) => {
   const { inViewport } = useInViewport(
     inViewportRef !== undefined ? inViewportRef : ""
   );
@@ -16,12 +16,6 @@ const useKeyPress = ({ inViewportRef, hover, modalIsOpen, modalRef, keys }) => {
   const [instancesCount, setInstancesCount] = useGlobalState("instancesCount");
 
   const id = useId();
-
-  useEffect(() => {
-    if (!modalIsOpen) return;
-
-    modalRef?.current?.focus();
-  }, [modalIsOpen]);
 
   const handleUserKeyPress = useCallback(
     (e) => {

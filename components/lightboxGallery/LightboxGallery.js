@@ -60,7 +60,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   item,
   activeIndex,
   modalElemRef,
-  setImgLoaded,
+  setParentInfo,
   zoomedImgSizes,
   imgLoaded,
   pinchZoomTransitionX,
@@ -127,7 +127,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
             if (index !== activeIndex) return;
 
             setImgWidth(e.clientWidth);
-            setImgLoaded(true);
+            setParentInfo((state) => ({ ...state, imgLoaded: true }));
           }}
         />
 
@@ -170,12 +170,13 @@ function LightboxGallery({
   virtualized,
   firstElemRef,
   modalElemRef,
-  setImgLoaded,
+  setParentInfo,
   zoomedImgSizes,
   imgLoaded,
   enableSwiping,
   disableSwiping,
   clickTextToOpenLightbox,
+  modalRef,
 }) {
   const thumbsContainerRef = useRef();
 
@@ -283,6 +284,7 @@ function LightboxGallery({
       )}
 
       <Modal
+        modalRef={modalRef}
         isOpen={lightboxOpen}
         onClose={clickTextToOpenLightbox ? delayedFunc : closeGallery}
         keys={keys}
@@ -350,7 +352,7 @@ function LightboxGallery({
                       index={index}
                       item={item}
                       activeIndex={activeIndex}
-                      setImgLoaded={setImgLoaded}
+                      setParentInfo={setParentInfo}
                       zoomedImgSizes={zoomedImgSizes}
                       imgLoaded={imgLoaded}
                       pinchZoomTransitionX={pinchZoomTransitionX}
@@ -375,7 +377,7 @@ function LightboxGallery({
                       index={item.index}
                       item={item}
                       activeIndex={activeIndex}
-                      setImgLoaded={setImgLoaded}
+                      setParentInfo={setParentInfo}
                       zoomedImgSizes={zoomedImgSizes}
                       imgLoaded={imgLoaded}
                       pinchZoomTransitionX={pinchZoomTransitionX}

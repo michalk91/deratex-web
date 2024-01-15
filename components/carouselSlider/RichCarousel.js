@@ -29,20 +29,23 @@ function RichCarousel({
   const [carouselInfo, setCarouselInfo] = useState({
     lightboxOpen: false,
     flipAnimating: false,
+    imgLoaded: false,
   });
 
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const { lightboxOpen, flipAnimating, imgLoaded } = carouselInfo;
 
-  const { lightboxOpen, flipAnimating } = carouselInfo;
+  const ref = useRef();
   const firstElemRef = useRef();
   const modalElemRef = useRef();
-  const ref = useRef();
+  const modalRef = useRef();
+
   const lightboxForSlider = withGallery ? true : false;
 
   const data = useMemo(() => [], []);
 
   useEffect(() => {
-    if (!lightboxOpen) setImgLoaded(false);
+    if (!lightboxOpen)
+      setCarouselInfo((state) => ({ ...state, imgLoaded: false }));
   }, [lightboxOpen]);
 
   const {
@@ -73,12 +76,10 @@ function RichCarousel({
   const openGallery = useCallback(() => {
     if (!withGallery) return;
 
-    setTimeout(() =>
-      setCarouselInfo((state) => ({
-        ...state,
-        lightboxOpen: true,
-      }))
-    );
+    setCarouselInfo((state) => ({
+      ...state,
+      lightboxOpen: true,
+    }));
   }, [withGallery]);
   const closeGallery = useCallback(() => {
     setCarouselInfo((state) => ({
@@ -103,14 +104,13 @@ function RichCarousel({
   if (withGallery && data.length === 0) getImageForLightboxProps(children);
 
   const onCloseAnimationStart = useCallback((e) => {
-    e.style.zIndex = "10";
+    e.style.transition = "0 !important";
     setCarouselInfo((state) => ({
       ...state,
       flipAnimating: true,
     }));
   }, []);
   const onCloseAnimationEnd = useCallback((e) => {
-    e.style.zIndex = "5";
     setCarouselInfo((state) => ({
       ...state,
       flipAnimating: false,
@@ -124,14 +124,14 @@ function RichCarousel({
     onCloseAnimationEnd,
     onCloseAnimationStart,
     imgLoaded,
-    hideFirstElem: false,
-    modalSelector: "#modal",
+    modalRef,
   });
 
   return (
     <>
       <Carousel
         ref={ref}
+        modalRef={modalRef}
         sliderRectanglesVisible={sliderRectanglesVisible}
         activeIndex={activeIndex}
         setNavigate={setNavigate}
@@ -160,6 +160,7 @@ function RichCarousel({
       {withGallery && (
         <LightboxGallery
           modalElemRef={modalElemRef}
+          modalRef={modalRef}
           lightboxForSlider={lightboxForSlider}
           lightboxThumbsVisible={lightboxThumbsVisible}
           transitionEnded={transitionEnded}
@@ -178,7 +179,7 @@ function RichCarousel({
           setNavigate={setNavigate}
           thumbnailsOptions={lightboxThumbsOptions}
           virtualized={virtualized}
-          setImgLoaded={setImgLoaded}
+          setParentInfo={setCarouselInfo}
           imgLoaded={imgLoaded}
           zoomedImgSizes={lightboxZoomedImgSizes}
           disableSwiping={disableSwiping}
