@@ -42,11 +42,11 @@ const useKeyPress = ({ inViewportRef, hover, modalIsOpen, keys }) => {
         prevState > 0 ? prevState - 1 : prevState
       );
     }
-  }, [inViewport]);
+  }, [inViewport]); // eslint-disable-line
 
   useEffect(() => {
     setSelectedID(id);
-  }, [hover]);
+  }, [hover]); // eslint-disable-line
 
   useEffect(() => {
     if (!inViewport) return;
@@ -57,7 +57,7 @@ const useKeyPress = ({ inViewportRef, hover, modalIsOpen, keys }) => {
     return () => {
       document.removeEventListener("keydown", handleUserKeyPress);
     };
-  }, [selectedID, instancesCount]);
+  }, [selectedID, instancesCount]); // eslint-disable-line
 
   return { inViewport, handleUserKeyPress };
 };

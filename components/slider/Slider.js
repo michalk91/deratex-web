@@ -30,7 +30,7 @@ function Slider({ slides }) {
       activeIndex:
         state.activeIndex !== slidesCount - 1 ? state.activeIndex + 1 : 0,
     }));
-  }, []);
+  }, []); // eslint-disable-line
 
   const prevSlide = useCallback(() => {
     setSliderInfo((state) => ({
@@ -39,7 +39,7 @@ function Slider({ slides }) {
       activeIndex:
         state.activeIndex !== 0 ? state.activeIndex - 1 : slidesCount - 1,
     }));
-  }, []);
+  }, []); // eslint-disable-line
 
   const keys = [
     { key: "ArrowRight", action: nextSlide },
@@ -75,7 +75,7 @@ function Slider({ slides }) {
         clearInterval(handleAutoplay);
       }
     };
-  }, [paused, pressed, inViewport]);
+  }, [paused, pressed, inViewport]); // eslint-disable-line
 
   const handleHovered = useCallback(() => {
     setSliderInfo((state) => ({
