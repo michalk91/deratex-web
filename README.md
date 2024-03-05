@@ -55,7 +55,9 @@ https://deratex-web.vercel.app/
 - classnames,
 - react-hooks-global-state,
 - react-icons,
-- react-device-detect
+- react-device-detect,
+- use-pinch-zoom,
+- use-modal-transition
  
   
   <p>&nbsp;</p>
