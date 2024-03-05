@@ -266,7 +266,7 @@
 
 @media only screen and (min-width: 850px) {
   .decreaseHeight {
-    height: 65px;
+    height: 75px;
   }
 }
 @media only screen and (orientation: portrait) and (max-width: 1400px) {
