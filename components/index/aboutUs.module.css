@@ -1,8 +1,7 @@
 .aboutUs {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
+  gap: 40px;
   margin-bottom: 5rem;
 }
 
@@ -17,7 +16,7 @@
   box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
 }
 
-.aboutUsImage img{
+.aboutUsImage img {
   display: block;
   height: 100%;
   width: 100%;
@@ -27,26 +26,25 @@
   flex-basis: 72%;
 }
 
-@media only screen and (max-width: 1320px){
-  .aboutUs div{
+@media only screen and (max-width: 1320px) {
+  .aboutUs div {
     flex-basis: 70%;
   }
 }
 
-@media only screen and (max-width: 1220px){
-  .aboutUs div{
-    flex-basis: 100%;
-    justify-content: center;
-    text-align: center;
+@media only screen and (max-width: 1220px) {
+  .aboutUs div {
     gap: 15px;
     margin-bottom: 1rem;
+    flex-basis: 100%;
   }
-  .aboutUsImage{
+  .aboutUs span {
+    text-align: center;
+  }
+  .aboutUsImage {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     flex-basis: 400px !important;
-
   }
 }
-
-
-
-

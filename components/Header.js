@@ -32,14 +32,13 @@ function Header() {
       <header
         className={classNames(styles.header, {
           [styles.hideHeader]: isMobile && scrollDirection === "scrolling down",
+          [styles.decreaseHeight]: scrolledOverMargin,
         })}
       >
         <nav className={styles.navbar}>
           <Link legacyBehavior href="/">
             <a
-              className={classNames(styles.navlogo, {
-                [styles.scrolledOverMargin]: scrolledOverMargin,
-              })}
+              className={classNames(styles.navlogo)}
               onClick={isOpen && closeMenu}
             >
               <Image
@@ -54,7 +53,9 @@ function Header() {
           </Link>
 
           <div className={styles.telContainer}>
-            <p>Zadzwoń do Nas!</p>
+            <p className={classNames({ [styles.hide]: scrolledOverMargin })}>
+              Zadzwoń do Nas!
+            </p>
             <a aria-label="Phone number" href="tel:660826121">
               <h1 className={styles.tel}>
                 <FaPhoneAlt size={19} className={styles.telLogo} /> 660 826 121

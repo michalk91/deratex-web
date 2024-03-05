@@ -161,7 +161,13 @@ const useSwiping = ({
       swipingRef.swipeAxis = "";
       swipingRef.preventTouchScroll = false;
     },
-    [swipeInfo.transitionX, swipeInfo.allowSwiping]
+    [
+      swipeInfo.transitionX,
+      nextSlide,
+      prevSlide,
+      swipingRef,
+      withoutTransitionEndHandling,
+    ]
   );
 
   return {

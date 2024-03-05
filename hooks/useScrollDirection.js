@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 
-export const useScrollDirection = ({threshold = 0}) => {
+export const useScrollDirection = ({ threshold = 0 }) => {
   const [scrollDirection, setScrollDirection] = useState("");
 
   useEffect(() => {
-
-    let lastScrollY = window.pageYOffset;
+    let lastScrollY = window.scrollY;
     let ticking = false;
 
     const updateScrollDirection = () => {
-      const scrollY = window.pageYOffset;
-
+      const scrollY = window.scrollY;
 
       if (Math.abs(scrollY - lastScrollY) < threshold) {
         ticking = false;
@@ -34,7 +32,7 @@ export const useScrollDirection = ({threshold = 0}) => {
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollDirection]);
+  }, [scrollDirection, threshold]);
 
   return scrollDirection;
 };

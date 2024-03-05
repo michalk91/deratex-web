@@ -29,7 +29,7 @@ export const useScrolledOverMargin = ({
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   return scrolledOverMargin;
 };
