@@ -8,9 +8,9 @@ import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
 import { roboto } from "../../fonts/fonts";
-import useZoomAndDrag from "../../hooks/useZoomAndDrag";
 import useFuncDelay from "../../hooks/useFuncDelay";
 import { SlMagnifierAdd, SlFrame, SlMagnifierRemove } from "react-icons/sl";
+import usePinchZoom from "use-pinch-zoom";
 
 const LightboxText = memo(function ZoomedLightboxImage({
   index,
@@ -70,9 +70,9 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
   onMouseDown,
   onDragStart,
   onDraging,
-  onMouseUp,
+  pinchEnd,
   isZooming,
-  zoomMouseWheel,
+  onMouseWheel,
   wasDoubleTapped,
   clickTextToOpenLightbox,
   beforeDelay,
@@ -105,13 +105,13 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           })}
           onMouseDown={onMouseDown}
           onTouchMove={onDraging}
-          onTouchEnd={onMouseUp}
+          onTouchEnd={pinchEnd}
           onTouchStart={onDragStart}
-          onWheel={zoomMouseWheel}
+          onWheel={onMouseWheel}
           style={{
             transform:
               index === activeIndex &&
-              `scale(${zoom}) translate3d(${pinchZoomTransitionX}px, ${pinchZoomTransitionY}px, 0)`,
+              `scale(${zoom}) translate(${pinchZoomTransitionX}px, ${pinchZoomTransitionY}px)`,
           }}
           ref={
             !clickTextToOpenLightbox && index === activeIndex
@@ -210,16 +210,17 @@ function LightboxGallery({
     isDragging,
     zoom,
     onDraging,
-    onMouseUp,
+    onTouchEnd: pinchEnd,
     isZooming,
-    zoomMouseWheel,
+    onMouseWheel,
     enableDragAndZoom,
     disableDragAndZoom,
     wasDoubleTapped,
-  } = useZoomAndDrag({
+  } = usePinchZoom({
     maxZoom,
-    bottomCompensation:
-      lightboxOpen && thumbsContainerRef?.current?.clientHeight,
+    relativeTo: "both",
+    preventDefaultTouchBehavior: false,
+    preventDefaultWheelBehavior: false,
   });
 
   useEffect(() => {
@@ -362,9 +363,9 @@ function LightboxGallery({
                       isDragging={isDragging}
                       onDragStart={onDragStart}
                       onDraging={onDraging}
-                      onMouseUp={onMouseUp}
+                      pinchEnd={pinchEnd}
                       isZooming={isZooming}
-                      zoomMouseWheel={zoomMouseWheel}
+                      onMouseWheel={onMouseWheel}
                       wasDoubleTapped={wasDoubleTapped}
                       clickTextToOpenLightbox={clickTextToOpenLightbox}
                       beforeDelay={beforeDelay}
@@ -387,9 +388,9 @@ function LightboxGallery({
                       isDragging={isDragging}
                       onDragStart={onDragStart}
                       onDraging={onDraging}
-                      onMouseUp={onMouseUp}
+                      pinchEnd={pinchEnd}
                       isZooming={isZooming}
-                      zoomMouseWheel={zoomMouseWheel}
+                      onMouseWheel={onMouseWheel}
                       wasDoubleTapped={wasDoubleTapped}
                       clickTextToOpenLightbox={clickTextToOpenLightbox}
                       beforeDelay={beforeDelay}

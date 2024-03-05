@@ -23,7 +23,8 @@
     "react-media-hook": "^0.4.9",
     "sharp": "^0.32.1",
     "use-debounce": "^9.0.4",
-    "use-modal-transition": "^1.0.22"
+    "use-modal-transition": "^1.0.22",
+    "use-pinch-zoom": "^1.0.11"
   },
   "devDependencies": {
     "@svgr/cli": "^6.5.1",
