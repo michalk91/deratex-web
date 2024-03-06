@@ -5,6 +5,7 @@ import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
 import { useState } from "react";
 import { roboto } from "../fonts/fonts";
+import Head from "next/head";
 import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
 
 export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
@@ -23,6 +24,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Head>
       {mounted && (
         <div
           className={roboto.className}
