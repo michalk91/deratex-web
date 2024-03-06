@@ -18,13 +18,15 @@
   .buttonRight:hover,
   .buttonLeftOutside:hover,
   .buttonRightOutside:hover {
-    font-size: 3rem;
+    scale: 130%;
+    transform-origin: top;
   }
   .buttonLeft:hover,
   .buttonRight:hover,
   .buttonLeftOutside:hover,
   .buttonRightOutside:hover {
-    font-size: 3rem;
+    scale: 130%;
+    transform-origin: top;
   }
 }
 
