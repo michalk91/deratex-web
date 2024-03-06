@@ -97,11 +97,13 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
       >
         <Image
           className={classNames({
-            [styles.grab]: zoom > 1 && !isDragging,
-            [styles.grabbing]: zoom > 1 && isDragging,
+            [styles.grab]: index === activeIndex && zoom > 1 && !isDragging,
+            [styles.grabbing]: index === activeIndex && zoom > 1 && isDragging,
             [styles.addTransition]:
-              !isDragging || !isZooming || wasDoubleTapped,
-            [styles.resetTransitionTime]: isDragging || isZooming,
+              index === activeIndex &&
+              (!isDragging || !isZooming || wasDoubleTapped),
+            [styles.resetTransitionTime]:
+              index === activeIndex && (isDragging || isZooming),
           })}
           onMouseDown={onMouseDown}
           onTouchMove={onDraging}
@@ -111,7 +113,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           style={{
             transform:
               index === activeIndex &&
-              `scale(${zoom}) translate(${pinchZoomTransitionX}px, ${pinchZoomTransitionY}px)`,
+              `scale3d(${zoom}, ${zoom}, 1) translate3d(${pinchZoomTransitionX}px, ${pinchZoomTransitionY}px, 0)`,
           }}
           ref={
             !clickTextToOpenLightbox && index === activeIndex
