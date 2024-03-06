@@ -8,7 +8,7 @@
   max-width: 100%;
   z-index: 20;
   outline: none;
-  touch-action: pan-x;
+  touch-action: none;
 }
 
 .closeBtn {
