@@ -1,3 +1,7 @@
+.galleryOuterContainer {
+  scroll-margin-top: 90px;
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -15,7 +19,6 @@
   box-shadow: 3px 3px 21px -5px rgb(66, 68, 90);
   cursor: zoom-in;
   filter: brightness(80%);
-
 }
 
 .imgContainer:hover {
@@ -24,6 +27,17 @@
 
 .imgContainer img {
   transition: 0.3s;
+}
+
+.toggleButton {
+  width: 100%;
+  font-size: 14px;
+  padding-bottom: 20px;
+  transition: 0.3s;
+}
+
+.toggleButton:hover {
+  color: red;
 }
 
 .imgContainer img:hover {

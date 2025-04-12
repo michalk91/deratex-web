@@ -124,6 +124,22 @@ function Certificates() {
       height: 1149,
       width: 800,
     },
+    {
+      src: "/images/index/certificates/killgerm-2025.jpg",
+      alt: "baner image4",
+      slideText: `"Warsztaty Killgerm Polska"`,
+      slideText2: " - Grażyna Kukla - ",
+      height: 1754,
+      width: 1241,
+    },
+    {
+      src: "/images/index/certificates/killgerm-2025-2.jpg",
+      alt: "baner image4",
+      slideText: `"Warsztaty Killgerm Polska"`,
+      slideText2: " - Leszek Kukla - ",
+      height: 1754,
+      width: 1241,
+    },
   ];
 
   return (
