@@ -400,7 +400,10 @@ function Gallery() {
     setShowAll((prevState) => {
       const newState = !prevState;
       if (!newState && galleryRef.current) {
-        galleryRef.current.scrollIntoView({  behavior: 'smooth', block:'start' });
+        galleryRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }
       return newState;
     });
@@ -423,15 +426,17 @@ function Gallery() {
               "innerContentWidth"
             )}
             thumbnailWithBorderRadius
+            zoomedImgSizes="40vw"
           />
-               <button
-        onClick={toggleImages}
-        className={classNames(styles.toggleButton)}
-      >
-         <span className={styles.arrow}>{showAll ? "▲ Zamknij galerię" : "▼ Zobacz cała galerię"}</span>
-      </button>
+          <button
+            onClick={toggleImages}
+            className={classNames(styles.toggleButton)}
+          >
+            <span className={styles.arrow}>
+              {showAll ? "▲ Zamknij galerię" : "▼ Zobacz cała galerię"}
+            </span>
+          </button>
         </div>
-   
       </section>
     </>
   );
