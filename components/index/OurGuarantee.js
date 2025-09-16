@@ -15,7 +15,7 @@ function OurGuarantee() {
     {
       src: "/images/index/OurGuarantee/price.png",
       alt: "Rozsądne ceny",
-      text: "Rozsadne ceny(każda usługa i jej koszt uzgadniana z klientem)",
+      text: "Rozsadne ceny (każda usługa i jej koszt uzgadniana z klientem)",
     },
     {
       src: "/images/index/OurGuarantee/professional.png",

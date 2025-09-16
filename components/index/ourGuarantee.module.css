@@ -2,8 +2,8 @@
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  padding: 1% 12% 2% 12%;
-  column-gap: 5%;
+  padding: 1% 12% 40px 12%;
+  column-gap: 40px;
 }
 .articleContainer article {
   padding: 5%;
@@ -13,7 +13,6 @@
   position: relative;
   z-index: 1;
   opacity: 0;
-  transform: translateY(20px);
 }
 
 .imageContainer {
@@ -21,7 +20,7 @@
   overflow: hidden;
   height: 190px;
   line-height: 190px;
-
+  padding: 0 10px;
   transition: 0.3s;
   z-index: 0;
   opacity: 0;
@@ -29,7 +28,7 @@
 }
 .imageContainer img {
   height: auto;
-  width: 100%;
+  width: 90%;
   vertical-align: middle;
 }
 
@@ -53,8 +52,12 @@
 @media only screen and (max-width: 630px) {
   .articleContainer {
     grid-template-columns: 1fr 1fr;
-    padding: 3% 10%;
+    padding: 3% 10% 40px 10%;
     font-size: 0.9rem;
+  }
+
+  .imageContainer {
+    padding: 0;
   }
 }
 
