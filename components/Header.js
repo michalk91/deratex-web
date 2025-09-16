@@ -82,10 +82,10 @@ function Header() {
                 </Link>
               </li>
               <li className={styles.navitem}>
-                <Link legacyBehavior href="/services">
+                <Link legacyBehavior href="/uslugi">
                   <a
                     className={classNames(styles.navlink, {
-                      [styles.active]: router.pathname === "/services",
+                      [styles.active]: router.pathname === "/uslugi",
                     })}
                     onClick={closeMenu}
                   >
@@ -94,10 +94,10 @@ function Header() {
                 </Link>
               </li>
               <li className={styles.navitem}>
-                <Link legacyBehavior href="/contact">
+                <Link legacyBehavior href="/kontakt">
                   <a
                     className={classNames(styles.navlink, {
-                      [styles.active]: router.pathname === "/contact",
+                      [styles.active]: router.pathname === "/kontakt",
                     })}
                     onClick={closeMenu}
                   >

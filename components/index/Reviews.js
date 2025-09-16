@@ -56,7 +56,7 @@ const Reviews = () => {
                   <div className={classNames(styles.reviewContainer)}>
                     <div
                       className="fb-post"
-                      data-href="https://www.facebook.com/januszfakir/posts/pfbid02T7gvTdmfkvmvgFsg7cDNKapsrEsVnhFgoPCYdEtfCg8UqDkAo2gipdRpKQ63EbrTl"
+                      data-href="https://www.facebook.com/AleksEdwinson/posts/pfbid02SwZeeaZniqcGCDrZkkTjMmxQcPGjfCFGQvmjnHWeY8UJnNhzxk2yX1sBn2JtyduJl"
                     ></div>
                   </div>
                 </CarouselItem>

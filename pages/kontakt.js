@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import styles from "./contact.module.css";
-import React from "react";
 import ContactForm from "../components/contact/ContactForm";
 import FbPage from "../components/contact/FbPage";
 import Map from "../components/contact/Map";
@@ -25,7 +24,6 @@ export default function Contact() {
       <Map />
       <div className={classNames(styles.gridContainer, "innerContentWidth")}>
         <ContactForm />
-
         <FbPage />
       </div>
     </>
