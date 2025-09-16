@@ -22,7 +22,9 @@ export const SliderData = [
   {
     src: "/images/index/Slider/slide4.jpg",
     alt: "baner image4",
-    text: "Dezynfekcja",
+    text: "Dezynsekcje elewatorów",
+    text2: "Dezynsekcje silosów",
+    text3: "Dezynsekcje młynów",
   },
 
 ];
