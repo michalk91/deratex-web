@@ -65,6 +65,16 @@ function Slider({ slides }) {
   });
 
   useEffect(() => {
+  if (!inViewport) return;
+
+  setSliderInfo((state) => ({
+    ...state,
+    startTime: Date.now(),
+    elapsed: 0,
+  }));
+}, [inViewport]);
+
+  useEffect(() => {
     if (paused || !inViewport) return;
 
     const remaining = 3000 - sliderInfo.elapsed;
