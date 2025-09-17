@@ -12,11 +12,12 @@ function Slider({ slides }) {
   const [sliderInfo, setSliderInfo] = useState({
     activeIndex: 0,
     paused: false,
-    wasHovered: false,
     pressed: false,
+    startTime: Date.now(),
+    elapsed: 0,
   });
 
-  const { activeIndex, paused, wasHovered, pressed } = sliderInfo;
+  const { activeIndex, paused } = sliderInfo;
 
   const slidesCount = slides.length;
 
@@ -25,10 +26,10 @@ function Slider({ slides }) {
   const nextSlide = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
-      wasHovered: false,
-      pressed: !state.pressed,
       activeIndex:
         state.activeIndex !== slidesCount - 1 ? state.activeIndex + 1 : 0,
+      startTime: Date.now(),
+      elapsed: 0,
     }));
   }, []); // eslint-disable-line
 
@@ -38,6 +39,8 @@ function Slider({ slides }) {
       pressed: !state.pressed,
       activeIndex:
         state.activeIndex !== 0 ? state.activeIndex - 1 : slidesCount - 1,
+      startTime: Date.now(),
+      elapsed: 0,
     }));
   }, []); // eslint-disable-line
 
@@ -61,33 +64,31 @@ function Slider({ slides }) {
     disableResistanceOnEnds: true,
   });
 
-  useEffect(() => {
-    if (paused || !inViewport) return;
+useEffect(() => {
+  if (paused || !inViewport) return;
 
-    if (wasHovered) {
-      nextSlide();
-    }
+  const remaining = 3000 - sliderInfo.elapsed;
+  const timer = setTimeout(() => {
+    nextSlide();
+  }, remaining);
 
-    const handleAutoplay = setInterval(nextSlide, 3000);
+  return () => clearTimeout(timer);
+}, [paused, inViewport, sliderInfo.elapsed, activeIndex, nextSlide]);
 
-    return () => {
-      if (handleAutoplay) {
-        clearInterval(handleAutoplay);
-      }
-    };
-  }, [paused, pressed, inViewport]); // eslint-disable-line
 
-  const handleHovered = useCallback(() => {
+  const handleMouseEnter = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
       paused: true,
-      wasHovered: true,
+      elapsed: Date.now() - state.startTime,
     }));
   }, []);
-  const handleUnpaused = useCallback(() => {
+
+  const handleMouseLeave = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
       paused: false,
+      startTime: Date.now() - state.elapsed,
     }));
   }, []);
 
@@ -95,6 +96,8 @@ function Slider({ slides }) {
     setSliderInfo((state) => ({
       ...state,
       activeIndex: index,
+      startTime: Date.now(),
+      elapsed: 0,
     }));
   }, []);
 
@@ -102,8 +105,8 @@ function Slider({ slides }) {
     <section
       ref={containerRef}
       className={styles.slider}
-      onMouseOver={handleHovered}
-      onMouseLeave={handleUnpaused}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       onTouchMove={onTouchMove}

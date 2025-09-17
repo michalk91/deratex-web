@@ -18,9 +18,9 @@ function SliderDot({ active, paused }) {
             fillOpacity="0"
           />
           <circle
-            className={classNames({
-              [styles.circleWithBorderAnimation]: active && !paused,
+            className={classNames(styles.circleWithBorderAnimation, {
               [styles.circleWithScaleAnimation]: active && paused,
+              [styles.circleWithBorderAnimationPaused]: active && paused,
             })}
             cx="15"
             cy="15"

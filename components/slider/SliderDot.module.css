@@ -34,15 +34,11 @@
   transform-origin: center;
 }
 
-
 .circleBackground {
   cursor: pointer;
   fill: gray;
   opacity: 40%;
 }
-
-
-
 
 .circleWithBorderAnimation {
   display: block;
@@ -52,6 +48,11 @@
   transform-origin: center;
   transform: rotate(-90deg);
   stroke-linecap: round;
+  animation-play-state: running;
+}
+
+.circleWithBorderAnimationPaused {
+  animation-play-state: paused;
 }
 
 @keyframes stroke {
