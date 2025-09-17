@@ -64,17 +64,16 @@ function Slider({ slides }) {
     disableResistanceOnEnds: true,
   });
 
-useEffect(() => {
-  if (paused || !inViewport) return;
+  useEffect(() => {
+    if (paused || !inViewport) return;
 
-  const remaining = 3000 - sliderInfo.elapsed;
-  const timer = setTimeout(() => {
-    nextSlide();
-  }, remaining);
+    const remaining = 3000 - sliderInfo.elapsed;
+    const timer = setTimeout(() => {
+      nextSlide();
+    }, remaining);
 
-  return () => clearTimeout(timer);
-}, [paused, inViewport, sliderInfo.elapsed, activeIndex, nextSlide]);
-
+    return () => clearTimeout(timer);
+  }, [paused, inViewport, sliderInfo.elapsed, activeIndex, nextSlide]);
 
   const handleMouseEnter = useCallback(() => {
     setSliderInfo((state) => ({
@@ -135,6 +134,7 @@ useEffect(() => {
         {slides.map((_, index) => (
           <div key={index} onClick={() => setNavigate(index)}>
             <SliderDot
+              key={`${index}-${activeIndex}-${inViewport ? 1 : 0}`}
               active={activeIndex === index}
               paused={paused || !inViewport}
             />
