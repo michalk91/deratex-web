@@ -3,6 +3,7 @@ import styles from "./otherServices.module.css";
 import classNames from "classnames";
 import { memo, useRef } from "react";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
+import pestcontrol from '/public/images/services/OtherServices/pestcontrol.png';
 
 function OtherServices() {
   const containerRef = useRef();
@@ -49,7 +50,7 @@ function OtherServices() {
 
         <div className={styles.imgContainer}>
           <Image
-            src="/images/services/OtherServices/pestcontrol.png"
+            src={pestcontrol}
             alt="kontrola zywnosci"
             width={0}
             height={0}

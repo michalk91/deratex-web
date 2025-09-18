@@ -1,22 +1,23 @@
-import React from "react";
 import { memo } from "react";
 import styles from "./referenceLetters.module.css";
 import classNames from "classnames";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { CarouselItem } from "../carouselSlider/Carousel";
 import { ImageForLightbox } from "../carouselSlider/Carousel";
+import reference1 from "/public/images/services/ReferenceLetters/reference.jpg";
+import reference2 from "/public/images/services/ReferenceLetters/reference_second.jpg";
 
 function ReferenceLetters() {
   const images = [
     {
-      src: "/images/services/ReferenceLetters/reference.jpg",
+      src: reference1,
       alt: "reference letter",
       height: 621,
       width: 464,
       text: "Spółdzielnia Mieszkaniowa",
     },
     {
-      src: "/images/services/ReferenceLetters/reference_second.jpg",
+      src: reference2,
       alt: "reference letter 2",
       height: 2000,
       width: 1414,

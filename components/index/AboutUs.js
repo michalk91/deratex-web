@@ -3,13 +3,14 @@ import React from "react";
 import Image from "next/image";
 import { memo } from "react";
 import classNames from "classnames";
+import firmarodzina from '/public/images/firmarodzinna.jpg';
 
 function AboutUs() {
   return (
     <section className={classNames(styles.aboutUs, "innerContentWidth")}>
       <div className={styles.aboutUsImage}>
         <Image
-          src="/images/firmarodzinna.jpg"
+          src={firmarodzina}
           alt="logo"
           height={0}
           width={0}

@@ -3,13 +3,14 @@ import React from "react";
 import { memo } from "react";
 import classNames from "classnames";
 import Image from "next/image";
+import backgroundImage from '/public/images/index/HelpForAllSlogan/backgroundImage.jpg'
 
 function helpForAllSlogan() {
   return (
     <section className={styles.container}>
       <div className={styles.imgContainer}>
         <Image
-          src="/images/index/HelpForAllSlogan/backgroundImage.jpg"
+          src={backgroundImage}
           alt="background image"
           fill
           placeholder="blur"

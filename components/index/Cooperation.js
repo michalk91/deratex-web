@@ -1,79 +1,41 @@
 import styles from "./cooperation.module.css";
-import React from "react";
 import Image from "next/image";
 import { CarouselItem } from "../carouselSlider/Carousel";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { memo } from "react";
 import classNames from "classnames";
+import hospital from "/public/images/index/Cooperation/hospital.jpg";
+import farmacja from "/public/images/index/Cooperation/farmacja.jpg";
+import gastronomia from "/public/images/index/Cooperation/gastronomia.jpg";
+import handel from "/public/images/index/Cooperation/handel.jpg";
+import bloki from "/public/images/index/Cooperation/bloki.jpg";
+import zasoby from "/public/images/index/Cooperation/zasoby.jpg";
+import wspolnota from "/public/images/index/Cooperation/wspolnota.jpg";
+import rolne from "/public/images/index/Cooperation/rolne.jpg";
+import szkola from "/public/images/index/Cooperation/szkola.jpg";
+import osrodek from "/public/images/index/Cooperation/osrodek.jpg";
+import hotel from "/public/images/index/Cooperation/hotel.jpg";
+import zaklad from "/public/images/index/Cooperation/zaklad.jpg";
 
 function Cooperation() {
-  const images = [
+   const images = [
     [
-      {
-        src: "/images/index/Cooperation/hospital.jpg",
-        alt: "hospital",
-        text: "służby zdrowia",
-      },
-      {
-        src: "/images/index/Cooperation/farmacja.jpg",
-        alt: "farmacia",
-        text: "firm farmaceutycznych",
-      },
-      {
-        src: "/images/index/Cooperation/gastronomia.jpg",
-        alt: "gastronomy",
-        text: "gastronomii",
-      },
-      {
-        src: "/images/index/Cooperation/handel.jpg",
-        alt: "trade",
-        text: "placówek handlu hurtowego i detalicznego",
-      },
+      { src: hospital, alt: "hospital", text: "służby zdrowia" },
+      { src: farmacja, alt: "farmacia", text: "firm farmaceutycznych" },
+      { src: gastronomia, alt: "gastronomy", text: "gastronomii" },
+      { src: handel, alt: "trade", text: "placówek handlu hurtowego i detalicznego" },
     ],
     [
-      {
-        src: "/images/index/Cooperation/bloki.jpg",
-        alt: "blocks of flats",
-        text: "spółdzielni mieszkaniowej",
-      },
-      {
-        src: "/images/index/Cooperation/zasoby.jpg",
-        alt: "housing stock",
-        text: "gospodarki zasobami mieszkaniowymi",
-      },
-      {
-        src: "/images/index/Cooperation/wspolnota.jpg",
-        alt: "housing Association",
-        text: "wspólnot mieszkaniowych",
-      },
-      {
-        src: "/images/index/Cooperation/rolne.jpg",
-        alt: "agri-food processing",
-        text: "przetwórstwa rolno-spożywczego",
-      },
+      { src: bloki, alt: "blocks of flats", text: "spółdzielni mieszkaniowej" },
+      { src: zasoby, alt: "housing stock", text: "gospodarki zasobami mieszkaniowymi" },
+      { src: wspolnota, alt: "housing Association", text: "wspólnot mieszkaniowych" },
+      { src: rolne, alt: "agri-food processing", text: "przetwórstwa rolno-spożywczego" },
     ],
-
     [
-      {
-        src: "/images/index/Cooperation/szkola.jpg",
-        alt: "school",
-        text: "obiektów szkolnych oraz internatów",
-      },
-      {
-        src: "/images/index/Cooperation/osrodek.jpg",
-        alt: "holiday resorts",
-        text: "ośrodków wypoczynkowych",
-      },
-      {
-        src: "/images/index/Cooperation/hotel.jpg",
-        alt: "hotels",
-        text: "hoteli",
-      },
-      {
-        src: "/images/index/Cooperation/zaklad.jpg",
-        alt: "food production plants",
-        text: "zakładów produkujących żywność",
-      },
+      { src: szkola, alt: "school", text: "obiektów szkolnych oraz internatów" },
+      { src: osrodek, alt: "holiday resorts", text: "ośrodków wypoczynkowych" },
+      { src: hotel, alt: "hotels", text: "hoteli" },
+      { src: zaklad, alt: "food production plants", text: "zakładów produkujących żywność" },
     ],
   ];
 

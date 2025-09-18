@@ -1,9 +1,9 @@
 import styles from "./offerFor.module.css";
-import React from "react";
 import Image from "next/image";
 import { memo, useRef } from "react";
 import classNames from "classnames";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
+import poland from "/public/images/index/offerFor/poland.jpg"
 
 function OfferFor() {
   const containerRef = useRef();
@@ -43,7 +43,7 @@ function OfferFor() {
           </div>
 
           <Image
-            src="/images/index/offerFor/poland.jpg"
+            src={poland}
             alt="logo"
             height={0}
             width={0}

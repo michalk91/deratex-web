@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import styles from "./lightboxGallery.module.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";

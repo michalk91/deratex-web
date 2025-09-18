@@ -4,11 +4,17 @@ import classNames from "classnames";
 import { memo, useRef } from "react";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
 import { outfitBolder } from "../../fonts/fonts";
+import rat from "/public/images/services/MainServices/rat.png";
+import insect from "/public/images/services/MainServices/insect.png";
+import moth from "/public/images/services/MainServices/moth.png";
+import ozonowanieImg from "/public/images/services/MainServices/ozonowanie.png";
+import fumigation from "/public/images/services/MainServices/fumigation.png";
+import woodpests from "/public/images/services/MainServices/woodpests.png";
 
 function MainServices() {
   const items = [
     {
-      src: "/images/services/MainServices/rat.png",
+      src: rat,
       alt: "deratyzacja, szczur",
       title: "deratyzacja",
       captionText: null,
@@ -17,7 +23,7 @@ function MainServices() {
       bgColorClass: "yellowBG",
     },
     {
-      src: "/images/services/MainServices/insect.png",
+      src: insect,
       alt: "dezynsekcja, robak",
       title: "dezynsekcja",
       captionText: null,
@@ -26,7 +32,7 @@ function MainServices() {
       bgColorClass: "greenBG",
     },
     {
-      src: "/images/services/MainServices/moth.png",
+      src: moth,
       alt: "dezynfekcja, mól",
       title: "dezynfekcja",
       captionText: null,
@@ -35,14 +41,14 @@ function MainServices() {
       bgColorClass: "blueBG",
     },
     {
-      src: "/images/services/MainServices/ozonowanie.png",
+      src: ozonowanieImg,
       alt: "ozonowanie, ozon",
       title: "ozonowanie",
       text: "To metoda dezynfekcji(dezodoryzacji) bez użycia srodków chemicznych gdzie czynnikiem biobójczym jest ozon, gaz o silnych właściwościach utleniajacych.",
       bgColorClass: "grayBG",
     },
     {
-      src: "/images/services/MainServices/fumigation.png",
+      src: fumigation,
       alt: "fumigacja",
       title: "fumigacja",
       captionText: null,
@@ -51,7 +57,7 @@ function MainServices() {
       bgColorClass: "redBG",
     },
     {
-      src: "/images/services/MainServices/woodpests.png",
+      src: woodpests,
       alt: "fumigacja",
       title: "Zwalczanie szkodników drewna wyrobionego",
       captionText: null,
