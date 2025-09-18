@@ -29,8 +29,6 @@
   stroke-dashoffset: 80;
   fill: white;
   opacity: 100%;
-  animation: fromSmallToBig 0.3s linear forwards;
-  transform-origin: center !important;
   transform-origin: center;
 }
 
@@ -58,11 +56,5 @@
 @keyframes stroke {
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-@keyframes fromSmallToBig {
-  to {
-    transform: scale(1);
   }
 }

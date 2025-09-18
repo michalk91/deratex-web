@@ -49,19 +49,12 @@ function OtherServices() {
 
         <div className={styles.imgContainer}>
           <Image
-            src="/images/services/OtherServices/pestcontrol.jpg"
+            src="/images/services/OtherServices/pestcontrol.png"
             alt="kontrola zywnosci"
             width={0}
             height={0}
             sizes="(max-width: 1200px) 100vw, 80vw"
           />
-          <a
-            className="caption"
-            aria-label="Click to see other photos by this author"
-            href="https://www.freepik.com/free-vector/isometric-pest-control-service-house-disinfection-infographics-with-workers-insects-rodents-3d-vector-illustration_34481859.htm#query=pest%20control&position=1&from_view=search&track=sph"
-          >
-            Image by macrovector on Freepik
-          </a>
         </div>
       </div>
     </>

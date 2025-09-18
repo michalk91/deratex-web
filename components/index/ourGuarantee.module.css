@@ -18,8 +18,7 @@
 .imageContainer {
   position: relative;
   overflow: hidden;
-  height: 190px;
-  line-height: 190px;
+  line-height: 160px;
   padding: 0 10px;
   transition: 0.3s;
   z-index: 0;
