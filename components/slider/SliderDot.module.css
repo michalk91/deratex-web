@@ -25,10 +25,9 @@
 .circleWithScaleAnimation {
   display: block;
   fill-opacity: 1;
-  stroke-dasharray: 80;
-  stroke-dashoffset: 80;
   fill: white;
-  opacity: 100%;
+  transform: scale(0);
+  animation: fromSmallToBig 0.3s ease-in forwards;
   transform-origin: center;
 }
 
@@ -56,5 +55,11 @@
 @keyframes stroke {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fromSmallToBig {
+  to {
+    transform: scale(1);
   }
 }

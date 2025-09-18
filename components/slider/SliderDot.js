@@ -19,7 +19,6 @@ function SliderDot({ active, paused }) {
           />
           <circle
             className={classNames(styles.circleWithBorderAnimation, {
-              [styles.circleWithScaleAnimation]: active && paused,
               [styles.circleWithBorderAnimationPaused]: active && paused,
             })}
             cx="15"
@@ -27,6 +26,16 @@ function SliderDot({ active, paused }) {
             r="10"
             stroke="#fff"
             strokeWidth="4"
+            fillOpacity="0"
+          />
+          <circle
+            className={classNames( {
+              [styles.circleWithScaleAnimation]: active && paused,
+            })}
+            cx="15"
+            cy="15"
+            r="5.5"
+            strokeWidth="0"
             fillOpacity="0"
           />
         </svg>
