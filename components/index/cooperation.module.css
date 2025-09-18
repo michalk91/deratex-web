@@ -32,7 +32,7 @@
   padding-bottom: 10px;
 }
 
-.cooperationSection h3 {
+.cooperationSection p {
   font-size: 1.1rem;
   color: white;
   position: absolute;
@@ -40,16 +40,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-transform: uppercase;
-
   text-align: center;
   text-shadow: black 2px 2px 1px;
   background-color: rgba(140, 0, 0, 0.6);
   border-bottom: 2px solid white;
   border-top: 2px solid white;
-
   width: 100%;
   padding: 5px;
-
   font-weight: 900;
 }
 .imgContainer {
@@ -116,7 +113,7 @@
 }
 
 @media only screen and (max-width: 680px) {
-  .cooperationSection h3 {
+  .cooperationSection p {
     font-size: 1rem;
   }
 

@@ -8,6 +8,10 @@
   gap: 6%;
 }
 
+.imgsContainer {
+  text-align: center;
+}
+
 .imgsContainer div {
   opacity: 0;
 }

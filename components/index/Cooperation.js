@@ -80,7 +80,7 @@ function Cooperation() {
                         placeholder="blur"
                         sizes="100vw"
                       />
-                      <h3>{item.text}</h3>
+                      <p>{item.text}</p>
                     </div>
                   </article>
                 ))}
