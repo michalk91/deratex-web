@@ -11,9 +11,9 @@ function OtherServices() {
   return (
     <>
       <div className={classNames("innerContentWidth")}>
-        <span className={classNames("title", styles.underline)}>
+        <h2 className={classNames("title", styles.underline)}>
           Nasze usługi obejmuja:
-        </span>
+        </h2>
         <ul
           ref={containerRef}
           className={classNames(styles.textContainer, { ["fade-in"]: animate })}

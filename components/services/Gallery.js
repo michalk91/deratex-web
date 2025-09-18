@@ -133,7 +133,7 @@ function Gallery() {
   return (
     <>
       <section className={styles.galleryOuterContainer} ref={galleryRef}>
-        <span className={classNames("title")}>Galeria</span>
+        <h2 className={classNames("title")}>Galeria</h2>
         <div className={classNames("graySection")}>
           <RichLightboxGallery
             virtualized

@@ -9,7 +9,7 @@
   padding: 5%;
 }
 
-.articleContainer h2 {
+.articleContainer h3 {
   position: relative;
   z-index: 1;
   opacity: 0;
@@ -61,7 +61,7 @@
 }
 
 @media only screen and (max-width: 550px) {
-  .articleContainer h2 {
+  .articleContainer h3 {
     font-size: 0.8rem;
   }
 }
@@ -81,7 +81,7 @@
 }
 
 @media only screen and (max-width: 300px) {
-  .articleContainer h2 {
+  .articleContainer h3 {
     font-size: 0.7rem;
   }
   .articleContainer {

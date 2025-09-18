@@ -20,9 +20,9 @@ function AboutUs() {
       </div>
 
       <div>
-        <span className={classNames("secondTitle")}>
+        <h2 className={classNames("secondTitle")}>
           Kilka słów <b>o nas</b>
-        </span>
+        </h2>
         <p>
           <strong>Zakład DDD Deratex</strong> to firma rodzinna, którą cechuje
           nie tylko szeroka wiedza z zakresu dezynfekcji, dezynsekcji i

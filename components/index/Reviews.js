@@ -34,7 +34,7 @@ const Reviews = () => {
       {/* Show "reviews" only when facebook iframe correctly loaded */}
       {!iframeError && (
         <section className={styles.reviews} ref={ref}>
-          <span className={classNames("title")}>Opinie o Nas</span>
+          <h2 className={classNames("title")}>Opinie o Nas</h2>
           <div className="graySection">
             <div className={classNames(styles.innerContent)}>
               <RichCarousel

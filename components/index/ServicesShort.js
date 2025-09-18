@@ -27,7 +27,7 @@ function ServicesShort() {
 
   return (
     <section className={classNames(styles.services)}>
-      <span className={classNames("title")}>Oferowane usługi</span>
+      <h2 className={classNames("title")}>Oferowane usługi</h2>
       <div className={classNames("graySection")}>
         <section ref={containerRef} className={classNames("innerContentWidth")}>
           {images.map((item, index) => (
@@ -42,7 +42,7 @@ function ServicesShort() {
                   sizes="(max-width: 350px) 100vw, (max-width: 700px) 50vw, 33vw"
                 />
               </div>
-              <h2 className={styles.services}>{item.text}</h2>
+              <h3 className={styles.services}>{item.text}</h3>
               <Link href="/uslugi">
                 <button aria-label="Czytaj więcej" className={styles.services}>
                   Czytaj więcej

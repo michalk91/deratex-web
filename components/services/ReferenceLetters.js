@@ -28,7 +28,7 @@ function ReferenceLetters() {
   return (
     <>
       <section>
-        <span className={classNames("title")}>Listy Referencyjne</span>
+        <h2 className={classNames("title")}>Listy Referencyjne</h2>
         <div className={classNames("graySection")}>
           <div className={classNames(styles.container, "innerContentWidth")}>
             <RichCarousel

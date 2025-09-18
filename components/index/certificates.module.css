@@ -23,7 +23,7 @@
   flex-basis: 50%;
   padding-left: 5%;
 }
-.certificatesText h3 {
+.certificatesText h4 {
   padding-top: 5%;
 }
 
@@ -83,11 +83,11 @@
     padding-left: 2%;
     padding-right: 2%;
   }
-  .certificatesText h2 {
+  .certificatesText h3 {
     font-size: 0.9rem;
     text-align: left;
   }
-  .certificatesText h3 {
+  .certificatesText h4 {
     font-size: 0.9rem;
     text-align: right;
   }
@@ -97,20 +97,20 @@
   .certificatesImage {
     flex-basis: 80px;
   }
-  .certificatesText h2 {
+  .certificatesText h3 {
     font-size: 0.8rem;
   }
 
-  .certificatesText h3 {
+  .certificatesText h4 {
     font-size: 0.8rem;
   }
 }
 @media only screen and (max-width: 500px) {
-  .certificatesText h2 {
+  .certificatesText h3 {
     font-size: 0.75rem;
   }
 
-  .certificatesText h3 {
+  .certificatesText h4 {
     font-size: 0.75rem;
   }
 }

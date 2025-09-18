@@ -117,7 +117,7 @@ function ContactForm() {
       />
       <div className={styles.container} ref={formContainerRef}>
         <form className={classNames(styles.form)} onSubmit={onSubmitForm}>
-          <p className={classNames("title")}>Formularz kontaktowy</p>
+          <h2 className={classNames("title")}>Formularz kontaktowy</h2>
           <div className={styles.inputsContainer}>
             <input
               id="name"

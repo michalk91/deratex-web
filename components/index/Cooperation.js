@@ -44,9 +44,9 @@ function Cooperation() {
       {/* ------------------------------------------version for mobile------------------------------------------------ */}
       <div className={styles.cooperationSectionMobile}>
         <div className={styles.cooperationTitleContainer}>
-          <span className={classNames(styles.underline)}>
+          <h2 className={classNames(styles.underline)}>
             <b>Szczególnie Naszą współpracę kierujemy do:</b>
-          </span>
+          </h2>
         </div>
         <div className={styles.mobileText}>
           {images.map((item) =>

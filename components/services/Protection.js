@@ -17,9 +17,9 @@ function Protection() {
 
   return (
     <div ref={containerRef} className="innerContentWidth">
-      <span className={classNames("secondTitle", styles.title)}>
+      <h2 className={classNames("secondTitle", styles.title)}>
         <b> Oferujemy kompleksowa ochronę sanitarna obiektów według:</b>
-      </span>
+      </h2>
       <div className={styles.wrapper}>
         {svgs.map((item, index) => (
           <div

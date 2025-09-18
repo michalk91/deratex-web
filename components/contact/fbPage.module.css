@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.fbPageContainer h2 {
+  font-size: 1.05rem;
+}
+
 .innerContainer {
   position: relative;
   height: 600px;
@@ -90,4 +94,10 @@
   .innerContainer {
     height: 70vh;
   }
+}
+
+@media only screen and (max-width: 500px) {
+    .fbPageContainer h2 {
+        font-size: 1rem;
+    }
 }

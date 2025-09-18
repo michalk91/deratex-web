@@ -55,7 +55,7 @@ function OurGuarantee() {
 
   return (
     <section>
-      <span className={classNames("title")}>Nasza gwarancja</span>
+      <h2 className={classNames("title")}>Nasza gwarancja</h2>
       <div className={classNames("graySection")}>
         <section
           ref={containerRef}
@@ -77,9 +77,9 @@ function OurGuarantee() {
                 />
               </div>
 
-              <h2 className={classNames({ ["fade-in"]: animate })}>
+              <h3 className={classNames({ ["fade-in"]: animate })}>
                 {item.text}
-              </h2>
+              </h3>
             </article>
           ))}
         </section>

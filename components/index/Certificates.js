@@ -43,9 +43,9 @@ function Certificates() {
 
   return (
     <section className={classNames("innerContentWidth", styles.certificates)}>
-      <span>
+      <h2>
         <b className={classNames("short-underline")}>Certyfikaty</b>
-      </span>
+      </h2>
 
       <div className={styles.certificatesWrapper}>
         <RichCarousel
@@ -75,8 +75,8 @@ function Certificates() {
               />
 
               <div className={classNames(styles.certificatesText)}>
-                <h2>{item.slideText}</h2>
-                <h3>{item.slideText2}</h3>
+                <h3>{item.slideText}</h3>
+                <h4>{item.slideText2}</h4>
               </div>
             </CarouselItem>
           ))}

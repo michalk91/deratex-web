@@ -76,7 +76,7 @@ function MainServices() {
   });
 
   return (
-    <div className={styles.wrapper} ref={containerRef}>
+    <div className={styles.wrapper} ref={containerRef}>    
       {items.map((item, index) => (
         <div key={index} className={classNames(`${styles[item.bgColorClass]}`)}>
           <div className={classNames("innerContentWidth")}>
@@ -113,9 +113,9 @@ function MainServices() {
               </div>
 
               <div className={styles.textContainer}>
-                <p className={classNames(styles.title, outfitBolder.className)}>
+                <h2 className={classNames(styles.title, outfitBolder.className)}>
                   {item.title}
-                </p>
+                </h2>
                 <p className={styles.text}>{item.text}</p>
               </div>
             </div>

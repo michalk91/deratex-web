@@ -69,9 +69,9 @@ useEffect(() => {
 
   return (
     <div className={styles.fbPageContainer}>
-      <p className={classNames("title", styles.title)}>
+      <h2 className={classNames("title", styles.title)}>
         Obserwuj Nas na facebooku
-      </p>
+      </h2>
       <div ref={containerRef} className={styles.innerContainer}>
         {loading && (
           <div
