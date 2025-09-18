@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { memo } from "react";
 import classNames from "classnames";
-import firmarodzina from '/public/images/firmarodzinna.jpg';
+import firmarodzina from '/public/images/index/aboutUs/firmarodzinna.jpg';
 
 function AboutUs() {
   return (
