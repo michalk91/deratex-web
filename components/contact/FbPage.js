@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import styles from "./fbPage.module.css";
-import { React, memo, useEffect, useState, useCallback, useRef } from "react";
+import { memo, useEffect, useState, useCallback, useRef } from "react";
 import useFbPagePluginResize from "../../hooks/useFbPagePluginResize";
 import { MobileView } from "react-device-detect";
 import useScrollLock from "../../hooks/useScrollLock";
@@ -8,6 +8,7 @@ import useScrollLock from "../../hooks/useScrollLock";
 function FbPage() {
   const [touched, setTouched] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const containerRef = useRef();
 
@@ -49,12 +50,35 @@ function FbPage() {
     }, 30); // HACK: Fixes horizontal scrolling using scrollIntoView
   }, [clicked]);
 
+useEffect(() => {
+  const fbContainer = containerRef.current.querySelector(".fb-page");
+  if (!fbContainer) return;
+
+  const observer = new MutationObserver(() => {
+    const iframe = fbContainer.querySelector("iframe");
+    if (iframe) {
+      iframe.addEventListener("load", () => setLoading(false));
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(fbContainer, { childList: true, subtree: true });
+
+  return () => observer.disconnect();
+}, []);
+
   return (
     <div className={styles.fbPageContainer}>
       <p className={classNames("title", styles.title)}>
         Obserwuj Nas na facebooku
       </p>
       <div ref={containerRef} className={styles.innerContainer}>
+        {loading && (
+          <div
+            className={styles.fbSkeleton}
+            style={{ width: fbPageWidth, height: fbPageHeight }}
+          ></div>
+        )}
         <div
           className="fb-page"
           data-href="https://www.facebook.com/deratexdddtuchola"

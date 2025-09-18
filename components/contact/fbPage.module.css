@@ -53,7 +53,6 @@
 
 .btn {
   position: fixed;
-
   left: 0;
   bottom: 0;
   display: block;
@@ -68,6 +67,23 @@
   transition: 0.4s;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+.fbSkeleton {
+  margin: 0 auto;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 37%, #f0f0f0 63%);
+  background-size: 400% 100%;
+  animation: shimmer 4s ease infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @media only screen and (max-width: 615px) {
