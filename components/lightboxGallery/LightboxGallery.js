@@ -49,6 +49,7 @@ const LightboxImage = memo(function LightboxImage({
         style={{
           objectFit: objectFit ? objectFit : "cover",
         }}
+        placeholder="blur"
         sizes="20vw"
       />
     </div>
@@ -123,6 +124,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           src={item.src}
           alt={item.alt}
           fill
+          placeholder="blur"
           sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
           priority={index === activeIndex ? true : false}
           onLoadingComplete={(e) => {

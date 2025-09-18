@@ -48,6 +48,7 @@ function ReferenceLetters() {
                     alt={item.alt}
                     width={item.width}
                     height={item.height}
+                    placeholder="blur"
                     sizes="20vw"
                   />
                   <div className={styles.textContainer}>

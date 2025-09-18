@@ -31,6 +31,7 @@ function Protection() {
               alt={item.alt}
               width={0}
               height={0}
+              placeholder="blur"
               sizes="100vw"
             />
           </div>

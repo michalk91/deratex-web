@@ -59,6 +59,7 @@ function ServicesShort() {
                   alt={item.alt}
                   width={0}
                   height={0}
+                  placeholder="blur"
                   sizes="(max-width: 350px) 100vw, (max-width: 700px) 50vw, 33vw"
                 />
               </div>

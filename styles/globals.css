@@ -149,6 +149,7 @@ span {
   text-decoration-color: red !important;
   padding-bottom: 0.5rem;
   font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .secondTitle b {

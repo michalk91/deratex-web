@@ -164,6 +164,7 @@ function Slider({ slides }) {
               fill
               src={slide.src}
               alt={slide.alt}
+              placeholder="blur"
               sizes="100vw"
               quality={isMobile ? 40 : 100}
             />

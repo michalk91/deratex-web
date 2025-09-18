@@ -47,6 +47,7 @@ function OfferFor() {
             alt="logo"
             height={0}
             width={0}
+            placeholder="blur"
             sizes="(max-width: 750px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>

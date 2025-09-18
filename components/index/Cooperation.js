@@ -115,6 +115,7 @@ function Cooperation() {
                         alt={item.alt}
                         height={199}
                         width={300}
+                        placeholder="blur"
                         sizes="100vw"
                       />
                       <h3>{item.text}</h3>

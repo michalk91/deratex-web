@@ -12,6 +12,7 @@ function helpForAllSlogan() {
           src="/images/index/HelpForAllSlogan/backgroundImage.jpg"
           alt="background image"
           fill
+          placeholder="blur"
           sizes="100vw"
         />
       </div>

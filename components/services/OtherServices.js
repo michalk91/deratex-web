@@ -53,6 +53,7 @@ function OtherServices() {
             alt="kontrola zywnosci"
             width={0}
             height={0}
+            placeholder="blur"
             sizes="(max-width: 1200px) 100vw, 80vw"
           />
         </div>

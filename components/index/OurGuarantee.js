@@ -8,43 +8,43 @@ import useInViewAnimation from "../../hooks/useInViewAnimation";
 function OurGuarantee() {
   const images = [
     {
-      src: "/images/index/OurGuarantee/piz.png",
+      src: "/images/index/OurGuarantee/piz.svg",
       alt: "Atesty Państwowego Zakłdu Higieny",
       text: "Stosujemy preparaty i srodki posiadajace zezwolenia Ministra Zdrowia i atesty Państwowego Zakładu Higieny",
     },
     {
-      src: "/images/index/OurGuarantee/price.png",
+      src: "/images/index/OurGuarantee/price.svg",
       alt: "Rozsądne ceny",
       text: "Rozsadne ceny (każda usługa i jej koszt uzgadniana z klientem)",
     },
     {
-      src: "/images/index/OurGuarantee/professional.png",
+      src: "/images/index/OurGuarantee/professional.svg",
       alt: "Profesjonalne wykonanie usługi",
       text: "Profesjonalne wykonanie usługi",
     },
     {
-      src: "/images/index/OurGuarantee/insect.png",
+      src: "/images/index/OurGuarantee/insect.svg",
       alt: "Doradztwo",
       text: "Doradztwo i informacje na temat zabiegu i srodków użytych",
     },
     {
-      src: "/images/index/OurGuarantee/protocol.png",
+      src: "/images/index/OurGuarantee/protocol.svg",
       alt: "Protokół",
       text: "Po wykonanym zabiegu wystawiamy protokół (co, gdzie, kiedy, ile)",
     },
     {
-      src: "/images/index/OurGuarantee/calendar.png",
+      src: "/images/index/OurGuarantee/calendar.svg",
       alt: "Kalendarz",
       text: "Dogodne terminy, (ustalany każdorazowo z klientem)",
     },
     {
-      src: "/images/index/OurGuarantee/safety.png",
+      src: "/images/index/OurGuarantee/safety.svg",
       alt: "Bezpieczństwo",
       text: "Bezpieczeństwo stosowanych srodków chemicznych",
     },
 
     {
-      src: "/images/index/OurGuarantee/ubez.png",
+      src: "/images/index/OurGuarantee/ubez.svg",
       alt: "Firma jest ubezpieczona",
       text: "Nasza firma jest ubezpieczona",
     },
@@ -74,6 +74,7 @@ function OurGuarantee() {
                   alt={item.alt}
                   height={0}
                   width={0}
+                  placeholder="blur"
                   sizes="(max-width: 300px) 100vw, (max-width: 800px) 50vw, (max-width: 1000px) 33vw, 20vw"
                 />
               </div>

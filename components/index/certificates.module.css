@@ -6,6 +6,10 @@
   margin: 0 auto;
 }
 
+.certificates b {
+  font-weight: 600;
+}
+
 .certificatesSlideContainer {
   flex-basis: 100%;
   display: flex;

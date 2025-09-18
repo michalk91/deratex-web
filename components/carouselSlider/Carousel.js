@@ -76,6 +76,7 @@ const ImageForLightbox = memo(function ImageForLightbox({
         width={width ? width : undefined}
         sizes={sizes ? sizes : "100vw"}
         fill={fillContainer ? true : false}
+        placeholder="blur"
         style={{
           objectFit: objectFit ? objectFit : "contain",
           display: "block",
