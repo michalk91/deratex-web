@@ -127,16 +127,6 @@
 
 @media only screen and (max-width: 540px) {
   .cooperationSection {
-    padding: 0;
-  }
-
-  .cooperationArticleSliderContainer {
-    gap: 5px;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .cooperationSection {
     display: none;
   }
   .cooperationSectionMobile {
