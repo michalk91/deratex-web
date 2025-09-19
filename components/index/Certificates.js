@@ -49,7 +49,7 @@ function Certificates() {
 
       <div className={styles.certificatesWrapper}>
         <RichCarousel
-          height="240px"
+          height="260px"
           virtualized
           withGallery
           navigationOutside
