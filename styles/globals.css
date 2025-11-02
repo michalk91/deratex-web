@@ -180,6 +180,11 @@ span {
   font-size: 1.6rem;
 }
 
+.iubenda-banner-content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 @media only screen and (max-width: 1490px) {
   .mainTitle {
     margin-left: 20%;
