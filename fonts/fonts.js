@@ -1,35 +1,31 @@
-import { Roboto, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 
-export const roboto = Roboto({
+export const roboto = localFont({
+  src: "./roboto-300.woff2",
   weight: "300",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-export const robotoBold = Roboto({
+export const robotoBold = localFont({
+  src: "./roboto-400.woff2",
   weight: "400",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-export const robotoBolder = Roboto({
+export const robotoBolder = localFont({
+  src: "./roboto-500.woff2",
   weight: "500",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-export const outfit = Outfit({
+export const outfit = localFont({
+  src: "./outfit-300.woff2",
   weight: "300",
-  subsets: ["latin"],
-  style: ["normal"],
   display: "swap",
 });
-export const outfitBolder = Outfit({
+
+export const outfitBolder = localFont({
+  src: "./outfit-500.woff2",
   weight: "500",
-  subsets: ["latin"],
-  style: ["normal"],
   display: "swap",
 });

@@ -1,3 +1,12 @@
+:root {
+  --color-brand: #e00000;
+  --color-brand-dark: #b30000;
+  --color-dark: #171717;
+  --color-text: #222222;
+  --color-text-muted: #475569;
+  --color-border: #d3d3d3;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -178,11 +187,6 @@ span {
   margin-left: 25%;
   margin-right: 25%;
   font-size: 1.6rem;
-}
-
-.iubenda-banner-content {
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 @media only screen and (max-width: 1490px) {

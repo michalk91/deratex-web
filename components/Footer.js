@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { RiFacebookBoxLine } from "react-icons/ri";
 import RichLightboxGallery from "./lightboxGallery/RichLightboxGallery";
 import { outfit, roboto, robotoBolder } from "../fonts/fonts";
+import { COOKIE_POLICY_URL, openCookiePreferences } from "../lib/iubenda";
 
 function Footer() {
   const texts = [
@@ -162,6 +163,23 @@ function Footer() {
             </div>
           </div>
 
+          <div className={styles.legalLinks}>
+            <a
+              className={styles.redHover}
+              href={COOKIE_POLICY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Polityka cookies
+            </a>
+            <button
+              type="button"
+              className={styles.redHover}
+              onClick={openCookiePreferences}
+            >
+              Ustawienia cookies
+            </button>
+          </div>
           <div
             className={classNames(styles.footerBottomText, roboto.className)}
           >

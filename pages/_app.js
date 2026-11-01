@@ -1,10 +1,11 @@
 import "../styles/globals.css";
+import "../styles/iubenda.css";
 import Layout from "../components/Layout";
 import React, { useEffect, useCallback } from "react";
 import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
 import { useState } from "react";
-import { roboto } from "../fonts/fonts";
+import { roboto, robotoBolder, outfitBolder } from "../fonts/fonts";
 import Head from "next/head";
 import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
 
@@ -30,6 +31,13 @@ function MyApp({ Component, pageProps }) {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </Head>
+      <style jsx global>{`
+        :root {
+          --font-roboto: ${roboto.style.fontFamily};
+          --font-roboto-medium: ${robotoBolder.style.fontFamily};
+          --font-outfit-medium: ${outfitBolder.style.fontFamily};
+        }
+      `}</style>
       {mounted && (
         <div
           className={roboto.className}

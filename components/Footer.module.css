@@ -48,6 +48,22 @@
   object-fit: contain;
 }
 
+.legalLinks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  padding-top: 30px;
+}
+
+.legalLinks a,
+.legalLinks button {
+  font-family: inherit;
+  color: white;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
 .footerBottomText {
   padding: 30px;
   color: white;
