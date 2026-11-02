@@ -1,15 +1,12 @@
 import React from "react";
 import styles from "./contactForm.module.css";
-import { memo, useState, useCallback, useRef, useEffect } from "react";
+import { memo, useState, useCallback } from "react";
 import classNames from "classnames";
 import Script from "next/script";
-import { useInViewport } from "react-in-viewport";
-import { useRouter } from "next/router";
+import { PRIVACY_POLICY_URL } from "../../lib/iubenda";
 
 function ContactForm() {
   const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY;
-  const router = useRouter();
-  const formContainerRef = useRef(null);
 
   const [inputs, setInputs] = useState({
     name: "",
@@ -20,29 +17,6 @@ function ContactForm() {
   });
 
   const [form, setForm] = useState("");
-  const [routeChanged, setRouteChanged] = useState(false);
-
-  const { inViewport } = useInViewport(formContainerRef, { threshold: 0.6 });
-
-  useEffect(() => {
-    const handleRouteChange = () => {
-      setRouteChanged(true);
-    };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-    };
-  }, [router]);
-
-  useEffect(() => {
-    const reCaptchaBadgeEl = document.querySelector(".grecaptcha-badge");
-    if (!reCaptchaBadgeEl) return;
-
-    reCaptchaBadgeEl.style.transform =
-      inViewport && !routeChanged ? "translateX(0)" : "translateX(-100%)";
-  }, [inViewport, routeChanged]);
 
   const handleChange = (e) => {
     setInputs((prev) => ({
@@ -113,9 +87,9 @@ function ContactForm() {
     <>
       <Script
         defer
-        src={`https://www.google.com/recaptcha/api.js?badge=bottomleft&render=${SITE_KEY}`}
+        src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
       />
-      <div className={styles.container} ref={formContainerRef}>
+      <div className={styles.container}>
         <form className={classNames(styles.form)} onSubmit={onSubmitForm}>
           <h2 className={classNames("title")}>Formularz kontaktowy</h2>
           <div className={styles.inputsContainer}>
@@ -125,7 +99,7 @@ function ContactForm() {
               value={inputs.name}
               onChange={handleChange}
               className={styles.inputField}
-              placeholder="Imię*"
+              placeholder="Imię"
               required
             />
             <input
@@ -134,7 +108,7 @@ function ContactForm() {
               value={inputs.surname}
               onChange={handleChange}
               className={styles.inputField}
-              placeholder="Nazwisko*"
+              placeholder="Nazwisko"
               required
             />
           </div>
@@ -145,7 +119,7 @@ function ContactForm() {
               value={inputs.email}
               onChange={handleChange}
               className={styles.inputField}
-              placeholder="Twój e-mail*"
+              placeholder="Twój e-mail"
               required
             />
             <input
@@ -154,7 +128,7 @@ function ContactForm() {
               value={inputs.phoneNumber}
               onChange={handleChange}
               className={styles.inputField}
-              placeholder="Twój numer telefonu*"
+              placeholder="Twój numer telefonu"
               required
             />
           </div>
@@ -164,11 +138,38 @@ function ContactForm() {
             value={inputs.message}
             onChange={handleChange}
             className={styles.inputField}
-            placeholder="Wiadomość*"
+            placeholder="Wiadomość"
             rows="8"
             required
           />
-          <p className={styles.requiredInfo}>* Pola obowiązkowe</p>
+          <p className={styles.formNotice}>
+            Informacje o tym, kto i w jaki sposób przetwarza dane podane w
+            formularzu, znajdziesz w{" "}
+            <a
+              href={PRIVACY_POLICY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Polityce prywatności
+            </a>
+            . Ta strona jest chroniona przez reCAPTCHA – obowiązują{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Polityka prywatności Google
+            </a>{" "}
+            oraz{" "}
+            <a
+              href="https://policies.google.com/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Warunki korzystania z usług Google
+            </a>
+            .
+          </p>
           <button
             title="Continue here after you’ve filled out all form elements"
             type="submit"

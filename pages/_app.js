@@ -8,12 +8,15 @@ import { useState } from "react";
 import { roboto, robotoBolder, outfitBolder } from "../fonts/fonts";
 import Head from "next/head";
 import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
+import useConsent from "../hooks/useConsent";
+import { SERVICE_CONSENT } from "../lib/iubenda";
 
 export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
 
 function MyApp({ Component, pageProps }) {
   const [_, setFbSDKLoaded] = useGlobalState("fbSDKLoaded");
   const [mounted, setMounted] = useState(false);
+  const hasFacebookConsent = useConsent(SERVICE_CONSENT.facebook);
 
   useEffect(() => {
     setMounted(true);
@@ -48,15 +51,17 @@ function MyApp({ Component, pageProps }) {
           </Layout>
         </div>
       )}
-      <Script
-        strategy="lazyOnload"
-        crossOrigin="anonymous"
-        src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v15.0"
-        nonce="jY8mMkvQ"
-        onReady={() => {
-          setFbSDKLoaded(true);
-        }}
-      />
+      {hasFacebookConsent && (
+        <Script
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+          src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v15.0"
+          nonce="jY8mMkvQ"
+          onReady={() => {
+            setFbSDKLoaded(true);
+          }}
+        />
+      )}
     </>
   );
 }

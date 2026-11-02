@@ -6,8 +6,22 @@ import { memo, useEffect } from "react";
 import classNames from "classnames";
 import { useState, useRef } from "react";
 import { useGlobalState } from "../../pages/_app";
+import ConsentGate from "../consent/ConsentGate";
+import ConsentPlaceholder from "../consent/ConsentPlaceholder";
+import { SERVICE_CONSENT } from "../../lib/iubenda";
 
-const Reviews = () => {
+function ReviewsSection({ sectionRef, children }) {
+  return (
+    <section className={styles.reviews} ref={sectionRef}>
+      <h2 className={classNames("title")}>Opinie o Nas</h2>
+      <div className="graySection">
+        <div className={classNames(styles.innerContent)}>{children}</div>
+      </div>
+    </section>
+  );
+}
+
+function FacebookReviews() {
   const [iframeError, setIframeError] = useState(false);
 
   const ref = useRef();
@@ -33,40 +47,50 @@ const Reviews = () => {
     <>
       {/* Show "reviews" only when facebook iframe correctly loaded */}
       {!iframeError && (
-        <section className={styles.reviews} ref={ref}>
-          <h2 className={classNames("title")}>Opinie o Nas</h2>
-          <div className="graySection">
-            <div className={classNames(styles.innerContent)}>
-              <RichCarousel
-                translateX="100%"
-                sliderRectanglesVisible={false}
-                autoPlay
-                slideTime={5000}
-                navigationOutside
-              >
-                <CarouselItem>
-                  <div className={classNames(styles.reviewContainer)}>
-                    <div
-                      className="fb-post"
-                      data-href="https://www.facebook.com/tomasz.parchimowicz.5/posts/pfbid0Gv6iiEun3v6PE8CmLyNroYfzd86UKJtgxac8ooEsvKZbjyRjEdhmG8wBjKEX7nsAl"
-                    ></div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <div className={classNames(styles.reviewContainer)}>
-                    <div
-                      className="fb-post"
-                      data-href="https://www.facebook.com/AleksEdwinson/posts/pfbid02SwZeeaZniqcGCDrZkkTjMmxQcPGjfCFGQvmjnHWeY8UJnNhzxk2yX1sBn2JtyduJl"
-                    ></div>
-                  </div>
-                </CarouselItem>
-              </RichCarousel>
-            </div>
-          </div>
-        </section>
+        <ReviewsSection sectionRef={ref}>
+          <RichCarousel
+            translateX="100%"
+            sliderRectanglesVisible={false}
+            autoPlay
+            slideTime={5000}
+            navigationOutside
+          >
+            <CarouselItem>
+              <div className={classNames(styles.reviewContainer)}>
+                <div
+                  className="fb-post"
+                  data-href="https://www.facebook.com/tomasz.parchimowicz.5/posts/pfbid0Gv6iiEun3v6PE8CmLyNroYfzd86UKJtgxac8ooEsvKZbjyRjEdhmG8wBjKEX7nsAl"
+                ></div>
+              </div>
+            </CarouselItem>
+            <CarouselItem>
+              <div className={classNames(styles.reviewContainer)}>
+                <div
+                  className="fb-post"
+                  data-href="https://www.facebook.com/AleksEdwinson/posts/pfbid02SwZeeaZniqcGCDrZkkTjMmxQcPGjfCFGQvmjnHWeY8UJnNhzxk2yX1sBn2JtyduJl"
+                ></div>
+              </div>
+            </CarouselItem>
+          </RichCarousel>
+        </ReviewsSection>
       )}
     </>
   );
-};
+}
+
+function Reviews() {
+  return (
+    <ConsentGate
+      purposes={SERVICE_CONSENT.facebook}
+      fallback={
+        <ReviewsSection>
+          <ConsentPlaceholder serviceName="Facebook" />
+        </ReviewsSection>
+      }
+    >
+      <FacebookReviews />
+    </ConsentGate>
+  );
+}
 
 export default memo(Reviews);

@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { IUBENDA_CONFIG, IUBENDA_SCRIPT_URL } from "../lib/iubenda";
+import { IUBENDA_CONFIG_SCRIPT, IUBENDA_SCRIPT_URL } from "../lib/iubenda";
 
 export default class MyDocument extends Document {
   render() {
@@ -8,11 +8,7 @@ export default class MyDocument extends Document {
         <Head>
           <script
             id="iubenda-cs-config"
-            dangerouslySetInnerHTML={{
-              __html: `var _iub = _iub || []; _iub.csConfiguration = ${JSON.stringify(
-                IUBENDA_CONFIG
-              )};`,
-            }}
+            dangerouslySetInnerHTML={{ __html: IUBENDA_CONFIG_SCRIPT }}
           />
           <script src={IUBENDA_SCRIPT_URL} charSet="UTF-8" async />
         </Head>

@@ -1,0 +1,37 @@
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
+  min-height: 200px;
+  padding: 2rem 1.5rem;
+  line-height: 1.5;
+  background-color: #f4f4f5;
+}
+
+.text {
+  max-width: 28rem;
+  font-size: 0.95rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.button {
+  padding: 10px 20px;
+  border: 2px solid var(--color-brand);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover,
+.button:focus-visible {
+  background-color: var(--color-brand);
+  color: #ffffff;
+}

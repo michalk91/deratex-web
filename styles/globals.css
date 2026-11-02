@@ -24,8 +24,7 @@ body * {
 }
 
 .grecaptcha-badge {
-  transition: 0.6s !important;
-  transform: translateX(-100%);
+  visibility: hidden;
 }
 
 .sr-only {
