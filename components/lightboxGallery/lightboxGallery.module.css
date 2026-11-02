@@ -54,7 +54,7 @@
 }
 
 .wrapper {
-  --lightbox-backdrop: rgba(255, 255, 255, 96%);
+  --lightbox-backdrop: rgba(255, 255, 255, 80%);
   display: flex;
   flex-direction: column;
   max-height: 100%;
