@@ -153,10 +153,10 @@ span {
 }
 
 .innerContentWidth {
-  padding-left: 8%;
-  padding-right: 8%;
+  width: 100%;
   max-width: 90rem;
   margin: 0 auto;
+  padding-inline: clamp(1rem, 6vw, 6rem);
 }
 
 .secondTitle {

@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from "react";
 import styles from "./lightboxGallery.module.css";
 import classNames from "classnames";
-import Modal from "../modal/Modal";
+import Modal, { ModalToolbarButton } from "../modal/Modal";
 import { IoCaretBack, IoCaretForward } from "react-icons/io5";
 import useIsScrollableX from "../../hooks/useIsScrollableX";
 import Image from "next/image";
@@ -227,13 +227,16 @@ function LightboxGallery({
     preventDefaultWheelBehavior: false,
   });
 
+  const isZoomedIn = zoom > 1;
+  const canZoomIn = zoom < maxZoom;
+
   useEffect(() => {
-    if (zoom > 1 || isZooming) {
+    if (isZoomedIn || isZooming) {
       disableSwiping();
     } else if (!isZooming && zoom === 1) {
       enableSwiping();
     }
-  }, [isZooming, disableSwiping, enableSwiping, zoom]);
+  }, [isZooming, isZoomedIn, disableSwiping, enableSwiping, zoom]);
 
   useEffect(() => {
     if (transitionX !== 0) {
@@ -252,7 +255,7 @@ function LightboxGallery({
   const keys = [
     {
       key: "Escape",
-      action: zoom > 1 ? handleResetZoom : closeLightbox,
+      action: isZoomedIn ? handleResetZoom : closeLightbox,
     },
     { key: "ArrowRight", action: zoom === 1 ? nextSlide : handleResetZoom },
     { key: "ArrowLeft", action: zoom === 1 ? prevSlide : handleResetZoom },
@@ -291,8 +294,34 @@ function LightboxGallery({
       <Modal
         modalRef={modalRef}
         isOpen={lightboxOpen}
-        onClose={clickTextToOpenLightbox ? delayedFunc : closeGallery}
+        onClose={closeLightbox}
         keys={keys}
+        toolbar={
+          <>
+            {isZoomedIn && (
+              <ModalToolbarButton
+                label="Dopasuj do ekranu"
+                onClick={handleResetZoom}
+              >
+                <SlFrame />
+              </ModalToolbarButton>
+            )}
+            <ModalToolbarButton
+              label="Powiększ"
+              onClick={handleIncreaseZoom}
+              disabled={!canZoomIn}
+            >
+              <SlMagnifierAdd />
+            </ModalToolbarButton>
+            <ModalToolbarButton
+              label="Pomniejsz"
+              onClick={handleDecreaseZoom}
+              disabled={!isZoomedIn}
+            >
+              <SlMagnifierRemove />
+            </ModalToolbarButton>
+          </>
+        }
         containerClassName={classNames(styles.wrapper, {
           [styles.wrapperWithAnim]: !clickTextToOpenLightbox && imgLoaded,
           [styles.backgroundColorGray]: clickTextToOpenLightbox,
@@ -302,27 +331,6 @@ function LightboxGallery({
             clickTextToOpenLightbox && !beforeDelay,
         })}
       >
-        <div className={styles.btnsContainer}>
-          <SlFrame
-            style={{ display: zoom > 1 && zoom <= maxZoom ? "block" : "none" }}
-            className={styles.alignToFrameBtn}
-            onClick={handleResetZoom}
-          />
-          <SlMagnifierAdd
-            style={{
-              color: zoom >= 1 && zoom < maxZoom ? "black" : "lightGray",
-            }}
-            onClick={handleIncreaseZoom}
-            className={styles.increaseBtn}
-          />
-          <SlMagnifierRemove
-            style={{
-              color: zoom > 1 && zoom <= maxZoom ? "black" : "lightGray",
-            }}
-            onClick={handleDecreaseZoom}
-            className={styles.decreaseBtn}
-          />
-        </div>
         <div
           className={classNames(styles.outerImagesContainerWithThumbs, {
             [styles.outerImagesContainer]: !lightboxThumbsVisible,

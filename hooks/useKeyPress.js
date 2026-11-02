@@ -19,18 +19,13 @@ const useKeyPress = ({ inViewportRef, hover, modalIsOpen, keys }) => {
 
   const handleUserKeyPress = useCallback(
     (e) => {
-      const { key } = e;
+      const matchedKey = keys?.find((item) => item.key === e.key);
 
-      if (modalIsOpen) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
+      if (modalIsOpen) e.stopPropagation();
+      if (!matchedKey) return;
 
-      keys?.map((item) => {
-        if (key === item.key) {
-          item.action();
-        }
-      });
+      if (modalIsOpen) e.preventDefault();
+      matchedKey.action();
     },
     [modalIsOpen, keys]
   );

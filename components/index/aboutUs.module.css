@@ -8,7 +8,7 @@
 .aboutUsImage {
   position: relative;
   height: 100%;
-  flex-basis: 260px !important;
+  flex: 0 0 260px;
   overflow: hidden;
   border-radius: 6px;
   -webkit-box-shadow: 3px 3px 21px -5px rgba(66, 68, 90, 1);
@@ -22,20 +22,17 @@
   width: 100%;
 }
 
-.aboutUs div {
-  flex-basis: 72%;
-}
-
-@media only screen and (max-width: 1320px) {
-  .aboutUs div {
-    flex-basis: 70%;
-  }
+.aboutUsText {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 @media only screen and (max-width: 1220px) {
-  .aboutUs div {
-    gap: 15px;
+  .aboutUsImage,
+  .aboutUsText {
     margin-bottom: 1rem;
+  }
+  .aboutUsText {
     flex-basis: 100%;
   }
   .aboutUs span {
@@ -45,7 +42,7 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    flex-basis: 400px !important;
+    flex-basis: 400px;
   }
 }
 

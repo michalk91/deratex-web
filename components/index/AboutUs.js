@@ -19,7 +19,7 @@ function AboutUs() {
         />
       </div>
 
-      <div>
+      <div className={styles.aboutUsText}>
         <h2 className={classNames("secondTitle")}>
           Kilka słów <b>o nas</b>
         </h2>

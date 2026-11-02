@@ -7,23 +7,25 @@ import { RiFacebookBoxLine } from "react-icons/ri";
 import RichLightboxGallery from "./lightboxGallery/RichLightboxGallery";
 import { outfit, roboto, robotoBolder } from "../fonts/fonts";
 import { COOKIE_POLICY_URL, openCookiePreferences } from "../lib/iubenda";
+import referenceHousingCoop from "/public/images/services/ReferenceLetters/reference.jpg";
+import referenceSwieceMayor from "/public/images/services/ReferenceLetters/reference_second.jpg";
 
 function Footer() {
   const texts = [
     {
-      src: "/images/services/ReferenceLetters/reference.jpg",
+      src: referenceHousingCoop,
       alt: "reference list",
       text: "Spółdzielnia Mieszkaniowa",
-      width: 464,
-      height: 621,
+      width: referenceHousingCoop.width,
+      height: referenceHousingCoop.height,
       textClassName: styles.redHover,
     },
     {
-      src: "/images/services/ReferenceLetters/reference_second.jpg",
+      src: referenceSwieceMayor,
       alt: "reference list 2",
       text: "Burmistrz Świecia",
-      width: 1414,
-      height: 2000,
+      width: referenceSwieceMayor.width,
+      height: referenceSwieceMayor.height,
       textClassName: styles.redHover,
     },
   ];
