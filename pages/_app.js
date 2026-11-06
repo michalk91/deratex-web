@@ -11,10 +11,14 @@ import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
 import useConsent from "../hooks/useConsent";
 import { SERVICE_CONSENT } from "../lib/iubenda";
 
-export const { useGlobalState } = createGlobalState({ fbSDKLoaded: false });
+export const { useGlobalState } = createGlobalState({
+  fbSDKLoaded: false,
+  fbSDKFailed: false,
+});
 
 function MyApp({ Component, pageProps }) {
   const [_, setFbSDKLoaded] = useGlobalState("fbSDKLoaded");
+  const [__, setFbSDKFailed] = useGlobalState("fbSDKFailed");
   const [mounted, setMounted] = useState(false);
   const hasFacebookConsent = useConsent(SERVICE_CONSENT.facebook);
 
@@ -55,10 +59,13 @@ function MyApp({ Component, pageProps }) {
         <Script
           strategy="lazyOnload"
           crossOrigin="anonymous"
-          src="https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v15.0"
+          src="https://connect.facebook.net/pl_PL/sdk.js#version=v26.0"
           nonce="jY8mMkvQ"
           onReady={() => {
             setFbSDKLoaded(true);
+          }}
+          onError={() => {
+            setFbSDKFailed(true);
           }}
         />
       )}

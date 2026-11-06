@@ -1,80 +1,62 @@
+import { memo, useRef } from "react";
+import classNames from "classnames";
 import styles from "./reviews.module.css";
-import React from "react";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { CarouselItem } from "../carouselSlider/Carousel";
-import { memo, useEffect } from "react";
-import classNames from "classnames";
-import { useState, useRef } from "react";
-import { useGlobalState } from "../../pages/_app";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
+import useFbPostsStatus, { FB_POSTS_STATUS } from "../../hooks/useFbPostsStatus";
 import { SERVICE_CONSENT } from "../../lib/iubenda";
 
-function ReviewsSection({ sectionRef, children }) {
+const FACEBOOK_POST_URLS = [
+  "https://www.facebook.com/tomasz.parchimowicz.5/posts/pfbid0Gv6iiEun3v6PE8CmLyNroYfzd86UKJtgxac8ooEsvKZbjyRjEdhmG8wBjKEX7nsAl",
+  "https://www.facebook.com/AleksEdwinson/posts/pfbid02SwZeeaZniqcGCDrZkkTjMmxQcPGjfCFGQvmjnHWeY8UJnNhzxk2yX1sBn2JtyduJl",
+];
+
+function ReviewsSection({ children }) {
   return (
-    <section className={styles.reviews} ref={sectionRef}>
-      <h2 className={classNames("title")}>Opinie o Nas</h2>
+    <section className={styles.reviews}>
+      <h2 className="title">Opinie o Nas</h2>
       <div className="graySection">
-        <div className={classNames(styles.innerContent)}>{children}</div>
+        <div className={styles.innerContent}>{children}</div>
       </div>
     </section>
   );
 }
 
 function FacebookReviews() {
-  const [iframeError, setIframeError] = useState(false);
+  const stageRef = useRef();
+  const status = useFbPostsStatus(stageRef);
+  const isLoading = status === FB_POSTS_STATUS.LOADING;
 
-  const ref = useRef();
-
-  const fbSDKLoaded = useGlobalState(`fbSDKLoaded`)[0];
-
-  useEffect(() => {
-    if (!fbSDKLoaded) return;
-
-    FB.XFBML.parse(ref?.current, function () {
-      //FB.XFBML.parse callback function invoked when elements are rendered
-      setTimeout(() => {
-        //HACK! Using setTimeout without second argument(time) to read height value after call stack is empty
-        if (ref?.current?.clientHeight < 150) {
-          setIframeError(true);
-        }
-      }, 1000);
-      //When the iframe is rendered we check if its height is greater than 150px. if so, we are sure that the iframe has been rendered correctly
-    });
-  }, [fbSDKLoaded]); // When the error "'<URL>' was refused to be displayed in the frame because 'X-Frame-Options' is set to 'deny'" the iframe will not load and the height will not increase
+  if (status === FB_POSTS_STATUS.ERROR) return null;
 
   return (
-    <>
-      {/* Show "reviews" only when facebook iframe correctly loaded */}
-      {!iframeError && (
-        <ReviewsSection sectionRef={ref}>
-          <RichCarousel
-            translateX="100%"
-            sliderRectanglesVisible={false}
-            autoPlay
-            slideTime={5000}
-            navigationOutside
-          >
-            <CarouselItem>
-              <div className={classNames(styles.reviewContainer)}>
-                <div
-                  className="fb-post"
-                  data-href="https://www.facebook.com/tomasz.parchimowicz.5/posts/pfbid0Gv6iiEun3v6PE8CmLyNroYfzd86UKJtgxac8ooEsvKZbjyRjEdhmG8wBjKEX7nsAl"
-                ></div>
+    <ReviewsSection>
+      <div
+        ref={stageRef}
+        aria-busy={isLoading}
+        className={classNames(styles.stage, {
+          [styles.stageLoading]: isLoading,
+        })}
+      >
+        <RichCarousel
+          translateX="100%"
+          sliderRectanglesVisible={false}
+          autoPlay
+          slideTime={5000}
+          navigationOutside
+        >
+          {FACEBOOK_POST_URLS.map((url) => (
+            <CarouselItem key={url}>
+              <div className={styles.reviewContainer}>
+                <div className="fb-post" data-href={url}></div>
               </div>
             </CarouselItem>
-            <CarouselItem>
-              <div className={classNames(styles.reviewContainer)}>
-                <div
-                  className="fb-post"
-                  data-href="https://www.facebook.com/AleksEdwinson/posts/pfbid02SwZeeaZniqcGCDrZkkTjMmxQcPGjfCFGQvmjnHWeY8UJnNhzxk2yX1sBn2JtyduJl"
-                ></div>
-              </div>
-            </CarouselItem>
-          </RichCarousel>
-        </ReviewsSection>
-      )}
-    </>
+          ))}
+        </RichCarousel>
+      </div>
+    </ReviewsSection>
   );
 }
 

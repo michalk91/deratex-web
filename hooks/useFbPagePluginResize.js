@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { useGlobalState } from "../pages/_app";
 
 function useFbPagePluginResize({
   minFbPageHeight,
@@ -10,6 +11,7 @@ function useFbPagePluginResize({
   const [resize, setResize] = useState(false);
   const [fbPageWidth, setFbPageWidth] = useState(0);
   const [fbPageHeight, setFbPageHeight] = useState(0);
+  const [fbSDKLoaded] = useGlobalState("fbSDKLoaded");
 
   const resizeHandler = useDebouncedCallback(() => {
     setResize((resize) => !resize);
@@ -36,10 +38,10 @@ function useFbPagePluginResize({
   }, [resize]);
 
   useEffect(() => {
-    if (window.FB && containerRef.current) {
-      FB.XFBML.parse(containerRef.current);
+    if (fbSDKLoaded && fbPageWidth && containerRef.current) {
+      window.FB.XFBML.parse(containerRef.current);
     }
-  }, [fbPageWidth, fbPageHeight]);
+  }, [fbSDKLoaded, fbPageWidth, fbPageHeight]);
 
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);

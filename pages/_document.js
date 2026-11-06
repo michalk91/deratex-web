@@ -13,6 +13,7 @@ export default class MyDocument extends Document {
           <script src={IUBENDA_SCRIPT_URL} charSet="UTF-8" async />
         </Head>
         <body>
+          <div id="fb-root"></div>
           <Main />
 
           <div id="modal" />
