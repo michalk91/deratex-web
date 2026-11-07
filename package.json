@@ -21,7 +21,7 @@
     "sharp": "^0.35.5",
     "use-debounce": "^10.1.1",
     "use-modal-transition": "^1.0.22",
-    "use-pinch-zoom": "^1.0.15"
+    "use-pinch-zoom": "^1.0.16"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^16.4.5",
