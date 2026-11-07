@@ -33,7 +33,7 @@ function FacebookReviews() {
 
   return (
     <ReviewsSection>
-      <div ref={containerRef}>
+      <div ref={containerRef} className={styles.posts}>
         <RichCarousel
           translateX="100%"
           sliderRectanglesVisible={false}
