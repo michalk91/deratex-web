@@ -1,5 +1,4 @@
 .reviews {
-  --reserved-height: 234px;
   margin-top: 1%;
 }
 
@@ -7,19 +6,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   width: 630px;
-  min-height: var(--reserved-height);
   margin: 0 auto;
-}
-
-.stage {
-  transition: opacity 0.3s, visibility 0.3s;
-}
-
-.stageLoading {
-  height: var(--reserved-height);
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
 }
 
 .reviewContainer {
@@ -47,28 +34,4 @@
   right: 0;
   top: 0;
   bottom: 0;
-}
-
-@media only screen and (max-width: 475px) {
-  .reviews {
-    --reserved-height: 262px;
-  }
-}
-
-@media only screen and (max-width: 363px) {
-  .reviews {
-    --reserved-height: 278px;
-  }
-}
-
-@media only screen and (max-width: 333px) {
-  .reviews {
-    --reserved-height: 306px;
-  }
-}
-
-@media only screen and (max-width: 329px) {
-  .reviews {
-    --reserved-height: 318px;
-  }
 }

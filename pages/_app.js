@@ -16,12 +16,10 @@ const getServerSnapshot = () => false;
 
 export const { useGlobalState } = createGlobalState({
   fbSDKLoaded: false,
-  fbSDKFailed: false,
 });
 
 function MyApp({ Component, pageProps }) {
   const [_, setFbSDKLoaded] = useGlobalState("fbSDKLoaded");
-  const [__, setFbSDKFailed] = useGlobalState("fbSDKFailed");
   const mounted = useSyncExternalStore(
     subscribeToNothing,
     getClientSnapshot,
@@ -66,9 +64,6 @@ function MyApp({ Component, pageProps }) {
           nonce="jY8mMkvQ"
           onReady={() => {
             setFbSDKLoaded(true);
-          }}
-          onError={() => {
-            setFbSDKFailed(true);
           }}
         />
       )}

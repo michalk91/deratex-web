@@ -1,12 +1,11 @@
-import { memo, useRef } from "react";
-import classNames from "classnames";
+import { memo, useEffect, useRef } from "react";
 import styles from "./reviews.module.css";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { CarouselItem } from "../carouselSlider/Carousel";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
-import useFbPostsStatus, { FB_POSTS_STATUS } from "../../hooks/useFbPostsStatus";
 import { SERVICE_CONSENT } from "../../lib/iubenda";
+import { useGlobalState } from "../../pages/_app";
 
 const FACEBOOK_POST_URLS = [
   "https://www.facebook.com/tomasz.parchimowicz.5/posts/pfbid0Gv6iiEun3v6PE8CmLyNroYfzd86UKJtgxac8ooEsvKZbjyRjEdhmG8wBjKEX7nsAl",
@@ -25,21 +24,16 @@ function ReviewsSection({ children }) {
 }
 
 function FacebookReviews() {
-  const stageRef = useRef();
-  const status = useFbPostsStatus(stageRef);
-  const isLoading = status === FB_POSTS_STATUS.LOADING;
+  const containerRef = useRef();
+  const [fbSDKLoaded] = useGlobalState("fbSDKLoaded");
 
-  if (status === FB_POSTS_STATUS.ERROR) return null;
+  useEffect(() => {
+    if (fbSDKLoaded) window.FB.XFBML.parse(containerRef.current);
+  }, [fbSDKLoaded]);
 
   return (
     <ReviewsSection>
-      <div
-        ref={stageRef}
-        aria-busy={isLoading}
-        className={classNames(styles.stage, {
-          [styles.stageLoading]: isLoading,
-        })}
-      >
+      <div ref={containerRef}>
         <RichCarousel
           translateX="100%"
           sliderRectanglesVisible={false}
