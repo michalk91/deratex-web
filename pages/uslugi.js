@@ -22,7 +22,7 @@ export default function Services() {
         <meta property="og:title" content="DDD Deratex"></meta>
         <meta property="og:type" content="website"></meta>
       </Head>
-      <h1 class="sr-only">Usługi</h1>
+      <h1 className="sr-only">Usługi</h1>
       <MainServices />
       <Protection />
       <Gallery />

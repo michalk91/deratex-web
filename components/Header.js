@@ -10,7 +10,7 @@ import { GrFacebook } from "react-icons/gr";
 import { useMediaPredicate } from "react-media-hook";
 import { useScrolledOverMargin } from "../hooks/useScrolledOverMargin";
 import { useScrollDirection } from "../hooks/useScrollDirection";
-import { isMobile } from "react-device-detect";
+import { isMobile } from "../lib/device";
 
 function Header() {
   const router = useRouter();
@@ -55,7 +55,7 @@ function Header() {
             <p className={classNames({ [styles.hide]: scrolledOverMargin })}>
               Zadzwoń do Nas!
             </p>
-            <a aria-label="Phone number" href="tel:660826121">
+            <a href="tel:660826121">
               <h1 className={styles.tel}>
                 <FaPhoneAlt size={19} className={styles.telLogo} /> 660 826 121
               </h1>
@@ -101,7 +101,7 @@ function Header() {
                   Kontakt
                 </Link>
               </li>
-              <div className={styles.contactContainer}>
+              <li className={styles.contactContainer}>
                 <a
                   className={styles.fbLogo}
                   aria-label="Our facebook page"
@@ -111,14 +111,14 @@ function Header() {
                 </a>
 
                 {smallerThan550px && (
-                  <a aria-label="Phone number" href="tel:660826121">
+                  <a href="tel:660826121">
                     <h1 className={styles.tel}>
                       <FaPhoneAlt size={25} className={styles.telLogo} /> 660
                       826 121
                     </h1>
                   </a>
                 )}
-              </div>
+              </li>
             </ul>
           </div>
           <button

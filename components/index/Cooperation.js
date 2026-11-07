@@ -75,8 +75,8 @@ function Cooperation() {
                       <Image
                         src={item.src}
                         alt={item.alt}
-                        height={199}
-                        width={300}
+                        height={40}
+                        width={40}
                         placeholder="blur"
                         sizes="100vw"
                       />

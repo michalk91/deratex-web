@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { IUBENDA_CONFIG_SCRIPT, IUBENDA_SCRIPT_URL } from "../lib/iubenda";
+import { IUBENDA_CONFIG_SCRIPT } from "../lib/iubenda";
 
 export default class MyDocument extends Document {
   render() {
@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
             id="iubenda-cs-config"
             dangerouslySetInnerHTML={{ __html: IUBENDA_CONFIG_SCRIPT }}
           />
-          <script src={IUBENDA_SCRIPT_URL} charSet="UTF-8" async />
+          <link rel="icon" href="/images/logo.svg" type="image/svg+xml" />
         </Head>
         <body>
           <div id="fb-root"></div>

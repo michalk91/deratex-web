@@ -17,6 +17,9 @@ function ContactForm() {
   });
 
   const [form, setForm] = useState("");
+  const [recaptchaRequested, setRecaptchaRequested] = useState(false);
+
+  const requestRecaptcha = useCallback(() => setRecaptchaRequested(true), []);
 
   const handleChange = (e) => {
     setInputs((prev) => ({
@@ -28,6 +31,11 @@ function ContactForm() {
   const onSubmitForm = useCallback(
     async (e) => {
       e.preventDefault();
+
+      if (!window.grecaptcha) {
+        setForm({ state: "error" });
+        return;
+      }
 
       window.grecaptcha.ready(() => {
         window.grecaptcha
@@ -85,12 +93,17 @@ function ContactForm() {
 
   return (
     <>
-      <Script
-        defer
-        src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
-      />
+      {recaptchaRequested && (
+        <Script
+          src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
+        />
+      )}
       <div className={styles.container}>
-        <form className={classNames(styles.form)} onSubmit={onSubmitForm}>
+        <form
+          className={classNames(styles.form)}
+          onSubmit={onSubmitForm}
+          onFocus={requestRecaptcha}
+        >
           <h2 className={classNames("title")}>Formularz kontaktowy</h2>
           <div className={styles.inputsContainer}>
             <input

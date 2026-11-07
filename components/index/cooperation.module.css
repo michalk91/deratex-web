@@ -62,6 +62,8 @@
 }
 
 .imgContainer img {
+  width: 300px;
+  height: 199px;
   object-fit: cover;
 
   display: block;

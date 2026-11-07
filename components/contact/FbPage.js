@@ -2,7 +2,7 @@ import classNames from "classnames";
 import styles from "./fbPage.module.css";
 import { memo, useEffect, useState, useCallback, useRef } from "react";
 import useFbPagePluginResize from "../../hooks/useFbPagePluginResize";
-import { MobileView } from "react-device-detect";
+import { isMobile } from "../../lib/device";
 import useScrollLock from "../../hooks/useScrollLock";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
@@ -93,43 +93,42 @@ function FbPagePlugin() {
           cite="https://www.facebook.com/deratexdddtuchola"
           className="fb-xfbml-parse-ignore"
         >
-          <a
-            aria-label="Our facebook page"
-            href="https://www.facebook.com/deratexdddtuchola"
-          >
+          <a href="https://www.facebook.com/deratexdddtuchola">
             Deratex Zakład DDD
           </a>
         </blockquote>
       </div>
 
-      <MobileView>
-        <div
-          onClick={handleBackdropClick}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className={classNames(styles.invisibleBackdrop, {
-            [styles.visibleBackdrop]: !clicked && touched,
-            [styles.allowScroll]: clicked,
-          })}
-        >
-          <p
-            className={classNames(styles.backdropText, {
-              [styles.visibleBackdropText]: !clicked && touched,
+      {isMobile && (
+        <>
+          <div
+            onClick={handleBackdropClick}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className={classNames(styles.invisibleBackdrop, {
+              [styles.visibleBackdrop]: !clicked && touched,
+              [styles.allowScroll]: clicked,
             })}
           >
-            Stuknij palcem aby włączyć przewijanie
-          </p>
-        </div>
-        {clicked && (
-          <button
-            aria-label="Disable Scrolling"
-            onClick={handleButtonClick}
-            className={styles.btn}
-          >
-            Nacisnij aby wyłączyć przewijanie
-          </button>
-        )}
-      </MobileView>
+            <p
+              className={classNames(styles.backdropText, {
+                [styles.visibleBackdropText]: !clicked && touched,
+              })}
+            >
+              Stuknij palcem aby włączyć przewijanie
+            </p>
+          </div>
+          {clicked && (
+            <button
+              aria-label="Disable Scrolling"
+              onClick={handleButtonClick}
+              className={styles.btn}
+            >
+              Nacisnij aby wyłączyć przewijanie
+            </button>
+          )}
+        </>
+      )}
     </div>
   );
 }

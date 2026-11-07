@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { useGlobalState } from "../pages/_app";
+import { useGlobalState } from "../lib/globalState";
 
 function useFbPagePluginResize({
   minFbPageHeight,

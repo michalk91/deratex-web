@@ -1,11 +1,12 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
+import classNames from "classnames";
 import styles from "./reviews.module.css";
 import RichCarousel from "../carouselSlider/RichCarousel";
 import { CarouselItem } from "../carouselSlider/Carousel";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
 import { SERVICE_CONSENT } from "../../lib/iubenda";
-import { useGlobalState } from "../../pages/_app";
+import { useGlobalState } from "../../lib/globalState";
 
 const FACEBOOK_POST_URLS = [
   "https://www.facebook.com/tomasz.parchimowicz.5/posts/pfbid0Gv6iiEun3v6PE8CmLyNroYfzd86UKJtgxac8ooEsvKZbjyRjEdhmG8wBjKEX7nsAl",
@@ -23,32 +24,61 @@ function ReviewsSection({ children }) {
   );
 }
 
+function ReviewSkeleton() {
+  return (
+    <div className={styles.skeleton} aria-hidden="true">
+      <div className={styles.skeletonHeader}>
+        <span className={styles.skeletonAvatar} />
+        <span className={styles.skeletonName} />
+      </div>
+      <span className={styles.skeletonLine} />
+      <span className={styles.skeletonLine} />
+      <span className={styles.skeletonLineShort} />
+    </div>
+  );
+}
+
 function FacebookReviews() {
   const containerRef = useRef();
   const [fbSDKLoaded] = useGlobalState("fbSDKLoaded");
+  const [fbSDKFailed] = useGlobalState("fbSDKFailed");
+  const [postsRendered, setPostsRendered] = useState(false);
 
   useEffect(() => {
-    if (fbSDKLoaded) window.FB.XFBML.parse(containerRef.current);
+    if (!fbSDKLoaded) return;
+
+    window.FB.XFBML.parse(containerRef.current, () => setPostsRendered(true));
   }, [fbSDKLoaded]);
+
+  if (fbSDKFailed) return null;
 
   return (
     <ReviewsSection>
-      <div ref={containerRef} className={styles.posts}>
-        <RichCarousel
-          translateX="100%"
-          sliderRectanglesVisible={false}
-          autoPlay
-          slideTime={5000}
-          navigationOutside
+      <div className={styles.posts} aria-busy={!postsRendered}>
+        {!postsRendered && <ReviewSkeleton />}
+        <div
+          ref={containerRef}
+          className={classNames(styles.carousel, {
+            [styles.carouselHidden]: !postsRendered,
+          })}
         >
-          {FACEBOOK_POST_URLS.map((url) => (
-            <CarouselItem key={url}>
-              <div className={styles.reviewContainer}>
-                <div className="fb-post" data-href={url}></div>
-              </div>
-            </CarouselItem>
-          ))}
-        </RichCarousel>
+          <RichCarousel
+            height="100%"
+            translateX="100%"
+            sliderRectanglesVisible={false}
+            autoPlay
+            slideTime={5000}
+            navigationOutside
+          >
+            {FACEBOOK_POST_URLS.map((url) => (
+              <CarouselItem key={url}>
+                <div className={styles.reviewContainer}>
+                  <div className="fb-post" data-href={url}></div>
+                </div>
+              </CarouselItem>
+            ))}
+          </RichCarousel>
+        </div>
       </div>
     </ReviewsSection>
   );

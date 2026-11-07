@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useInViewport } from "react-in-viewport";
-import { isMobile } from "react-device-detect";
+import { isMobile } from "../lib/device";
 
 function useInViewAnimation({
   animateContainerRef,

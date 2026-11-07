@@ -100,7 +100,7 @@ function MainServices() {
                   sizes="(max-width: 280px) 100vw, (max-width: 1030px) 20vw, 15vw"
                   src={item.src}
                   alt={item.alt}
-                  preload
+                  preload={index === 0}
                 />
 
                 <div className="captionContainer">

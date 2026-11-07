@@ -21,7 +21,7 @@ export default function Contact() {
         <meta property="og:title" content="DDD Deratex"></meta>
         <meta property="og:type" content="website"></meta>
       </Head>
-      <h1 class="sr-only">Usługi</h1>
+      <h1 className="sr-only">Usługi</h1>
       <Map />
       <div className={classNames(styles.gridContainer, "innerContentWidth")}>
         <ContactForm />

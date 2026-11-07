@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CONSENT_CHANGE_EVENT, getConsentedPurposes } from "../lib/iubenda";
 
 function useConsent(requiredPurposes) {
-  const [purposes, setPurposes] = useState(getConsentedPurposes);
+  const [purposes, setPurposes] = useState({});
 
   useEffect(() => {
     const refreshPurposes = () => setPurposes(getConsentedPurposes());

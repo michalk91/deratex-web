@@ -10,22 +10,26 @@ export const robotoBold = localFont({
   src: "./roboto-400.woff2",
   weight: "400",
   display: "swap",
+  preload: false,
 });
 
 export const robotoBolder = localFont({
   src: "./roboto-500.woff2",
   weight: "500",
   display: "swap",
+  preload: false,
 });
 
 export const outfit = localFont({
   src: "./outfit-300.woff2",
   weight: "300",
   display: "swap",
+  preload: false,
 });
 
 export const outfitBolder = localFont({
   src: "./outfit-500.woff2",
   weight: "500",
   display: "swap",
+  preload: false,
 });

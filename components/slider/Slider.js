@@ -1,12 +1,36 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from "react";
 import styles from "./slider.module.css";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import classNames from "classnames";
 import SliderDot from "./SliderDot";
 import useSwiping from "../../hooks/useSwiping";
 import useKeyPress from "../../hooks/useKeyPress";
-import { isMobile } from "react-device-detect";
+
+function SlideImage({ slide, loading, fetchPriority }) {
+  const imageProps = {
+    src: slide.src,
+    alt: slide.alt,
+    fill: true,
+    placeholder: "blur",
+    sizes: "100vw",
+    loading,
+    fetchPriority,
+  };
+  const { props: desktop } = getImageProps({ ...imageProps, quality: 100 });
+  const { props: mobile } = getImageProps({ ...imageProps, quality: 40 });
+
+  return (
+    <picture>
+      <source
+        media="(max-width: 767px)"
+        srcSet={mobile.srcSet}
+        sizes={mobile.sizes}
+      />
+      <img {...desktop} alt={slide.alt} />
+    </picture>
+  );
+}
 
 function Slider({ slides }) {
   const [sliderInfo, setSliderInfo] = useState(() => ({
@@ -15,11 +39,13 @@ function Slider({ slides }) {
     pressed: false,
     startTime: Date.now(),
     elapsed: 0,
+    enteredViewport: false,
   }));
 
-  const { activeIndex, paused } = sliderInfo;
+  const { activeIndex, paused, enteredViewport } = sliderInfo;
 
   const slidesCount = slides.length;
+  const nextIndex = (activeIndex + 1) % slidesCount;
 
   const containerRef = useRef();
 
@@ -47,6 +73,7 @@ function Slider({ slides }) {
   const handleEnterViewport = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
+      enteredViewport: true,
       startTime: Date.now(),
       elapsed: 0,
     }));
@@ -153,20 +180,22 @@ function Slider({ slides }) {
       {slides.map((slide, index) => (
         <div
           className={classNames(styles.slide, {
-            [styles.activeSlide]: inViewport && activeIndex === index,
+            [styles.activeSlide]:
+              activeIndex === index && (inViewport || !enteredViewport),
           })}
           key={index}
         >
           <div className={styles.imageContainer}>
-            <Image
-              preload
+            <SlideImage
+              slide={slide}
               fetchPriority={index === 0 ? "high" : undefined}
-              fill
-              src={slide.src}
-              alt={slide.alt}
-              placeholder="blur"
-              sizes="100vw"
-              quality={isMobile ? 40 : 100}
+              loading={
+                index === 0 ||
+                index === activeIndex ||
+                (inViewport && index === nextIndex)
+                  ? "eager"
+                  : "lazy"
+              }
             />
           </div>
         </div>

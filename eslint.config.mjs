@@ -14,4 +14,8 @@ export default [
       ...reactHooks.configs.recommended.rules,
     },
   },
+  {
+    files: ["components/slider/Slider.js"],
+    rules: { "@next/next/no-img-element": "off" },
+  },
 ];

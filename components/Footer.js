@@ -72,7 +72,6 @@ function Footer() {
                 </p>
                 <p>
                   <a
-                    aria-label="Phone number"
                     className={classNames(styles.redHover, roboto.className)}
                     href="tel:660826121"
                   >
@@ -81,7 +80,6 @@ function Footer() {
                 </p>
                 <p>
                   <a
-                    aria-label="Phone number"
                     className={classNames(styles.redHover, roboto.className)}
                     href="tel:660906327"
                   >
@@ -99,7 +97,6 @@ function Footer() {
                   E-mail:
                 </p>
                 <a
-                  aria-label="e-mail"
                   className={classNames(styles.redHover)}
                   href="mailto:ul50@wp.pl"
                 >
@@ -159,6 +156,7 @@ function Footer() {
                   alt="logo"
                   height={0}
                   width={0}
+                  loading="eager"
                   sizes="100vw"
                 />
               </div>
