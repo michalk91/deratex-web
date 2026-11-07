@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import { memo } from "react";
-import Image from "next/dist/client/image";
+import Image from "next/image";
 import classNames from "classnames";
 import { RiFacebookBoxLine } from "react-icons/ri";
 import RichLightboxGallery from "./lightboxGallery/RichLightboxGallery";

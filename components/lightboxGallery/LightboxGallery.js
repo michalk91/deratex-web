@@ -127,10 +127,10 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           placeholder="blur"
           sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
           priority={index === activeIndex ? true : false}
-          onLoadingComplete={(e) => {
+          onLoad={(e) => {
             if (index !== activeIndex) return;
 
-            setImgWidth(e.clientWidth);
+            setImgWidth(e.currentTarget.clientWidth);
             setParentInfo((state) => ({ ...state, imgLoaded: true }));
           }}
         />
