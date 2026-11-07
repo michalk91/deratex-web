@@ -1,16 +1,27 @@
 import React, {
   memo,
   useState,
-  useEffect,
   useCallback,
   useRef,
-  useMemo,
 } from "react";
 
 import useCarousel from "../../hooks/useCarousel";
 import Carousel, { ImageForLightbox } from "./Carousel";
 import LightboxGallery from "../lightboxGallery/LightboxGallery";
 import useModalTransition from "use-modal-transition";
+
+function collectLightboxItems(children) {
+  const items = [];
+
+  React.Children.forEach(children, (child) => {
+    if (!child?.props) return;
+
+    if (child.type === ImageForLightbox) items.push(child.props);
+    else items.push(...collectLightboxItems(child.props.children));
+  });
+
+  return items;
+}
 
 function RichCarousel({
   children,
@@ -41,12 +52,9 @@ function RichCarousel({
 
   const lightboxForSlider = withGallery ? true : false;
 
-  const data = useMemo(() => [], []);
-
-  useEffect(() => {
-    if (!lightboxOpen)
-      setCarouselInfo((state) => ({ ...state, imgLoaded: false }));
-  }, [lightboxOpen]);
+  const [data] = useState(() =>
+    withGallery ? collectLightboxItems(children) : []
+  );
 
   const {
     onTouchEnd,
@@ -85,23 +93,9 @@ function RichCarousel({
     setCarouselInfo((state) => ({
       ...state,
       lightboxOpen: false,
+      imgLoaded: false,
     }));
   }, []);
-
-  const getImageForLightboxProps = useCallback(
-    (children) => {
-      React.Children.forEach(children, (child) => {
-        if (child.props) {
-          child.type === ImageForLightbox
-            ? data.push(child.props)
-            : getImageForLightboxProps(child.props.children);
-        }
-      });
-    },
-    [data]
-  );
-
-  if (withGallery && data.length === 0) getImageForLightboxProps(children);
 
   const onCloseAnimationStart = useCallback((e) => {
     e.style.transition = "0 !important";

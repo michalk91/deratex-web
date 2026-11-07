@@ -36,20 +36,19 @@ function Header() {
         })}
       >
         <nav className={styles.navbar}>
-          <Link legacyBehavior href="/">
-            <a
-              className={classNames(styles.navlogo)}
-              onClick={isOpen && closeMenu}
-            >
-              <Image
-                src="/images/logo.svg"
-                alt="logo"
-                height={0}
-                width={0}
-                sizes="100vw"
-                priority={true}
-              />
-            </a>
+          <Link
+            href="/"
+            className={classNames(styles.navlogo)}
+            onClick={isOpen ? closeMenu : undefined}
+          >
+            <Image
+              src="/images/logo.svg"
+              alt="logo"
+              height={0}
+              width={0}
+              sizes="100vw"
+              preload
+            />
           </Link>
 
           <div className={styles.telContainer}>
@@ -70,39 +69,36 @@ function Header() {
               })}
             >
               <li className={styles.navitem}>
-                <Link legacyBehavior href="/">
-                  <a
-                    className={classNames(styles.navlink, {
-                      [styles.active]: router.pathname === "/",
-                    })}
-                    onClick={closeMenu}
-                  >
-                    Strona główna
-                  </a>
+                <Link
+                  href="/"
+                  className={classNames(styles.navlink, {
+                    [styles.active]: router.pathname === "/",
+                  })}
+                  onClick={closeMenu}
+                >
+                  Strona główna
                 </Link>
               </li>
               <li className={styles.navitem}>
-                <Link legacyBehavior href="/uslugi">
-                  <a
-                    className={classNames(styles.navlink, {
-                      [styles.active]: router.pathname === "/uslugi",
-                    })}
-                    onClick={closeMenu}
-                  >
-                    Usługi
-                  </a>
+                <Link
+                  href="/uslugi"
+                  className={classNames(styles.navlink, {
+                    [styles.active]: router.pathname === "/uslugi",
+                  })}
+                  onClick={closeMenu}
+                >
+                  Usługi
                 </Link>
               </li>
               <li className={styles.navitem}>
-                <Link legacyBehavior href="/kontakt">
-                  <a
-                    className={classNames(styles.navlink, {
-                      [styles.active]: router.pathname === "/kontakt",
-                    })}
-                    onClick={closeMenu}
-                  >
-                    Kontakt
-                  </a>
+                <Link
+                  href="/kontakt"
+                  className={classNames(styles.navlink, {
+                    [styles.active]: router.pathname === "/kontakt",
+                  })}
+                  onClick={closeMenu}
+                >
+                  Kontakt
                 </Link>
               </li>
               <div className={styles.contactContainer}>

@@ -64,7 +64,7 @@ const Thumbnail = memo(function Thumbnail({
           src={item.src}
           alt={item.alt}
           fill
-          priority={true}
+          preload
           sizes="10vw"
           placeholder="blur"
           style={{ objectFit: "cover" }}

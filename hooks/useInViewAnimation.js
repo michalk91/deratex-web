@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useState } from "react";
 import { useInViewport } from "react-in-viewport";
 import { isMobile } from "react-device-detect";
 
@@ -7,12 +7,10 @@ function useInViewAnimation({
   sensivity = "250",
   mobileSensivity = "150",
 }) {
-  const animateRef = useRef(false);
+  const [animate, setAnimate] = useState(false);
 
   const onEnterViewport = useCallback(() => {
-    if (animateRef.current) return;
-
-    animateRef.current = true;
+    setAnimate(true);
   }, []);
 
   useInViewport(
@@ -22,7 +20,7 @@ function useInViewAnimation({
     { onEnterViewport }
   );
 
-  return { animate: animateRef.current };
+  return { animate };
 }
 
 export default useInViewAnimation;

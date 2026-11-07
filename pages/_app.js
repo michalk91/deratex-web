@@ -1,15 +1,18 @@
 import "../styles/globals.css";
 import "../styles/iubenda.css";
 import Layout from "../components/Layout";
-import React, { useEffect, useCallback } from "react";
+import React, { useSyncExternalStore } from "react";
 import Script from "next/script";
 import { createGlobalState } from "react-hooks-global-state";
-import { useState } from "react";
 import { roboto, robotoBolder, outfitBolder } from "../fonts/fonts";
 import Head from "next/head";
 import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
 import useConsent from "../hooks/useConsent";
 import { SERVICE_CONSENT } from "../lib/iubenda";
+
+const subscribeToNothing = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 export const { useGlobalState } = createGlobalState({
   fbSDKLoaded: false,
@@ -19,12 +22,12 @@ export const { useGlobalState } = createGlobalState({
 function MyApp({ Component, pageProps }) {
   const [_, setFbSDKLoaded] = useGlobalState("fbSDKLoaded");
   const [__, setFbSDKFailed] = useGlobalState("fbSDKFailed");
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    getClientSnapshot,
+    getServerSnapshot
+  );
   const hasFacebookConsent = useConsent(SERVICE_CONSENT.facebook);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []); //added to fix react hydration error
 
   const handleDisableRightClickMenu = useDisableRightClickMenu({
     tagName: "IMG",

@@ -8,9 +8,18 @@ const initialState = {
 };
 const { useGlobalState } = createGlobalState(initialState);
 
-const useKeyPress = ({ inViewportRef, hover, modalIsOpen, keys }) => {
+const useKeyPress = ({
+  inViewportRef,
+  hover,
+  modalIsOpen,
+  keys,
+  onEnterViewport,
+}) => {
   const { inViewport } = useInViewport(
-    inViewportRef !== undefined ? inViewportRef : ""
+    inViewportRef !== undefined ? inViewportRef : "",
+    {},
+    {},
+    { onEnterViewport }
   );
   const [selectedID, setSelectedID] = useGlobalState("selectedID");
   const [instancesCount, setInstancesCount] = useGlobalState("instancesCount");

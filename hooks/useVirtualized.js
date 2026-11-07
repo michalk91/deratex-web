@@ -1,16 +1,18 @@
-import { useRef } from "react";
+import { useMemo } from "react";
 
 function useVirtualized({ data, activeIndex }) {
-  const virtualizedDataRef = useRef([]);
-
   const start = activeIndex > 0 ? activeIndex - 1 : 0;
   const end = activeIndex + 2;
 
-  virtualizedDataRef.current = data
-    .slice(start, end)
-    .map((item, index) => ({ ...item, index: index + start }));
+  const virtualizedData = useMemo(
+    () =>
+      data
+        .slice(start, end)
+        .map((item, index) => ({ ...item, index: index + start })),
+    [data, start, end]
+  );
 
-  return { virtualizedData: virtualizedDataRef.current };
+  return { virtualizedData };
 }
 
 export default useVirtualized;

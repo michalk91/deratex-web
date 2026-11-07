@@ -29,14 +29,14 @@ const useCarousel = ({
 
   const updateIndex = useCallback((newIndex) => {
     setActiveIndex(calculateNewIndex(newIndex));
-  }, []);
+  }, [calculateNewIndex]);
 
   // Assumes that target has data-id attribute
   const setNavigate = useCallback((e) => {
     if (e.target.dataset.id !== undefined)
       updateIndex(parseInt(e.target.dataset.id));
     else updateIndex(parseInt(e.target.closest("[data-id]").dataset.id));
-  }, []);
+  }, [updateIndex]);
 
   const handleMouseOver = useCallback(() => {
     setPaused(true);
@@ -48,11 +48,11 @@ const useCarousel = ({
 
   const nextSlide = useCallback(() => {
     setActiveIndex((val) => calculateNewIndex(val + 1));
-  }, []);
+  }, [calculateNewIndex]);
 
   const prevSlide = useCallback(() => {
     setActiveIndex((val) => calculateNewIndex(val - 1));
-  }, []);
+  }, [calculateNewIndex]);
 
   const {
     onTouchEnd,
@@ -94,7 +94,7 @@ const useCarousel = ({
         }
       };
     }
-  }, [nextSlide, paused, inViewport, isSwiping]);
+  }, [nextSlide, paused, inViewport, isSwiping, autoPlay, slideTime]);
 
   return {
     onTouchEnd,

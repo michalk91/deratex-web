@@ -20,10 +20,6 @@ function useFbPostsStatus(containerRef) {
   const parsedRef = useRef(false);
 
   useEffect(() => {
-    if (fbSDKFailed) setStatus(FB_POSTS_STATUS.ERROR);
-  }, [fbSDKFailed]);
-
-  useEffect(() => {
     if (!fbSDKLoaded || status !== FB_POSTS_STATUS.LOADING) return;
 
     const container = containerRef.current;
@@ -77,7 +73,7 @@ function useFbPostsStatus(containerRef) {
     };
   }, [containerRef, fbSDKLoaded, status]);
 
-  return status;
+  return fbSDKFailed ? FB_POSTS_STATUS.ERROR : status;
 }
 
 export default useFbPostsStatus;

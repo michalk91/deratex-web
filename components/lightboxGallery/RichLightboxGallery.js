@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback, useRef, useEffect } from "react";
+import React, { memo, useState, useCallback, useRef } from "react";
 import useCarousel from "../../hooks/useCarousel";
 import LightboxGallery from "./LightboxGallery";
 import useModalTransition from "use-modal-transition";
@@ -44,7 +44,11 @@ function RichLightboxGallery({
   });
 
   const closeGallery = useCallback(() => {
-    setLightboxInfo((state) => ({ ...state, lightboxOpen: false }));
+    setLightboxInfo((state) => ({
+      ...state,
+      lightboxOpen: false,
+      imgLoaded: false,
+    }));
   }, []);
 
   const openGallery = useCallback(
@@ -58,12 +62,6 @@ function RichLightboxGallery({
   const firstElemRef = useRef(null);
   const modalElemRef = useRef(null);
   const modalRef = useRef(null);
-
-  useEffect(() => {
-    if (lightboxOpen) return;
-
-    setLightboxInfo((state) => ({ ...state, imgLoaded: false }));
-  }, [lightboxOpen]);
 
   const onCloseAnimationStart = useCallback((e) => {
     e.style.zIndex = "5";

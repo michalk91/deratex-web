@@ -35,13 +35,13 @@ function useFbPagePluginResize({
         setFbPageHeight(minFbPageHeight);
       }
     }
-  }, [resize]);
+  }, [resize, containerRef, minFbPageHeight, minFbPageWidth, maxFbPageWidth]);
 
   useEffect(() => {
     if (fbSDKLoaded && fbPageWidth && containerRef.current) {
       window.FB.XFBML.parse(containerRef.current);
     }
-  }, [fbSDKLoaded, fbPageWidth, fbPageHeight]);
+  }, [fbSDKLoaded, fbPageWidth, fbPageHeight, containerRef]);
 
   useEffect(() => {
     window.addEventListener("resize", resizeHandler);
@@ -49,7 +49,7 @@ function useFbPagePluginResize({
     return () => {
       window.removeEventListener("resize", resizeHandler);
     };
-  }, []);
+  }, [resizeHandler]);
   return {
     fbPageWidth,
     fbPageHeight,

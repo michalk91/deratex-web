@@ -126,7 +126,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           fill
           placeholder="blur"
           sizes={zoomedImgSizes ? zoomedImgSizes : "100vw"}
-          priority={index === activeIndex ? true : false}
+          preload={index === activeIndex}
           onLoad={(e) => {
             if (index !== activeIndex) return;
 

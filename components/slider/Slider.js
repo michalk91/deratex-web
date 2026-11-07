@@ -9,13 +9,13 @@ import useKeyPress from "../../hooks/useKeyPress";
 import { isMobile } from "react-device-detect";
 
 function Slider({ slides }) {
-  const [sliderInfo, setSliderInfo] = useState({
+  const [sliderInfo, setSliderInfo] = useState(() => ({
     activeIndex: 0,
     paused: false,
     pressed: false,
     startTime: Date.now(),
     elapsed: 0,
-  });
+  }));
 
   const { activeIndex, paused } = sliderInfo;
 
@@ -31,7 +31,7 @@ function Slider({ slides }) {
       startTime: Date.now(),
       elapsed: 0,
     }));
-  }, []); // eslint-disable-line
+  }, [slidesCount]);
 
   const prevSlide = useCallback(() => {
     setSliderInfo((state) => ({
@@ -42,7 +42,15 @@ function Slider({ slides }) {
       startTime: Date.now(),
       elapsed: 0,
     }));
-  }, []); // eslint-disable-line
+  }, [slidesCount]);
+
+  const handleEnterViewport = useCallback(() => {
+    setSliderInfo((state) => ({
+      ...state,
+      startTime: Date.now(),
+      elapsed: 0,
+    }));
+  }, []);
 
   const keys = [
     { key: "ArrowRight", action: nextSlide },
@@ -53,6 +61,7 @@ function Slider({ slides }) {
     inViewportRef: containerRef,
     keys,
     hover: paused,
+    onEnterViewport: handleEnterViewport,
   });
 
   const { onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
@@ -63,16 +72,6 @@ function Slider({ slides }) {
     bodyScrollAllTimeLocked: false,
     disableResistanceOnEnds: true,
   });
-
-  useEffect(() => {
-  if (!inViewport) return;
-
-  setSliderInfo((state) => ({
-    ...state,
-    startTime: Date.now(),
-    elapsed: 0,
-  }));
-}, [inViewport]);
 
   useEffect(() => {
     if (paused || !inViewport) return;
@@ -160,7 +159,8 @@ function Slider({ slides }) {
         >
           <div className={styles.imageContainer}>
             <Image
-              priority
+              preload
+              fetchPriority={index === 0 ? "high" : undefined}
               fill
               src={slide.src}
               alt={slide.alt}
