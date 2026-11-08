@@ -72,6 +72,8 @@ function RichCarousel({
     transitionEnded,
     disableSwiping,
     enableSwiping,
+    autoPlayStopped,
+    toggleAutoPlay,
   } = useCarousel({
     childrenCount: React.Children.count(children),
     containerRef: ref,
@@ -147,6 +149,9 @@ function RichCarousel({
         height={height}
         width={width}
         firstElemRef={firstElemRef}
+        autoPlay={autoPlay}
+        autoPlayStopped={autoPlayStopped}
+        toggleAutoPlay={toggleAutoPlay}
       >
         {children}
       </Carousel>

@@ -33,7 +33,7 @@ const CarouselItem = memo(function CarouselItem({
           });
         } else return React.cloneElement(child);
       }),
-    [firstElemRef, children, lightboxOpen, openGallery]
+    [firstElemRef, children, lightboxOpen, openGallery],
   );
 
   return (
@@ -66,10 +66,14 @@ const ImageForLightbox = memo(function ImageForLightbox({
   firstElemRef,
 }) {
   return (
-    <div className={classNames(imgClassName)}>
+    <button
+      type="button"
+      className={classNames("button-reset", imgClassName)}
+      onClick={openGallery}
+      tabIndex={firstElemRef ? 0 : -1}
+    >
       <Image
         ref={firstElemRef}
-        onClick={openGallery}
         src={src}
         alt={alt}
         height={height ? height : undefined}
@@ -82,7 +86,7 @@ const ImageForLightbox = memo(function ImageForLightbox({
           display: "block",
         }}
       />
-    </div>
+    </button>
   );
 });
 
@@ -110,8 +114,11 @@ const Carousel = React.forwardRef(function Carousel(
     virtualized,
     withGallery,
     firstElemRef,
+    autoPlay,
+    autoPlayStopped,
+    toggleAutoPlay,
   },
-  ref
+  ref,
 ) {
   const defaultChildren = useMemo(
     () =>
@@ -139,7 +146,7 @@ const Carousel = React.forwardRef(function Carousel(
       openGallery,
       firstElemRef,
       flipAnimating,
-    ]
+    ],
   );
 
   const virtualizedChildren = useMemo(() => {
@@ -159,7 +166,7 @@ const Carousel = React.forwardRef(function Carousel(
         index: index + start,
         openGallery,
         lightboxOpen,
-      })
+      }),
     );
   }, [
     width,
@@ -188,11 +195,25 @@ const Carousel = React.forwardRef(function Carousel(
           height: navigationOutside ? height : "",
         }}
       >
+        {autoPlay && (
+          <button type="button" className="focus-only" onClick={toggleAutoPlay}>
+            {autoPlayStopped
+              ? "Wznów automatyczne przewijanie"
+              : "Zatrzymaj automatyczne przewijanie"}
+          </button>
+        )}
         {navigationOutside && (
-          <FiChevronLeft
-            className={styles.buttonLeftOutside}
+          <button
+            type="button"
+            className={classNames(
+              "button-reset icon-button",
+              styles.buttonLeftOutside,
+            )}
+            aria-label="Poprzedni slajd"
             onClick={prevSlide}
-          />
+          >
+            <FiChevronLeft aria-hidden />
+          </button>
         )}
         <div
           ref={ref}
@@ -235,51 +256,78 @@ const Carousel = React.forwardRef(function Carousel(
           </div>
 
           {!navigationOutside && (
-            <FiChevronLeft
-              className={classNames(styles.buttonLeft)}
+            <button
+              type="button"
+              className={classNames(
+                "button-reset icon-button",
+                styles.buttonLeft,
+              )}
+              aria-label="Poprzedni slajd"
               onClick={prevSlide}
-            />
+            >
+              <FiChevronLeft aria-hidden />
+            </button>
           )}
           {sliderRectanglesVisible && !navigationOutside && (
             <div className={classNames(styles.rectangleContainer)}>
               {React.Children.map(children, (_, index) => {
                 return (
-                  <div
+                  <button
+                    type="button"
                     data-id={index}
-                    className={classNames(styles.rectangle, {
+                    className={classNames("button-reset", styles.rectangle, {
                       [styles.active]: index === activeIndex,
                     })}
+                    aria-label={`Slajd ${index + 1}`}
+                    aria-current={index === activeIndex ? "true" : undefined}
                     onClick={setNavigate}
-                  ></div>
+                  ></button>
                 );
               })}
             </div>
           )}
           {!navigationOutside && (
-            <FiChevronRight
-              className={classNames(styles.buttonRight)}
+            <button
+              type="button"
+              className={classNames(
+                "button-reset icon-button",
+                styles.buttonRight,
+              )}
+              aria-label="Następny slajd"
               onClick={nextSlide}
-            />
+            >
+              <FiChevronRight aria-hidden />
+            </button>
           )}
         </div>
         {navigationOutside && (
-          <FiChevronRight
-            className={styles.buttonRightOutside}
+          <button
+            type="button"
+            className={classNames(
+              "button-reset icon-button",
+              styles.buttonRightOutside,
+            )}
+            aria-label="Następny slajd"
             onClick={nextSlide}
-          />
+          >
+            <FiChevronRight aria-hidden />
+          </button>
         )}
       </div>
       {sliderRectanglesVisible && navigationOutside && (
         <div className={classNames(styles.rectangleContainerOutside)}>
           {React.Children.map(children, (_, index) => {
             return (
-              <div
+              <button
+                type="button"
                 data-id={index}
-                className={classNames(styles.rectangle, {
+                className={classNames("button-reset", styles.rectangle, {
                   [styles.active]: index === activeIndex,
                 })}
+                aria-label={`Slajd ${index + 1}`}
+                aria-current={index === activeIndex ? "true" : undefined}
                 onClick={setNavigate}
-              ></div>
+              ></button>
             );
           })}
         </div>

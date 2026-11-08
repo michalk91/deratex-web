@@ -11,7 +11,7 @@ function AboutUs() {
       <div className={styles.aboutUsImage}>
         <Image
           src={firmarodzina}
-          alt="logo"
+          alt="Firma rodzinna"
           height={0}
           width={0}
           placeholder="blur"

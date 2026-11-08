@@ -49,7 +49,10 @@ function Modal({
   useEffect(() => {
     if (!isOpen) return;
 
+    const previouslyFocused = document.activeElement;
     modalRef?.current?.focus();
+
+    return () => previouslyFocused?.focus?.({ preventScroll: true });
   }, [isOpen, modalRef]);
 
   const { handleUserKeyPress } = useKeyPress({
@@ -73,6 +76,9 @@ function Modal({
         createPortal(
           <div
             ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Galeria zdjęć"
             className={classNames(styles.modalWrapper, containerClassName)}
             onKeyDown={handleKeyDown}
             tabIndex={0}

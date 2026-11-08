@@ -13,6 +13,7 @@ const useCarousel = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [autoPlayStopped, setAutoPlayStopped] = useState(false);
 
   const calculateNewIndex = useCallback(
     (newIndex) => {
@@ -24,19 +25,29 @@ const useCarousel = ({
         return newIndex;
       }
     },
-    [childrenCount]
+    [childrenCount],
   );
 
-  const updateIndex = useCallback((newIndex) => {
-    setActiveIndex(calculateNewIndex(newIndex));
-  }, [calculateNewIndex]);
+  const updateIndex = useCallback(
+    (newIndex) => {
+      setActiveIndex(calculateNewIndex(newIndex));
+    },
+    [calculateNewIndex],
+  );
 
   // Assumes that target has data-id attribute
-  const setNavigate = useCallback((e) => {
-    if (e.target.dataset.id !== undefined)
-      updateIndex(parseInt(e.target.dataset.id));
-    else updateIndex(parseInt(e.target.closest("[data-id]").dataset.id));
-  }, [updateIndex]);
+  const setNavigate = useCallback(
+    (e) => {
+      if (e.target.dataset.id !== undefined)
+        updateIndex(parseInt(e.target.dataset.id));
+      else updateIndex(parseInt(e.target.closest("[data-id]").dataset.id));
+    },
+    [updateIndex],
+  );
+
+  const toggleAutoPlay = useCallback(() => {
+    setAutoPlayStopped((stopped) => !stopped);
+  }, []);
 
   const handleMouseOver = useCallback(() => {
     setPaused(true);
@@ -85,7 +96,7 @@ const useCarousel = ({
   });
 
   useEffect(() => {
-    if (!paused && autoPlay && inViewport && !isSwiping) {
+    if (!paused && !autoPlayStopped && autoPlay && inViewport && !isSwiping) {
       const interval = setInterval(nextSlide, slideTime);
 
       return () => {
@@ -94,7 +105,15 @@ const useCarousel = ({
         }
       };
     }
-  }, [nextSlide, paused, inViewport, isSwiping, autoPlay, slideTime]);
+  }, [
+    nextSlide,
+    paused,
+    autoPlayStopped,
+    inViewport,
+    isSwiping,
+    autoPlay,
+    slideTime,
+  ]);
 
   return {
     onTouchEnd,
@@ -116,6 +135,8 @@ const useCarousel = ({
     transitionEnded,
     disableSwiping,
     enableSwiping,
+    autoPlayStopped,
+    toggleAutoPlay,
   };
 };
 

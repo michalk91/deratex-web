@@ -106,8 +106,12 @@ function ContactForm() {
         >
           <h2 className={classNames("title")}>Formularz kontaktowy</h2>
           <div className={styles.inputsContainer}>
+            <label className="sr-only" htmlFor="name">
+              Imię
+            </label>
             <input
               id="name"
+              autoComplete="given-name"
               type="text"
               value={inputs.name}
               onChange={handleChange}
@@ -115,8 +119,12 @@ function ContactForm() {
               placeholder="Imię"
               required
             />
+            <label className="sr-only" htmlFor="surname">
+              Nazwisko
+            </label>
             <input
               id="surname"
+              autoComplete="family-name"
               type="text"
               value={inputs.surname}
               onChange={handleChange}
@@ -126,8 +134,12 @@ function ContactForm() {
             />
           </div>
           <div className={styles.inputsContainer}>
+            <label className="sr-only" htmlFor="email">
+              E-mail
+            </label>
             <input
               id="email"
+              autoComplete="email"
               type="email"
               value={inputs.email}
               onChange={handleChange}
@@ -135,9 +147,13 @@ function ContactForm() {
               placeholder="Twój e-mail"
               required
             />
+            <label className="sr-only" htmlFor="phoneNumber">
+              Numer telefonu
+            </label>
             <input
               id="phoneNumber"
-              type="text"
+              type="tel"
+              autoComplete="tel"
               value={inputs.phoneNumber}
               onChange={handleChange}
               className={styles.inputField}
@@ -145,6 +161,9 @@ function ContactForm() {
               required
             />
           </div>
+          <label className="sr-only" htmlFor="message">
+            Wiadomość
+          </label>
           <textarea
             id="message"
             type="text"
@@ -184,23 +203,27 @@ function ContactForm() {
             .
           </p>
           <button
-            title="Continue here after you’ve filled out all form elements"
+            title="Wyślij po wypełnieniu wszystkich pól formularza"
             type="submit"
             className={styles.button}
           >
             Wyślij
           </button>
           {form.state === "loading" ? (
-            <div className={styles.messageLoading}>Wysyłanie...</div>
+            <div role="status" className={styles.messageLoading}>
+              Wysyłanie...
+            </div>
           ) : form.state === "error" ? (
-            <div className={styles.messageError}>
+            <div role="alert" className={styles.messageError}>
               {`Coś poszło nie tak... Prosimy o napisanie wiadomości bezpośrednio
               ze swojej poczty elektronicznej lub aplikacji pocztowej na adres:
               "ul50@wp.pl"`}
             </div>
           ) : (
             form.state === "success" && (
-              <div className={styles.messageSuccess}>Wiadomość wysłana.</div>
+              <div role="status" className={styles.messageSuccess}>
+                Wiadomość wysłana.
+              </div>
             )
           )}
         </form>

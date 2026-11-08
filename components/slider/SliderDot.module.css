@@ -1,3 +1,8 @@
+.container {
+  display: block;
+  font-size: 1rem;
+}
+
 @media only screen and (max-width: 1500px) {
   .container {
     transform: scale(0.9) !important;

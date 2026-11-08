@@ -23,22 +23,22 @@ import killgerm2025Leszek from "/public/images/index/certificates/killgerm-2025-
 
 function Certificates() {
   const certificates = [
-    { src: biolog, alt: "baner image1", slideText: `"Zadania biologa terenowego wykonującego inspekcję zakładu produkującego żywność i walidację systemu zabezpieczenia zakładu przez organizamami szkodliwymi"`, slideText2: " - Leszek Kukla - " },
-    { src: irsBrc, alt: "baner image2", slideText: `"Ochrona obiektów zakładu przemysłu spożywczego przed szkodnikami zgodna z wymaganiami system HACCP, IFS/BRC i AIB"`, slideText2: " - Leszek Kukla - " },
-    { src: haccpGrazyna, alt: "baner image3", slideText: `"Ochrona obiektów zakładu przemysłu spożywczego przed szkodnikami zgodna z wymaganiami systemu HACCP"`, slideText2: " - Grazyna Kukla - " },
-    { src: deratyzacjaGrazyna, alt: "baner image4", slideText: `"Deratyzacja - poziom wyższy"`, slideText2: " - Grazyna Kukla - " },
-    { src: dezynsekcjaGrazyna, alt: "baner image5", slideText: `"Dezynsekcja - poziom wyższy"`, slideText2: " - Grazyna Kukla - " },
-    { src: mrowkiGrazyna, alt: "baner image6", slideText: `"Mrówki ogrodowe i ich zwalczanie"`, slideText2: " - Grazyna Kukla - " },
-    { src: mrowkiLeszek, alt: "baner image7", slideText: `"Mrówki ogrodowe i ich zwalczanie"`, slideText2: " - Leszek Kukla - " },
-    { src: ozonowanieLeszek, alt: "baner image8", slideText: `"Ozonowanie jako nowoczesna forma dezynfekcji oraz usuwanie przykrych zapachów"`, slideText2: " - Leszek Kukla - " },
-    { src: pluskwaGrazyna, alt: "baner image9", slideText: `"Pluskwa domowa, produkty biobójcze przeznaczone do zwalczania pluskwy domowej i sposoby wykonywania zabiegu odpluskwiania pomieszczeń"`, slideText2: " - Grazyna Kukla - " },
-    { src: pluskwaLeszek, alt: "baner image10", slideText: `"Pluskwa domowa, produkty biobójcze przeznaczone do zwalczania pluskwy domowej i sposoby wykonywania zabiegu odpluskwiania pomieszczeń"`, slideText2: " - Leszek Kukla - " },
-    { src: dezodoryzacjaGrazyna, alt: "baner image11", slideText: `"Podstawy dezodoryzacji"`, slideText2: " - Grażyna Kukla - " },
-    { src: dezodoryzacjaLeszek, alt: "baner image12", slideText: `"Podstawy dezodoryzacji"`, slideText2: " - Leszek Kukla - " },
-    { src: szkodnikiGrazyna, alt: "baner image13", slideText: `"Szkodniki magazynowe i ich zwalczanie"`, slideText2: " - Grażyna Kukla - " },
-    { src: szkodnikiLeszek, alt: "baner image14", slideText: `"Szkodniki magazynowe i ich zwalczanie"`, slideText2: " - Leszek Kukla - " },
-    { src: killgerm2025Grazyna, alt: "baner image15", slideText: `"Warsztaty Killgerm Polska"`, slideText2: " - Grażyna Kukla - " },
-    { src: killgerm2025Leszek, alt: "baner image16", slideText: `"Warsztaty Killgerm Polska"`, slideText2: " - Leszek Kukla - " },
+    { src: biolog, alt: "Certyfikat: Zadania biologa terenowego wykonującego inspekcję zakładu produkującego żywność i walidację systemu zabezpieczenia zakładu przed organizmami szkodliwymi – Leszek Kukla", slideText: `"Zadania biologa terenowego wykonującego inspekcję zakładu produkującego żywność i walidację systemu zabezpieczenia zakładu przez organizamami szkodliwymi"`, slideText2: " - Leszek Kukla - " },
+    { src: irsBrc, alt: "Certyfikat: Ochrona obiektów zakładu przemysłu spożywczego przed szkodnikami zgodna z wymaganiami system HACCP, IFS/BRC i AIB – Leszek Kukla", slideText: `"Ochrona obiektów zakładu przemysłu spożywczego przed szkodnikami zgodna z wymaganiami system HACCP, IFS/BRC i AIB"`, slideText2: " - Leszek Kukla - " },
+    { src: haccpGrazyna, alt: "Certyfikat: Ochrona obiektów zakładu przemysłu spożywczego przed szkodnikami zgodna z wymaganiami systemu HACCP – Grazyna Kukla", slideText: `"Ochrona obiektów zakładu przemysłu spożywczego przed szkodnikami zgodna z wymaganiami systemu HACCP"`, slideText2: " - Grazyna Kukla - " },
+    { src: deratyzacjaGrazyna, alt: "Certyfikat: Deratyzacja - poziom wyższy – Grazyna Kukla", slideText: `"Deratyzacja - poziom wyższy"`, slideText2: " - Grazyna Kukla - " },
+    { src: dezynsekcjaGrazyna, alt: "Certyfikat: Dezynsekcja - poziom wyższy – Grazyna Kukla", slideText: `"Dezynsekcja - poziom wyższy"`, slideText2: " - Grazyna Kukla - " },
+    { src: mrowkiGrazyna, alt: "Certyfikat: Mrówki ogrodowe i ich zwalczanie – Grazyna Kukla", slideText: `"Mrówki ogrodowe i ich zwalczanie"`, slideText2: " - Grazyna Kukla - " },
+    { src: mrowkiLeszek, alt: "Certyfikat: Mrówki ogrodowe i ich zwalczanie – Leszek Kukla", slideText: `"Mrówki ogrodowe i ich zwalczanie"`, slideText2: " - Leszek Kukla - " },
+    { src: ozonowanieLeszek, alt: "Certyfikat: Ozonowanie jako nowoczesna forma dezynfekcji oraz usuwanie przykrych zapachów – Leszek Kukla", slideText: `"Ozonowanie jako nowoczesna forma dezynfekcji oraz usuwanie przykrych zapachów"`, slideText2: " - Leszek Kukla - " },
+    { src: pluskwaGrazyna, alt: "Certyfikat: Pluskwa domowa, produkty biobójcze przeznaczone do zwalczania pluskwy domowej i sposoby wykonywania zabiegu odpluskwiania pomieszczeń – Grazyna Kukla", slideText: `"Pluskwa domowa, produkty biobójcze przeznaczone do zwalczania pluskwy domowej i sposoby wykonywania zabiegu odpluskwiania pomieszczeń"`, slideText2: " - Grazyna Kukla - " },
+    { src: pluskwaLeszek, alt: "Certyfikat: Pluskwa domowa, produkty biobójcze przeznaczone do zwalczania pluskwy domowej i sposoby wykonywania zabiegu odpluskwiania pomieszczeń – Leszek Kukla", slideText: `"Pluskwa domowa, produkty biobójcze przeznaczone do zwalczania pluskwy domowej i sposoby wykonywania zabiegu odpluskwiania pomieszczeń"`, slideText2: " - Leszek Kukla - " },
+    { src: dezodoryzacjaGrazyna, alt: "Certyfikat: Podstawy dezodoryzacji – Grażyna Kukla", slideText: `"Podstawy dezodoryzacji"`, slideText2: " - Grażyna Kukla - " },
+    { src: dezodoryzacjaLeszek, alt: "Certyfikat: Podstawy dezodoryzacji – Leszek Kukla", slideText: `"Podstawy dezodoryzacji"`, slideText2: " - Leszek Kukla - " },
+    { src: szkodnikiGrazyna, alt: "Certyfikat: Szkodniki magazynowe i ich zwalczanie – Grażyna Kukla", slideText: `"Szkodniki magazynowe i ich zwalczanie"`, slideText2: " - Grażyna Kukla - " },
+    { src: szkodnikiLeszek, alt: "Certyfikat: Szkodniki magazynowe i ich zwalczanie – Leszek Kukla", slideText: `"Szkodniki magazynowe i ich zwalczanie"`, slideText2: " - Leszek Kukla - " },
+    { src: killgerm2025Grazyna, alt: "Certyfikat: Warsztaty Killgerm Polska – Grażyna Kukla", slideText: `"Warsztaty Killgerm Polska"`, slideText2: " - Grażyna Kukla - " },
+    { src: killgerm2025Leszek, alt: "Certyfikat: Warsztaty Killgerm Polska – Leszek Kukla", slideText: `"Warsztaty Killgerm Polska"`, slideText2: " - Leszek Kukla - " },
   ];
 
   return (

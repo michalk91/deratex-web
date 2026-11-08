@@ -7,7 +7,7 @@
 }
 
 .textContainer {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(200, 0, 0, 0.85);
   text-transform: uppercase;
   color: whitesmoke;
 }
@@ -165,11 +165,13 @@
     height: 70vh;
   }
 
-  .slider:hover .left_arrow {
+  .slider:hover .left_arrow,
+  .left_arrow:focus-visible {
     left: 36px;
   }
 
-  .slider:hover .right_arrow {
+  .slider:hover .right_arrow,
+  .right_arrow:focus-visible {
     right: 36px;
   }
 

@@ -11,14 +11,14 @@ function ReferenceLetters() {
   const images = [
     {
       src: reference1,
-      alt: "reference letter",
+      alt: "List referencyjny: Spółdzielnia Mieszkaniowa",
       height: 621,
       width: 464,
       text: "Spółdzielnia Mieszkaniowa",
     },
     {
       src: reference2,
-      alt: "reference letter 2",
+      alt: "List referencyjny: Burmistrz Świecia",
       height: 2000,
       width: 1414,
       text: "Burmistrz Świecia",

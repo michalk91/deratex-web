@@ -7,14 +7,14 @@ import SliderDot from "./SliderDot";
 import useSwiping from "../../hooks/useSwiping";
 import useKeyPress from "../../hooks/useKeyPress";
 
-function SlideImage({ slide, loading, fetchPriority }) {
+function SlideImage({ slide, fetchPriority }) {
   const imageProps = {
     src: slide.src,
     alt: slide.alt,
     fill: true,
     placeholder: "blur",
     sizes: "100vw",
-    loading,
+    loading: "eager",
     fetchPriority,
   };
   const { props: desktop } = getImageProps({ ...imageProps, quality: 100 });
@@ -40,12 +40,12 @@ function Slider({ slides }) {
     startTime: Date.now(),
     elapsed: 0,
     enteredViewport: false,
+    autoPlayStopped: false,
   }));
 
-  const { activeIndex, paused, enteredViewport } = sliderInfo;
+  const { activeIndex, paused, enteredViewport, autoPlayStopped } = sliderInfo;
 
   const slidesCount = slides.length;
-  const nextIndex = (activeIndex + 1) % slidesCount;
 
   const containerRef = useRef();
 
@@ -101,7 +101,7 @@ function Slider({ slides }) {
   });
 
   useEffect(() => {
-    if (paused || !inViewport) return;
+    if (paused || autoPlayStopped || !inViewport) return;
 
     const remaining = 3000 - sliderInfo.elapsed;
     const timer = setTimeout(() => {
@@ -109,7 +109,14 @@ function Slider({ slides }) {
     }, remaining);
 
     return () => clearTimeout(timer);
-  }, [paused, inViewport, sliderInfo.elapsed, activeIndex, nextSlide]);
+  }, [
+    paused,
+    autoPlayStopped,
+    inViewport,
+    sliderInfo.elapsed,
+    activeIndex,
+    nextSlide,
+  ]);
 
   const handleMouseEnter = useCallback(() => {
     setSliderInfo((state) => ({
@@ -124,6 +131,14 @@ function Slider({ slides }) {
       ...state,
       paused: false,
       startTime: Date.now() - state.elapsed,
+    }));
+  }, []);
+
+  const toggleAutoPlay = useCallback(() => {
+    setSliderInfo((state) => ({
+      ...state,
+      autoPlayStopped: !state.autoPlayStopped,
+      elapsed: 0,
     }));
   }, []);
 
@@ -146,8 +161,27 @@ function Slider({ slides }) {
       onTouchEnd={onTouchEnd}
       onTouchMove={onTouchMove}
     >
-      <BsChevronLeft className={styles.left_arrow} onClick={prevSlide} />
-      <BsChevronRight className={styles.right_arrow} onClick={nextSlide} />
+      <button type="button" className="focus-only" onClick={toggleAutoPlay}>
+        {autoPlayStopped
+          ? "Wznów automatyczne przewijanie slajdów"
+          : "Zatrzymaj automatyczne przewijanie slajdów"}
+      </button>
+      <button
+        type="button"
+        className={classNames("button-reset icon-button", styles.left_arrow)}
+        aria-label="Poprzedni slajd"
+        onClick={prevSlide}
+      >
+        <BsChevronLeft aria-hidden />
+      </button>
+      <button
+        type="button"
+        className={classNames("button-reset icon-button", styles.right_arrow)}
+        aria-label="Następny slajd"
+        onClick={nextSlide}
+      >
+        <BsChevronRight aria-hidden />
+      </button>
 
       {slides.map(
         (slide, index) =>
@@ -163,18 +197,25 @@ function Slider({ slides }) {
                 <span className={styles.sliderText3}>{slide.text3}</span>
               )}
             </div>
-          )
+          ),
       )}
 
       <div className={styles.dots_container}>
         {slides.map((_, index) => (
-          <div key={index} onClick={() => setNavigate(index)}>
+          <button
+            type="button"
+            key={index}
+            className="button-reset"
+            aria-label={`Slajd ${index + 1}`}
+            aria-current={activeIndex === index ? "true" : undefined}
+            onClick={() => setNavigate(index)}
+          >
             <SliderDot
               key={`${index}-${activeIndex}-${inViewport ? 1 : 0}`}
               active={activeIndex === index}
-              paused={paused || !inViewport}
+              paused={paused || autoPlayStopped || !inViewport}
             />
-          </div>
+          </button>
         ))}
       </div>
       {slides.map((slide, index) => (
@@ -189,13 +230,6 @@ function Slider({ slides }) {
             <SlideImage
               slide={slide}
               fetchPriority={index === 0 ? "high" : undefined}
-              loading={
-                index === 0 ||
-                index === activeIndex ||
-                (inViewport && index === nextIndex)
-                  ? "eager"
-                  : "lazy"
-              }
             />
           </div>
         </div>

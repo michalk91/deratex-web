@@ -6,7 +6,7 @@ import { memo } from "react";
 function SliderDot({ active, paused }) {
   if (active) {
     return (
-      <div className={styles.container}>
+      <span className={styles.container}>
         <svg height="30" width="30">
           <circle
             className={styles.circleBackground}
@@ -29,7 +29,7 @@ function SliderDot({ active, paused }) {
             fillOpacity="0"
           />
           <circle
-            className={classNames( {
+            className={classNames({
               [styles.circleWithScaleAnimation]: active && paused,
             })}
             cx="15"
@@ -39,11 +39,11 @@ function SliderDot({ active, paused }) {
             fillOpacity="0"
           />
         </svg>
-      </div>
+      </span>
     );
   } else {
     return (
-      <div className={styles.container}>
+      <span className={styles.container}>
         <svg height="30" width="30">
           <circle
             className={styles.circleBackground}
@@ -55,7 +55,7 @@ function SliderDot({ active, paused }) {
             fillOpacity="1"
           />
         </svg>
-      </div>
+      </span>
     );
   }
 }

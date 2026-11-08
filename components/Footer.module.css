@@ -82,7 +82,7 @@
 }
 
 .redHover:hover {
-  color: red;
+  color: #ff3333;
   cursor: pointer;
 }
 

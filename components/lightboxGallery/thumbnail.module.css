@@ -10,6 +10,7 @@
 }
 
 .imgWrapper {
+  display: block;
   overflow: hidden;
   position: relative;
   height: 100%;

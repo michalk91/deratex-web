@@ -14,7 +14,7 @@ function Footer() {
   const texts = [
     {
       src: referenceHousingCoop,
-      alt: "reference list",
+      alt: "List referencyjny: Spółdzielnia Mieszkaniowa",
       text: "Spółdzielnia Mieszkaniowa",
       width: referenceHousingCoop.width,
       height: referenceHousingCoop.height,
@@ -22,7 +22,7 @@ function Footer() {
     },
     {
       src: referenceSwieceMayor,
-      alt: "reference list 2",
+      alt: "List referencyjny: Burmistrz Świecia",
       text: "Burmistrz Świecia",
       width: referenceSwieceMayor.width,
       height: referenceSwieceMayor.height,
@@ -153,7 +153,7 @@ function Footer() {
               <div className={styles.navlogo}>
                 <Image
                   src="/images/logo-white.svg"
-                  alt="logo"
+                  alt="Logo Deratex"
                   height={0}
                   width={0}
                   loading="eager"

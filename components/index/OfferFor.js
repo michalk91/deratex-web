@@ -44,7 +44,7 @@ function OfferFor() {
 
           <Image
             src={poland}
-            alt="logo"
+            alt="Mapa Polski"
             height={0}
             width={0}
             placeholder="blur"

@@ -20,22 +20,22 @@ import zaklad from "/public/images/index/Cooperation/zaklad.jpg";
 function Cooperation() {
    const images = [
     [
-      { src: hospital, alt: "hospital", text: "służby zdrowia" },
-      { src: farmacja, alt: "farmacia", text: "firm farmaceutycznych" },
-      { src: gastronomia, alt: "gastronomy", text: "gastronomii" },
-      { src: handel, alt: "trade", text: "placówek handlu hurtowego i detalicznego" },
+      { src: hospital, text: "służby zdrowia" },
+      { src: farmacja, text: "firm farmaceutycznych" },
+      { src: gastronomia, text: "gastronomii" },
+      { src: handel, text: "placówek handlu hurtowego i detalicznego" },
     ],
     [
-      { src: bloki, alt: "blocks of flats", text: "spółdzielni mieszkaniowej" },
-      { src: zasoby, alt: "housing stock", text: "gospodarki zasobami mieszkaniowymi" },
-      { src: wspolnota, alt: "housing Association", text: "wspólnot mieszkaniowych" },
-      { src: rolne, alt: "agri-food processing", text: "przetwórstwa rolno-spożywczego" },
+      { src: bloki, text: "spółdzielni mieszkaniowej" },
+      { src: zasoby, text: "gospodarki zasobami mieszkaniowymi" },
+      { src: wspolnota, text: "wspólnot mieszkaniowych" },
+      { src: rolne, text: "przetwórstwa rolno-spożywczego" },
     ],
     [
-      { src: szkola, alt: "school", text: "obiektów szkolnych oraz internatów" },
-      { src: osrodek, alt: "holiday resorts", text: "ośrodków wypoczynkowych" },
-      { src: hotel, alt: "hotels", text: "hoteli" },
-      { src: zaklad, alt: "food production plants", text: "zakładów produkujących żywność" },
+      { src: szkola, text: "obiektów szkolnych oraz internatów" },
+      { src: osrodek, text: "ośrodków wypoczynkowych" },
+      { src: hotel, text: "hoteli" },
+      { src: zaklad, text: "zakładów produkujących żywność" },
     ],
   ];
 
@@ -74,7 +74,7 @@ function Cooperation() {
                     <div className={styles.imgContainer}>
                       <Image
                         src={item.src}
-                        alt={item.alt}
+                        alt=""
                         height={40}
                         width={40}
                         placeholder="blur"

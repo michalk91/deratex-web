@@ -19,8 +19,15 @@ const LightboxText = memo(function ZoomedLightboxImage({
   item,
 }) {
   return (
-    <p className={textClassName} onClick={openGallery} data-id={index}>
-      {item}
+    <p className={textClassName}>
+      <button
+        type="button"
+        className={classNames("button-reset", styles.textButton)}
+        data-id={index}
+        onClick={openGallery}
+      >
+        {item}
+      </button>
     </p>
   );
 });
@@ -35,11 +42,16 @@ const LightboxImage = memo(function LightboxImage({
   activeIndex,
 }) {
   return (
-    <div
+    <button
+      type="button"
       ref={index === activeIndex ? firstElemRef : null}
       data-id={index}
       onClick={openGallery}
-      className={classNames(imgContainerClassName, styles.smallImage)}
+      className={classNames(
+        "button-reset",
+        imgContainerClassName,
+        styles.smallImage,
+      )}
     >
       <Image
         src={item.src}
@@ -52,7 +64,7 @@ const LightboxImage = memo(function LightboxImage({
         placeholder="blur"
         sizes="20vw"
       />
-    </div>
+    </button>
   );
 });
 
@@ -410,18 +422,36 @@ function LightboxGallery({
                   ))}
             </div>
           </div>
-          <IoCaretForward
-            className={classNames(styles.nextSlide, {
-              [styles.hiddenNextSlide]: isZooming || zoom > 1,
-            })}
+          <button
+            type="button"
+            className={classNames(
+              "button-reset icon-button",
+              styles.nextSlide,
+              {
+                [styles.hiddenNextSlide]: isZooming || zoom > 1,
+              },
+            )}
+            aria-label="Następne zdjęcie"
             onClick={nextSlide}
-          />
-          <IoCaretBack
-            className={classNames(styles.prevSlide, {
-              [styles.hiddenPrevSlide]: isZooming || zoom > 1,
-            })}
+            tabIndex={isZooming || zoom > 1 ? -1 : 0}
+          >
+            <IoCaretForward aria-hidden />
+          </button>
+          <button
+            type="button"
+            className={classNames(
+              "button-reset icon-button",
+              styles.prevSlide,
+              {
+                [styles.hiddenPrevSlide]: isZooming || zoom > 1,
+              },
+            )}
+            aria-label="Poprzednie zdjęcie"
             onClick={prevSlide}
-          />
+            tabIndex={isZooming || zoom > 1 ? -1 : 0}
+          >
+            <IoCaretBack aria-hidden />
+          </button>
         </div>
         <div
           className={classNames(styles.containerThumbs, {

@@ -5,9 +5,14 @@ import { memo } from "react";
 function Layout({ children }) {
   return (
     <>
+      <a className="focus-only" href="#main-content">
+        Przejdź do treści
+      </a>
       <Header />
       <div className="page-wrapper">
-        <main>{children}</main>
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
         <Footer />
       </div>
     </>

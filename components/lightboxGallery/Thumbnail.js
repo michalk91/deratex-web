@@ -34,10 +34,11 @@ const Thumbnail = memo(function Thumbnail({
   } = thumbnailsOptions ?? {};
 
   return (
-    <div
+    <button
+      type="button"
       ref={thumbRef}
       data-id={index}
-      className={classNames(styles.thumbnail)}
+      className={classNames("button-reset", styles.thumbnail)}
       style={{
         aspectRatio: keepRatio ? `${[item.width / item.height]}` : `1/1`,
         width:
@@ -51,9 +52,10 @@ const Thumbnail = memo(function Thumbnail({
             ? thumbnailHeight
             : undefined,
       }}
+      aria-current={index === activeIndex ? "true" : undefined}
       onClick={onNavigate}
     >
-      <div
+      <span
         className={classNames(styles.imgWrapper, {
           [styles.thumbnailBasicDim]: !keepRatio,
           [styles.active]: index === activeIndex,
@@ -69,8 +71,8 @@ const Thumbnail = memo(function Thumbnail({
           placeholder="blur"
           style={{ objectFit: "cover" }}
         />
-      </div>
-    </div>
+      </span>
+    </button>
   );
 });
 

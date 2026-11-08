@@ -8,7 +8,7 @@ function OurGuarantee() {
   const images = [
     {
       src: "/images/index/OurGuarantee/piz.svg",
-      alt: "Atesty Państwowego Zakłdu Higieny",
+      alt: "Atesty Państwowego Zakładu Higieny",
       text: "Stosujemy preparaty i srodki posiadajace zezwolenia Ministra Zdrowia i atesty Państwowego Zakładu Higieny",
     },
     {
@@ -38,7 +38,7 @@ function OurGuarantee() {
     },
     {
       src: "/images/index/OurGuarantee/safety.svg",
-      alt: "Bezpieczństwo",
+      alt: "Bezpieczeństwo",
       text: "Bezpieczeństwo stosowanych srodków chemicznych",
     },
 

@@ -66,6 +66,14 @@
   left: -10%;
 }
 
+.buttonLeft:focus-visible {
+  left: 2%;
+}
+
+.buttonRight:focus-visible {
+  right: 2%;
+}
+
 .buttonLeftOutside,
 .buttonRightOutside {
   background-color: transparent;

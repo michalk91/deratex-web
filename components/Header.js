@@ -5,8 +5,7 @@ import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import { memo } from "react";
-import { FaPhoneAlt } from "react-icons/fa";
-import { GrFacebook } from "react-icons/gr";
+import { FaPhoneAlt, FaFacebookSquare } from "react-icons/fa";
 import { useMediaPredicate } from "react-media-hook";
 import { useScrolledOverMargin } from "../hooks/useScrolledOverMargin";
 import { useScrollDirection } from "../hooks/useScrollDirection";
@@ -43,7 +42,7 @@ function Header() {
           >
             <Image
               src="/images/logo.svg"
-              alt="logo"
+              alt="Deratex – strona główna"
               height={0}
               width={0}
               sizes="100vw"
@@ -56,9 +55,9 @@ function Header() {
               Zadzwoń do Nas!
             </p>
             <a href="tel:660826121">
-              <h1 className={styles.tel}>
+              <div className={styles.tel}>
                 <FaPhoneAlt size={19} className={styles.telLogo} /> 660 826 121
-              </h1>
+              </div>
             </a>
           </div>
 
@@ -104,18 +103,18 @@ function Header() {
               <li className={styles.contactContainer}>
                 <a
                   className={styles.fbLogo}
-                  aria-label="Our facebook page"
+                  aria-label="Nasza strona na Facebooku"
                   href="https://www.facebook.com/deratexdddtuchola"
                 >
-                  <GrFacebook />
+                  <FaFacebookSquare />
                 </a>
 
                 {smallerThan550px && (
                   <a href="tel:660826121">
-                    <h1 className={styles.tel}>
+                    <div className={styles.tel}>
                       <FaPhoneAlt size={25} className={styles.telLogo} /> 660
                       826 121
-                    </h1>
+                    </div>
                   </a>
                 )}
               </li>
@@ -123,6 +122,7 @@ function Header() {
           </div>
           <button
             aria-label="Menu"
+            aria-expanded={isOpen}
             className={classNames(styles.hamburger, {
               [styles.active]: isOpen,
             })}

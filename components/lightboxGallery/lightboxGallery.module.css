@@ -311,3 +311,8 @@
     height: 100%;
   }
 }
+
+.textButton {
+  font-size: inherit;
+  line-height: inherit;
+}

@@ -11,7 +11,7 @@ function helpForAllSlogan() {
       <div className={styles.imgContainer}>
         <Image
           src={backgroundImage}
-          alt="background image"
+          alt=""
           fill
           placeholder="blur"
           sizes="100vw"

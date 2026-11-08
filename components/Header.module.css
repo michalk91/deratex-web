@@ -34,6 +34,7 @@
 .tel {
   font-size: 1.2rem;
   font-weight: bold;
+  text-align: center;
 }
 .telLogo {
   margin-left: 0 !important;
@@ -223,7 +224,7 @@
 }
 
 .active {
-  color: red !important;
+  color: #d60000 !important;
 }
 
 .navlink {
@@ -248,7 +249,7 @@
 }
 
 .navlink:hover {
-  color: red;
+  color: #d60000;
 }
 
 .navlogo {
@@ -354,6 +355,10 @@
   .navitem {
     padding-top: 1.5rem;
     padding-bottom: 1rem;
+  }
+
+  .contactContainer .tel {
+    gap: 6px;
   }
 
   .contactContainer {

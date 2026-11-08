@@ -120,7 +120,7 @@ function FbPagePlugin() {
           </div>
           {clicked && (
             <button
-              aria-label="Disable Scrolling"
+              aria-label="Wyłącz przewijanie"
               onClick={handleButtonClick}
               className={styles.btn}
             >
