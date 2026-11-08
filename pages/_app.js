@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import React from "react";
 import Script from "next/script";
 import { useGlobalState } from "../lib/globalState";
-import { roboto, robotoBolder, outfitBolder } from "../fonts/fonts";
+import { inter, interRegular, interMedium, outfitMedium } from "../fonts/fonts";
 import Head from "next/head";
 import useDisableRightClickMenu from "../hooks/useDisableRightClickMenu";
 import useConsent from "../hooks/useConsent";
@@ -22,20 +22,18 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <style jsx global>{`
         :root {
-          --font-roboto: ${roboto.style.fontFamily};
-          --font-roboto-medium: ${robotoBolder.style.fontFamily};
-          --font-outfit-medium: ${outfitBolder.style.fontFamily};
+          --font-inter-light: ${inter.style.fontFamily};
+          --font-inter: ${interRegular.style.fontFamily};
+          --font-inter-medium: ${interMedium.style.fontFamily};
+          --font-outfit-medium: ${outfitMedium.style.fontFamily};
         }
       `}</style>
       <div
-        className={roboto.className}
+        className={inter.className}
         onContextMenu={handleDisableRightClickMenu}
       >
         <Layout>

@@ -1,6 +1,6 @@
 html body #iubenda-cs-banner .iubenda-cs-container,
 html body #iubenda-cs-banner .iubenda-cs-container * {
-  font-family: var(--font-roboto), sans-serif !important;
+  font-family: var(--font-inter-light), sans-serif !important;
 }
 
 html body #iubenda-cs-banner .iubenda-cs-content,
@@ -40,7 +40,7 @@ html body #iubenda-cs-banner #iubenda-cs-paragraph * {
 }
 
 html body #iubenda-cs-banner #iubenda-cs-paragraph strong {
-  font-family: var(--font-roboto-medium), sans-serif !important;
+  font-family: var(--font-inter-medium), sans-serif !important;
   font-weight: 500 !important;
   color: var(--color-text) !important;
 }
@@ -82,7 +82,7 @@ html body #iubenda-iframe #iubRejectBtn {
   border-radius: 4px !important;
   background-image: none !important;
   box-shadow: none !important;
-  font-family: var(--font-roboto-medium), sans-serif !important;
+  font-family: var(--font-inter-medium), sans-serif !important;
   font-weight: 500 !important;
   font-size: 0.8rem !important;
   letter-spacing: 0.05em !important;

@@ -5,6 +5,11 @@
   --color-text: #222222;
   --color-text-muted: #475569;
   --color-border: #d3d3d3;
+  --color-input-border: #b5b5b5;
+  --color-surface-muted: #f2f2f2;
+  --color-success-bg: #ecf8ef;
+  --color-success-text: #1d6b34;
+  --color-error-bg: #fdecec;
 }
 
 * {

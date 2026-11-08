@@ -1,9 +1,37 @@
-import React from "react";
 import styles from "./contactForm.module.css";
 import { memo, useState, useCallback } from "react";
 import classNames from "classnames";
 import Script from "next/script";
+import { FiSend } from "react-icons/fi";
 import { PRIVACY_POLICY_URL } from "../../lib/iubenda";
+
+const INPUT_FIELDS = [
+  { id: "name", label: "Imię", type: "text", autoComplete: "given-name" },
+  {
+    id: "surname",
+    label: "Nazwisko",
+    type: "text",
+    autoComplete: "family-name",
+  },
+  { id: "email", label: "E-mail", type: "email", autoComplete: "email" },
+  {
+    id: "phoneNumber",
+    label: "Numer telefonu",
+    type: "tel",
+    autoComplete: "tel",
+  },
+];
+
+function FormField({ as: Field = "input", id, label, className, ...props }) {
+  return (
+    <div className={classNames(styles.field, className)}>
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
+      <Field id={id} className={styles.inputField} required {...props} />
+    </div>
+  );
+}
 
 function ContactForm() {
   const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY;
@@ -88,7 +116,7 @@ function ContactForm() {
           });
       });
     },
-    [inputs, SITE_KEY]
+    [inputs, SITE_KEY],
   );
 
   return (
@@ -105,75 +133,25 @@ function ContactForm() {
           onFocus={requestRecaptcha}
         >
           <h2 className={classNames("title")}>Formularz kontaktowy</h2>
-          <div className={styles.inputsContainer}>
-            <label className="sr-only" htmlFor="name">
-              Imię
-            </label>
-            <input
-              id="name"
-              autoComplete="given-name"
-              type="text"
-              value={inputs.name}
+          <div className={styles.fieldsGrid}>
+            {INPUT_FIELDS.map((field) => (
+              <FormField
+                key={field.id}
+                {...field}
+                value={inputs[field.id]}
+                onChange={handleChange}
+              />
+            ))}
+            <FormField
+              as="textarea"
+              id="message"
+              label="Wiadomość"
+              className={styles.fullWidth}
+              value={inputs.message}
               onChange={handleChange}
-              className={styles.inputField}
-              placeholder="Imię"
-              required
-            />
-            <label className="sr-only" htmlFor="surname">
-              Nazwisko
-            </label>
-            <input
-              id="surname"
-              autoComplete="family-name"
-              type="text"
-              value={inputs.surname}
-              onChange={handleChange}
-              className={styles.inputField}
-              placeholder="Nazwisko"
-              required
+              rows="6"
             />
           </div>
-          <div className={styles.inputsContainer}>
-            <label className="sr-only" htmlFor="email">
-              E-mail
-            </label>
-            <input
-              id="email"
-              autoComplete="email"
-              type="email"
-              value={inputs.email}
-              onChange={handleChange}
-              className={styles.inputField}
-              placeholder="Twój e-mail"
-              required
-            />
-            <label className="sr-only" htmlFor="phoneNumber">
-              Numer telefonu
-            </label>
-            <input
-              id="phoneNumber"
-              type="tel"
-              autoComplete="tel"
-              value={inputs.phoneNumber}
-              onChange={handleChange}
-              className={styles.inputField}
-              placeholder="Twój numer telefonu"
-              required
-            />
-          </div>
-          <label className="sr-only" htmlFor="message">
-            Wiadomość
-          </label>
-          <textarea
-            id="message"
-            type="text"
-            value={inputs.message}
-            onChange={handleChange}
-            className={styles.inputField}
-            placeholder="Wiadomość"
-            rows="8"
-            required
-          />
           <p className={styles.formNotice}>
             Informacje o tym, kto i w jaki sposób przetwarza dane podane w
             formularzu, znajdziesz w{" "}
@@ -205,9 +183,11 @@ function ContactForm() {
           <button
             title="Wyślij po wypełnieniu wszystkich pól formularza"
             type="submit"
-            className={styles.button}
+            className={classNames("button-reset", styles.button)}
+            disabled={form.state === "loading"}
           >
             Wyślij
+            <FiSend aria-hidden />
           </button>
           {form.state === "loading" ? (
             <div role="status" className={styles.messageLoading}>

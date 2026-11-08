@@ -31,7 +31,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-shadow: black 0.1em 0.1em 0.2em;
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1.6rem;
   max-width: 100%;
   width: 100vw;

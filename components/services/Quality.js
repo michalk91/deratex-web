@@ -3,7 +3,7 @@ import { memo, useRef } from "react";
 import styles from "./quality.module.css";
 import classNames from "classnames";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
-import { robotoBold } from "../../fonts/fonts";
+import { interRegular } from "../../fonts/fonts";
 
 function Quality() {
   const containerRef = useRef();
@@ -31,7 +31,7 @@ function Quality() {
             </p>
           </span>
           <span className={styles.secondText}>
-            <p className={robotoBold.className}>
+            <p className={interRegular.className}>
               GWARANTUJEMY RZETELNOŚĆ I PROFESJONALIZM NASZYCH USŁUG
             </p>
             <p>Z poważaniem właściciele firmy DDD Deratex</p>

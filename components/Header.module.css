@@ -228,7 +228,7 @@
 }
 
 .navlink {
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
   color: #475569;

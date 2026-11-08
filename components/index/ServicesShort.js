@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { memo, useRef } from "react";
 import classNames from "classnames";
+import { FiArrowRight } from "react-icons/fi";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
 import deratyzacja from "/public/images/index/servicesShort/deratyzacja.png";
 import dezynsekcja from "/public/images/index/servicesShort/dezynsekcja.png";
@@ -32,7 +33,11 @@ function ServicesShort() {
         <section ref={containerRef} className={classNames("innerContentWidth")}>
           {images.map((item, index) => (
             <article className={classNames(styles.imgsContainer)} key={index}>
-              <div className={classNames({ ["fade-in"]: animate })}>
+              <div
+                className={classNames(styles.imageWrapper, {
+                  ["fade-in"]: animate,
+                })}
+              >
                 <Image
                   src={item.src}
                   alt={item.alt}
@@ -42,14 +47,17 @@ function ServicesShort() {
                   sizes="(max-width: 350px) 100vw, (max-width: 700px) 50vw, 33vw"
                 />
               </div>
-              <h3 className={styles.services}>{item.text}</h3>
-              <Link
-                href="/uslugi"
-                className={styles.readMore}
-                aria-label={`Czytaj więcej: ${item.alt}`}
-              >
-                Czytaj więcej
-              </Link>
+              <div className={styles.content}>
+                <h3 className={styles.services}>{item.text}</h3>
+                <Link
+                  href="/uslugi"
+                  className={styles.readMore}
+                  aria-label={`Czytaj więcej: ${item.alt}`}
+                >
+                  Czytaj więcej
+                  <FiArrowRight aria-hidden className={styles.readMoreIcon} />
+                </Link>
+              </div>
             </article>
           ))}
         </section>

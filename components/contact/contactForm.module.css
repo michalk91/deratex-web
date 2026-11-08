@@ -1,7 +1,6 @@
 .container {
   display: flex;
   position: relative;
-
   align-items: center;
   justify-content: center;
   padding-bottom: 30px;
@@ -17,39 +16,90 @@
   width: 500px;
 }
 
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 8px 0 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-family: var(--font-inter-medium), sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-dark);
+}
+
 .inputField {
-  margin: 10px 0;
-  padding: 5px 7px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--color-input-border);
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-dark);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background-color 0.2s;
+}
+
+textarea.inputField {
+  resize: vertical;
+}
+
+.inputField:hover {
+  border-color: var(--color-dark);
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--color-brand);
 }
 
 .button {
-  cursor: pointer;
-  border: 2px solid black;
-  padding: 10px 0px;
-  border-radius: 15px;
-  width: 200px;
-  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  align-self: center;
+  min-width: 200px;
+  padding: 12px 28px;
+  border-radius: 10px;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-family: var(--font-inter-medium), sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
 }
 
-.inputsContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.button:hover:not(:disabled) {
+  background-color: var(--color-brand-dark);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.inputsContainer input {
-  width: 49%;
-  min-width: 165px;
-}
-
-.button:hover {
-  color: white;
-  background-color: rgb(23, 23, 23);
+.button:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 .formNotice {
-  margin: 0 0 14px;
+  margin: 0 0 20px;
   font-size: 0.8rem;
   text-align: center;
   color: var(--color-text-muted);
@@ -69,41 +119,44 @@
 .messageError,
 .messageSuccess,
 .messageLoading {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
   text-align: center;
-  margin-top: 10px;
-  font-weight: bolder;
 }
 
 .messageSuccess {
-  color: darkgreen;
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .messageError {
-  color: #d60000;
+  background-color: var(--color-error-bg);
+  color: var(--color-brand-dark);
 }
 
 .messageLoading {
-  color: darkblue;
-}
-
-@media only screen and (max-width: 430px) and (orientation: portrait) {
-  .inputsContainer input {
-    width: 100%;
-  }
-  .inputField {
-    margin: 8px 0;
-    padding: 2px 6px;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-    .container h2 {
-        font-size: 1rem;
-    }
+  background-color: var(--color-surface-muted);
+  color: var(--color-dark);
 }
 
 @media only screen and (max-width: 610px) and (orientation: portrait) {
   .form {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container h2 {
+    font-size: 1rem;
+  }
+
+  .fieldsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .button {
+    align-self: stretch;
   }
 }

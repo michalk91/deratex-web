@@ -13,7 +13,7 @@
 }
 
 .textContainer span {
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1.6rem;
   z-index: 3;
 }

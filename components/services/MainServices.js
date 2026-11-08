@@ -3,7 +3,7 @@ import styles from "./mainServices.module.css";
 import classNames from "classnames";
 import { memo, useRef } from "react";
 import useInViewAnimation from "../../hooks/useInViewAnimation";
-import { outfitBolder } from "../../fonts/fonts";
+import { outfitMedium } from "../../fonts/fonts";
 import rat from "/public/images/services/MainServices/rat.png";
 import insect from "/public/images/services/MainServices/insect.png";
 import moth from "/public/images/services/MainServices/moth.png";
@@ -113,7 +113,7 @@ function MainServices() {
               </div>
 
               <div className={styles.textContainer}>
-                <h2 className={classNames(styles.title, outfitBolder.className)}>
+                <h2 className={classNames(styles.title, outfitMedium.className)}>
                   {item.title}
                 </h2>
                 <p className={styles.text}>{item.text}</p>

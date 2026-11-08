@@ -5,7 +5,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import { RiFacebookBoxLine } from "react-icons/ri";
 import RichLightboxGallery from "./lightboxGallery/RichLightboxGallery";
-import { outfit, roboto, robotoBolder } from "../fonts/fonts";
+import { outfit, inter, interMedium } from "../fonts/fonts";
 import { COOKIE_POLICY_URL, openCookiePreferences } from "../lib/iubenda";
 import referenceHousingCoop from "/public/images/services/ReferenceLetters/reference.jpg";
 import referenceSwieceMayor from "/public/images/services/ReferenceLetters/reference_second.jpg";
@@ -42,37 +42,37 @@ function Footer() {
               <div
                 className={classNames(
                   styles.nestedColumnInfo,
-                  robotoBolder.className,
+                  interMedium.className,
                 )}
               >
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className,
+                    interMedium.className,
                   )}
                 >
                   Adres:
                 </p>
-                <p className={roboto.className}>ul. Cegielniana 28/41,</p>
-                <p className={roboto.className}>89-500 Tuchola</p>
+                <p className={inter.className}>ul. Cegielniana 28/41,</p>
+                <p className={inter.className}>89-500 Tuchola</p>
               </div>
               <div
                 className={classNames(
                   styles.nestedColumnInfo,
-                  robotoBolder.className,
+                  interMedium.className,
                 )}
               >
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className,
+                    interMedium.className,
                   )}
                 >
                   Numery telefonów:
                 </p>
                 <p>
                   <a
-                    className={classNames(styles.redHover, roboto.className)}
+                    className={classNames(styles.redHover, inter.className)}
                     href="tel:660826121"
                   >
                     tel. 660 826 121
@@ -80,7 +80,7 @@ function Footer() {
                 </p>
                 <p>
                   <a
-                    className={classNames(styles.redHover, roboto.className)}
+                    className={classNames(styles.redHover, inter.className)}
                     href="tel:660906327"
                   >
                     tel. 660 906 327
@@ -91,7 +91,7 @@ function Footer() {
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className,
+                    interMedium.className,
                   )}
                 >
                   E-mail:
@@ -113,7 +113,7 @@ function Footer() {
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className,
+                    interMedium.className,
                   )}
                 >
                   Listy referencyjne:
@@ -163,7 +163,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className={classNames(styles.footerBottom, roboto.className)}>
+          <div className={classNames(styles.footerBottom, inter.className)}>
             <p className={styles.footerBottomText}>
               &copy; 2023 DERATEX - Zakład Dezynfekcji, Dezynsekcji i
               Deratyzacji

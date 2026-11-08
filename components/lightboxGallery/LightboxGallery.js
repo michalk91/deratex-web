@@ -7,7 +7,7 @@ import useIsScrollableX from "../../hooks/useIsScrollableX";
 import Image from "next/image";
 import Thumbnail from "./Thumbnail";
 import useVirtualized from "../../hooks/useVirtualized";
-import { roboto } from "../../fonts/fonts";
+import { inter } from "../../fonts/fonts";
 import useFuncDelay from "../../hooks/useFuncDelay";
 import { SlMagnifierAdd, SlFrame, SlMagnifierRemove } from "react-icons/sl";
 import usePinchZoom from "use-pinch-zoom";
@@ -154,7 +154,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
           imgLoaded &&
           index === activeIndex && (
             <div className={styles.captionContainer}>
-              <p className={roboto.className}> {item.caption} </p>
+              <p className={inter.className}> {item.caption} </p>
             </div>
           )}
       </div>

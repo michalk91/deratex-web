@@ -46,7 +46,7 @@
   text-shadow: black 0.1em 0.1em 0.2em !important;
   transition: 0.3s;
   font-weight: normal;
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .offerForImageContainer div:nth-child(1) {

@@ -1,44 +1,60 @@
-.textContainer {
-  padding-left: 25px;
-  padding-bottom: 25px;
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: center;
+  gap: 40px;
+  padding: 16px 0 40px;
+}
+
+.servicesList {
+  display: grid;
+  gap: 4px;
   opacity: 0;
   transform: translateY(20px);
 }
-.textContainer li {
-  list-style-type: disc;
-  padding: 8px 0;
-  text-transform: uppercase;
-  font-size: 1.1rem;
+
+.serviceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-.underline {
-  width: 100%;
-  border-bottom: 2px red solid;
+.checkIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-size: 14px;
 }
+
 .imgContainer {
-  position: relative;
-  height: 360px;
-  width: 100vw;
-  max-width: 100%;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  order: 1;
 }
 
 .imgContainer img {
-  height: 100%;
+  display: block;
   width: 100%;
-  object-fit: contain;
+  height: auto;
 }
 
-.imgContainer a {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
+@media only screen and (max-width: 850px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 
-@media only screen and (max-width: 700px) {
   .imgContainer {
-    height: auto;
+    order: 0;
+    max-width: 480px;
+    margin: 0 auto;
   }
 }
