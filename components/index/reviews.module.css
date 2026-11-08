@@ -9,11 +9,11 @@
 }
 
 .carousel {
-  padding-top: 20px;
+  padding: 20px 0;
 }
 
 .reviewContainer {
   align-self: stretch;
   width: 100%;
-  margin: 0 10px 20px;
+  margin: 0 10px;
 }
