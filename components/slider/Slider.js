@@ -1,36 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef, memo } from "react";
 import styles from "./slider.module.css";
-import { getImageProps } from "next/image";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import classNames from "classnames";
 import SliderDot from "./SliderDot";
+import SlideImage from "./SlideImage";
 import useSwiping from "../../hooks/useSwiping";
 import useKeyPress from "../../hooks/useKeyPress";
-
-function SlideImage({ slide, fetchPriority }) {
-  const imageProps = {
-    src: slide.src,
-    alt: slide.alt,
-    fill: true,
-    placeholder: "blur",
-    sizes: "100vw",
-    loading: "eager",
-    fetchPriority,
-  };
-  const { props: desktop } = getImageProps({ ...imageProps, quality: 100 });
-  const { props: mobile } = getImageProps({ ...imageProps, quality: 40 });
-
-  return (
-    <picture>
-      <source
-        media="(max-width: 767px)"
-        srcSet={mobile.srcSet}
-        sizes={mobile.sizes}
-      />
-      <img {...desktop} alt={slide.alt} />
-    </picture>
-  );
-}
 
 function Slider({ slides }) {
   const [sliderInfo, setSliderInfo] = useState(() => ({
@@ -44,6 +19,12 @@ function Slider({ slides }) {
   }));
 
   const { activeIndex, paused, enteredViewport, autoPlayStopped } = sliderInfo;
+
+  const [firstSlideLoaded, setFirstSlideLoaded] = useState(false);
+  const handleFirstSlideLoaded = useCallback(
+    () => setFirstSlideLoaded(true),
+    [],
+  );
 
   const slidesCount = slides.length;
 
@@ -229,7 +210,9 @@ function Slider({ slides }) {
           <div className={styles.imageContainer}>
             <SlideImage
               slide={slide}
-              fetchPriority={index === 0 ? "high" : undefined}
+              loading={index === 0 || firstSlideLoaded ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "low"}
+              onLoaded={index === 0 ? handleFirstSlideLoaded : undefined}
             />
           </div>
         </div>
