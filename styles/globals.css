@@ -280,6 +280,10 @@ button:focus-visible {
   height: 100%;
 }
 
+.icon-button > svg {
+  background-color: transparent;
+}
+
 .focus-only {
   position: absolute;
   width: 1px;
