@@ -12,10 +12,8 @@ function OfferFor() {
     <div className={styles.offerForWrapper} ref={containerRef}>
       <section className={classNames("innerContentWidth", styles.offerFor)}>
         <span className={styles.offerForText}>
-          <span className={classNames("redUnderline")}>
-            Nasza ofertę kierujemy
-          </span>{" "}
-          do wszystkich klientów zainteresowanych odrobaczeniem, odszczurzeniem,
+          <span className="accent-underline">Nasza ofertę kierujemy</span> do
+          wszystkich klientów zainteresowanych odrobaczeniem, odszczurzeniem,
           usuwania insektów metoda fumigacji (gazowania), z terenu województwa
           <b> kujawsko - pomorskiego</b> oraz z terenu województw osciennych:
         </span>

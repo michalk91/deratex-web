@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { memo } from "react";
 import classNames from "classnames";
-import firmarodzina from '/public/images/index/aboutUs/firmarodzinna.jpg';
+import firmarodzina from "/public/images/index/aboutUs/firmarodzinna.jpg";
 
 function AboutUs() {
   return (
@@ -20,7 +20,7 @@ function AboutUs() {
       </div>
 
       <div className={styles.aboutUsText}>
-        <h2 className={classNames("secondTitle")}>
+        <h2 className={classNames("secondTitle", "accent-underline")}>
           Kilka słów <b>o nas</b>
         </h2>
         <p>

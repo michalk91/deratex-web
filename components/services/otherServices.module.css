@@ -3,7 +3,14 @@
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   align-items: center;
   gap: 40px;
-  padding: 16px 0 40px;
+  padding: 2rem 0 40px;
+}
+
+.title {
+  width: fit-content;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 .servicesList {
@@ -50,6 +57,7 @@
   .layout {
     grid-template-columns: 1fr;
     gap: 16px;
+    padding-top: 16px;
   }
 
   .imgContainer {

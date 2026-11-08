@@ -17,7 +17,9 @@ function Protection() {
 
   return (
     <div ref={containerRef} className="innerContentWidth">
-      <h2 className={classNames("secondTitle", styles.title)}>
+      <h2
+        className={classNames("secondTitle", "accent-underline", styles.title)}
+      >
         <b> Oferujemy kompleksowa ochronę sanitarna obiektów według:</b>
       </h2>
       <div className={styles.wrapper}>

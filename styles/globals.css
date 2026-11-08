@@ -111,26 +111,27 @@ h2 {
   font-size: 1.3rem;
 }
 
-.redUnderline {
-  text-decoration: underline !important;
-  text-decoration-color: red !important;
-}
-
-.short-underline {
-  text-decoration: none;
+.accent-underline {
   position: relative;
 }
 
-.short-underline:after {
-  position: absolute;
+.accent-underline::after {
   content: "";
-  height: 3px;
-  bottom: -10px;
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--underline-offset, 0.2em) * -1);
+  left: 0;
+  height: var(--underline-thickness, 3px);
+  border-radius: var(--underline-thickness, 3px);
+  background-color: var(--color-brand);
+}
 
+.accent-underline--short::after {
+  right: auto;
+  bottom: calc(var(--underline-offset, 10px) * -1);
   left: 50%;
+  width: var(--underline-width, 200px);
   transform: translateX(-50%);
-  width: 200px;
-  background: red;
 }
 
 span {
@@ -166,9 +167,8 @@ span {
 }
 
 .secondTitle {
-  text-decoration: underline !important;
-  text-decoration-color: red !important;
-  padding-bottom: 0.5rem;
+  width: fit-content;
+  margin-bottom: 16px;
   font-size: 1.3rem;
   font-weight: 600;
 }

@@ -27,7 +27,6 @@ function OtherServices() {
   return (
     <>
       <div className={classNames("innerContentWidth")}>
-        <h2 className="title">Nasze usługi obejmują:</h2>
         <div className={styles.layout}>
           <div className={styles.imgContainer}>
             <Image
@@ -37,21 +36,28 @@ function OtherServices() {
               sizes="(max-width: 850px) 100vw, 40vw"
             />
           </div>
-          <ul
-            ref={containerRef}
-            className={classNames(styles.servicesList, {
-              ["fade-in"]: animate,
-            })}
-          >
-            {SERVICES.map((service) => (
-              <li key={service} className={styles.serviceItem}>
-                <span className={styles.checkIcon} aria-hidden>
-                  <FiCheck />
-                </span>
-                {service}
-              </li>
-            ))}
-          </ul>
+          <div>
+            <h2
+              className={classNames("title", "accent-underline", styles.title)}
+            >
+              Nasze usługi obejmują:
+            </h2>
+            <ul
+              ref={containerRef}
+              className={classNames(styles.servicesList, {
+                ["fade-in"]: animate,
+              })}
+            >
+              {SERVICES.map((service) => (
+                <li key={service} className={styles.serviceItem}>
+                  <span className={styles.checkIcon} aria-hidden>
+                    <FiCheck />
+                  </span>
+                  {service}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>

@@ -60,7 +60,7 @@ function Cooperation() {
       <section className={styles.cooperationSection}>
         <div className={styles.cooperationTitleContainer}>
           <span>
-            <b className={classNames("short-underline")}>
+            <b className="accent-underline accent-underline--short">
               Szczególnie Naszą współpracę kierujemy do:
             </b>
           </span>

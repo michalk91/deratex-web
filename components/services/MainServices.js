@@ -113,7 +113,13 @@ function MainServices() {
               </div>
 
               <div className={styles.textContainer}>
-                <h2 className={classNames(styles.title, outfitMedium.className)}>
+                <h2
+                  className={classNames(
+                    "accent-underline",
+                    styles.title,
+                    outfitMedium.className,
+                  )}
+                >
                   {item.title}
                 </h2>
                 <p className={styles.text}>{item.text}</p>

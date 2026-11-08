@@ -44,7 +44,7 @@ function Certificates() {
   return (
     <section className={classNames("innerContentWidth", styles.certificates)}>
       <h2>
-        <b className={classNames("short-underline")}>Certyfikaty</b>
+        <b className="accent-underline accent-underline--short">Certyfikaty</b>
       </h2>
 
       <div className={styles.certificatesWrapper}>
