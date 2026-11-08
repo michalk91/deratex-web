@@ -1,0 +1,112 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: 16px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  text-align: left;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authorInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.avatar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.author {
+  font-family: var(--font-inter-medium), sans-serif;
+  text-align: left;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.sourceIcon {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--color-star-empty);
+  font-size: 0.85rem;
+}
+
+.starFilled {
+  color: var(--color-star);
+}
+
+.text {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.95rem;
+  text-align: left;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 16px 24px;
+  text-align: center;
+}
+
+.googleIcon {
+  font-size: 1.1rem;
+}
+
+.summaryLabel,
+.rating {
+  font-family: var(--font-inter-medium), sans-serif;
+}
+
+.summaryLabel {
+  font-size: 1rem;
+}
+
+.rating {
+  font-size: 1.1rem;
+}
+
+.allReviews {
+  margin-left: 8px;
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand);
+  text-underline-offset: 3px;
+}
+
+.allReviews:hover {
+  color: var(--color-brand);
+}

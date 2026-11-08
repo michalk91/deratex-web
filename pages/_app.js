@@ -12,7 +12,6 @@ import { IUBENDA_SCRIPT_URL, SERVICE_CONSENT } from "../lib/iubenda";
 
 function MyApp({ Component, pageProps }) {
   const [, setFbSDKLoaded] = useGlobalState("fbSDKLoaded");
-  const [, setFbSDKFailed] = useGlobalState("fbSDKFailed");
   const hasFacebookConsent = useConsent(SERVICE_CONSENT.facebook);
 
   const handleDisableRightClickMenu = useDisableRightClickMenu({
@@ -49,9 +48,6 @@ function MyApp({ Component, pageProps }) {
           nonce="jY8mMkvQ"
           onReady={() => {
             setFbSDKLoaded(true);
-          }}
-          onError={() => {
-            setFbSDKFailed(true);
           }}
         />
       )}

@@ -68,6 +68,14 @@
   user-select: none;
 }
 
+.innerStretch {
+  align-items: stretch;
+}
+
+.innerStretch > .carouselItem {
+  height: auto;
+}
+
 .buttonLeft {
   left: -10%;
 }

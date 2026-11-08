@@ -10,6 +10,8 @@
   --color-success-bg: #ecf8ef;
   --color-success-text: #1d6b34;
   --color-error-bg: #fdecec;
+  --color-star: #f5a623;
+  --color-star-empty: #c4c4c4;
 }
 
 * {

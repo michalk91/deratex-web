@@ -1,145 +1,19 @@
 .reviews {
-  --reserved-height: 234px;
   margin-top: 1%;
 }
 
 .innerContent {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
   width: 630px;
-  min-height: var(--reserved-height);
+  max-width: 100%;
   margin: 0 auto;
 }
 
-.posts {
-  position: relative;
-  height: var(--reserved-height);
-  overflow: hidden;
-}
-
 .carousel {
-  height: 100%;
-}
-
-.carouselHidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.skeleton {
-  position: absolute;
-  inset: 20px 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  overflow: hidden;
-  border-radius: 15px;
-  background-color: #ffffff;
-}
-
-.skeletonHeader {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 4px;
-}
-
-.skeletonAvatar,
-.skeletonName,
-.skeletonLine,
-.skeletonLineShort {
-  display: block;
-  flex-shrink: 0;
-  background-color: #e2e8f0;
-  animation: skeletonPulse 1.4s ease-in-out infinite;
-}
-
-.skeletonAvatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.skeletonName {
-  width: 40%;
-  height: 14px;
-  border-radius: 4px;
-}
-
-.skeletonLine,
-.skeletonLineShort {
-  height: 12px;
-  border-radius: 4px;
-}
-
-.skeletonLine {
-  width: 100%;
-}
-
-.skeletonLineShort {
-  width: 60%;
-}
-
-@keyframes skeletonPulse {
-  50% {
-    opacity: 0.5;
-  }
+  padding-top: 20px;
 }
 
 .reviewContainer {
-  position: relative;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
+  align-self: stretch;
   width: 100%;
-}
-
-.reviewContainer iframe {
-  border-radius: 15px;
-  border: 0;
-  width: 100%;
-}
-
-.reviewContainer:after {
-  content: "";
-  display: block;
-  position: absolute;
-
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-@media only screen and (max-width: 475px) {
-  .reviews {
-    --reserved-height: 262px;
-  }
-}
-
-@media only screen and (max-width: 363px) {
-  .reviews {
-    --reserved-height: 278px;
-  }
-}
-
-@media only screen and (max-width: 333px) {
-  .reviews {
-    --reserved-height: 306px;
-  }
-}
-
-@media only screen and (max-width: 329px) {
-  .reviews {
-    --reserved-height: 318px;
-  }
-}
-
-@media only screen and (max-width: 299px) {
-  .reviews {
-    --reserved-height: 346px;
-  }
+  margin: 0 10px 20px;
 }

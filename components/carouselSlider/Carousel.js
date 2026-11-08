@@ -106,6 +106,7 @@ const Carousel = React.forwardRef(function Carousel(
     handleMouseOver,
     swipeHandlers,
     navigationOutside,
+    stretchItems,
     lightboxOpen,
     flipAnimating,
     openGallery,
@@ -234,6 +235,7 @@ const Carousel = React.forwardRef(function Carousel(
           >
             <div
               className={classNames(styles.inner, {
+                [styles.innerStretch]: stretchItems,
                 ["without-transition"]: isSwiping,
                 [styles.dragging]: isSwiping,
               })}

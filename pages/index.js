@@ -6,12 +6,28 @@ import OurGuarantee from "../components/index/OurGuarantee";
 import Certificates from "../components/index/Certificates";
 import Reviews from "../components/index/Reviews";
 import Slider from "../components/slider/Slider";
-import { SliderData } from "../components/slider/SliderData";
+import { SliderData } from "../data/sliderData";
 import classNames from "classnames";
 import ServicesShort from "../components/index/ServicesShort";
 import Head from "next/head";
+import { GOOGLE_REVIEWS } from "../data/googleReviews";
+import { formatYearsAgo } from "../lib/relativeYears";
 
-export default function Home() {
+const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
+
+export function getStaticProps() {
+  const googleReviews = {
+    ...GOOGLE_REVIEWS,
+    reviews: GOOGLE_REVIEWS.reviews.map(({ publishedYear, ...review }) => ({
+      ...review,
+      relativeTime: formatYearsAgo(publishedYear),
+    })),
+  };
+
+  return { props: { googleReviews }, revalidate: ONE_DAY_IN_SECONDS };
+}
+
+export default function Home({ googleReviews }) {
   return (
     <>
       <Head>
@@ -41,7 +57,7 @@ export default function Home() {
       <Cooperation />
       <OurGuarantee />
       <Certificates />
-      <Reviews />
+      <Reviews googleReviews={googleReviews} />
     </>
   );
 }

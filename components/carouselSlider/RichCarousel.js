@@ -34,6 +34,7 @@ function RichCarousel({
   lightboxThumbsOptions,
   virtualized = false,
   sliderRectanglesVisible = true,
+  stretchItems = false,
   lightboxThumbsVisible = true,
   lightboxZoomedImgSizes,
 }) {
@@ -138,6 +139,7 @@ function RichCarousel({
         transitionX={transitionX}
         isSwiping={isSwiping}
         navigationOutside={navigationOutside}
+        stretchItems={stretchItems}
         withGallery={withGallery}
         openGallery={openGallery}
         lightboxOpen={lightboxOpen}
