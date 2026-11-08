@@ -48,12 +48,28 @@
   object-fit: contain;
 }
 
+.footerBottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 2rem;
+  margin: 0 30px;
+  padding: 20px 0 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.footerBottomText {
+  font-size: 0.95rem;
+  text-align: left;
+  text-wrap: balance;
+}
+
 .legalLinks {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem 2rem;
-  padding-top: 30px;
+  gap: 0.5rem 1.5rem;
 }
 
 .legalLinks a,
@@ -62,13 +78,6 @@
   color: white;
   font-size: 0.95rem;
   transition: color 0.3s;
-}
-
-.footerBottomText {
-  padding: 30px;
-  color: white;
-  text-align: center;
-  font-size: 1.2rem;
 }
 
 .innerContainer,
@@ -98,8 +107,13 @@
     align-self: center;
   }
 
+  .footerBottom {
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .footerBottomText {
-    padding-top: 0;
+    text-align: center;
   }
 }
 
@@ -114,8 +128,8 @@
     padding-left: 0;
     padding-right: 0;
   }
-  .footerBottomText {
-    font-size: 1rem;
+  .footerBottom {
+    margin: 0;
   }
   .nestedColumnTitle {
     font-size: 1rem;
@@ -131,11 +145,6 @@
     justify-items: center;
   }
 
-  .footerBottomText {
-    font-size: 1.2rem;
-    padding-left: 0;
-    padding-right: 0;
-  }
   .nestedColumnTitle,
   .nestedColumnTitle p {
     font-size: 1.2rem;
@@ -159,9 +168,6 @@
 @media only screen and (max-width: 370px) and (orientation: portrait) {
   .navlogo {
     width: 260px;
-  }
-  .footerBottomText {
-    font-size: 1.1rem;
   }
 }
 @media only screen and (max-width: 330px) and (orientation: portrait) {

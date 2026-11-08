@@ -42,13 +42,13 @@ function Footer() {
               <div
                 className={classNames(
                   styles.nestedColumnInfo,
-                  robotoBolder.className
+                  robotoBolder.className,
                 )}
               >
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className
+                    robotoBolder.className,
                   )}
                 >
                   Adres:
@@ -59,13 +59,13 @@ function Footer() {
               <div
                 className={classNames(
                   styles.nestedColumnInfo,
-                  robotoBolder.className
+                  robotoBolder.className,
                 )}
               >
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className
+                    robotoBolder.className,
                   )}
                 >
                   Numery telefonów:
@@ -91,7 +91,7 @@ function Footer() {
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className
+                    robotoBolder.className,
                   )}
                 >
                   E-mail:
@@ -113,7 +113,7 @@ function Footer() {
                 <p
                   className={classNames(
                     styles.nestedColumnTitle,
-                    robotoBolder.className
+                    robotoBolder.className,
                   )}
                 >
                   Listy referencyjne:
@@ -131,7 +131,7 @@ function Footer() {
                   Nasz facebook
                 </p>
                 <a
-                  aria-label="Our facebook page"
+                  aria-label="Nasza strona na Facebooku"
                   href="https://www.facebook.com/deratexdddtuchola"
                 >
                   <RiFacebookBoxLine
@@ -163,27 +163,28 @@ function Footer() {
             </div>
           </div>
 
-          <div className={styles.legalLinks}>
-            <a
-              className={styles.redHover}
-              href={COOKIE_POLICY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Polityka cookies
-            </a>
-            <button
-              type="button"
-              className={styles.redHover}
-              onClick={openCookiePreferences}
-            >
-              Ustawienia cookies
-            </button>
-          </div>
-          <div
-            className={classNames(styles.footerBottomText, roboto.className)}
-          >
-            &copy; 2023 DERATEX - Zakład Dezynfekcji, Dezynsekcji i Deratyzacji
+          <div className={classNames(styles.footerBottom, roboto.className)}>
+            <p className={styles.footerBottomText}>
+              &copy; 2023 DERATEX - Zakład Dezynfekcji, Dezynsekcji i
+              Deratyzacji
+            </p>
+            <div className={styles.legalLinks}>
+              <a
+                className={styles.redHover}
+                href={COOKIE_POLICY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Polityka cookies
+              </a>
+              <button
+                type="button"
+                className={styles.redHover}
+                onClick={openCookiePreferences}
+              >
+                Ustawienia cookies
+              </button>
+            </div>
           </div>
         </div>
       </footer>
