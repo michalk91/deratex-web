@@ -66,9 +66,8 @@ const useCarousel = ({
   }, [calculateNewIndex]);
 
   const {
-    onTouchEnd,
-    onTouchStart,
-    onTouchMove,
+    touchHandlers,
+    swipeHandlers,
     onTransitionEnd,
     transitionX,
     isSwiping,
@@ -116,9 +115,8 @@ const useCarousel = ({
   ]);
 
   return {
-    onTouchEnd,
-    onTouchStart,
-    onTouchMove,
+    touchHandlers,
+    swipeHandlers,
     prevSlide,
     nextSlide,
     handleMouseLeave,

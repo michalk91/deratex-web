@@ -59,7 +59,7 @@ function Slider({ slides }) {
 
   const autoPlayPaused = hovered || autoPlayStopped || !inViewport;
 
-  const { onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
+  const { touchHandlers } = useSwiping({
     currentSlide: activeIndex,
     nextSlide,
     prevSlide,
@@ -93,9 +93,7 @@ function Slider({ slides }) {
       className={styles.slider}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-      onTouchMove={onTouchMove}
+      {...touchHandlers}
     >
       <button type="button" className="focus-only" onClick={toggleAutoPlay}>
         {autoPlayStopped

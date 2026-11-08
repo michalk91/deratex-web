@@ -1,4 +1,9 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+
+const SWIPE_DISTANCE_THRESHOLD_PERCENT = 35;
+const SWIPE_VELOCITY_THRESHOLD_PX_PER_SECOND = 200;
+const EDGE_RESISTANCE_DIVISOR = 3;
+const CLICK_SUPPRESSION_DISTANCE_PX = 5;
 
 const useSwiping = ({
   currentSlide,
@@ -9,40 +14,34 @@ const useSwiping = ({
   withoutTransitionEndHandling = true,
   withoutAxisDetection = false,
 }) => {
-  const SENSITIVITY = 35; // How far (in percentage) the user has to swipe to change the slide
-  const VELOCITY = 200; // How fast the user needs to swipe to change the slide
-  const RESISTANCE = 3; // Resistance on first and last slide
-
   const [swipeInfo, setSwipeInfo] = useState({
     isSwiping: false,
     transitionX: 0,
     transitionEnded: true,
-    allowSwiping: true,
   });
+  const [mouseDragging, setMouseDragging] = useState(false);
 
   const swipingRef = useRef({
+    active: false,
+    allowSwiping: true,
     resistanceOnEnds: false,
     startTime: 0,
     originX: 0,
     originY: 0,
+    width: 1,
+    transitionX: 0,
     swipeAxis: "",
     swipeAxisChanged: false,
     preventTouchScroll: false,
-    fingers: 0,
+    dragged: false,
   });
 
   const enableSwiping = useCallback(() => {
-    setSwipeInfo((state) => ({
-      ...state,
-      allowSwiping: true,
-    }));
+    swipingRef.current.allowSwiping = true;
   }, []);
 
   const disableSwiping = useCallback(() => {
-    setSwipeInfo((state) => ({
-      ...state,
-      allowSwiping: false,
-    }));
+    swipingRef.current.allowSwiping = false;
   }, []);
 
   useEffect(() => {
@@ -62,10 +61,7 @@ const useSwiping = ({
   const getSwipeAxis = useCallback((distanceX, distanceY) => {
     if (Math.abs(distanceX) < Math.abs(distanceY)) {
       swipingRef.current.swipeAxis = "y";
-    } else if (
-      Math.abs(distanceX) > Math.abs(distanceY) ||
-      Math.abs(distanceX) === Math.abs(distanceY)
-    ) {
+    } else {
       swipingRef.current.swipeAxis = "x";
       swipingRef.current.preventTouchScroll = true;
     }
@@ -79,99 +75,155 @@ const useSwiping = ({
     }));
   }, []);
 
-  const onTouchStart = useCallback(
-    (e) => {
-      swipingRef.current.originX = Number(e.touches[0].clientX);
-      swipingRef.current.originY = Number(e.touches[0].clientY);
-      swipingRef.current.startTime = Date.now();
-      swipingRef.current.fingers = e.touches.length;
+  const startSwipe = useCallback((x, y, width, canSwipe) => {
+    const swiping = swipingRef.current;
+    swiping.originX = x;
+    swiping.originY = y;
+    swiping.width = width || 1;
+    swiping.startTime = Date.now();
+    swiping.transitionX = 0;
+    swiping.dragged = false;
+    swiping.active = canSwipe && swiping.allowSwiping;
+    setSwipeInfo((state) => ({ ...state, isSwiping: swiping.active }));
+  }, []);
+
+  const moveSwipe = useCallback(
+    (x, y, detectAxis) => {
+      const swiping = swipingRef.current;
+      if (!swiping.active || !swiping.allowSwiping) return;
+
+      const distanceX = x - swiping.originX;
+      const distanceY = y - swiping.originY;
+
+      if (detectAxis && !swiping.swipeAxisChanged) {
+        getSwipeAxis(distanceX, distanceY);
+      }
+      if (detectAxis && swiping.swipeAxis !== "x") return;
+
+      if (Math.abs(distanceX) > CLICK_SUPPRESSION_DISTANCE_PX) {
+        swiping.dragged = true;
+      }
+
+      swiping.resistanceOnEnds =
+        !disableResistanceOnEnds &&
+        ((slidesCount === currentSlide + 1 && distanceX < 0) ||
+          (currentSlide === 0 && distanceX > 0));
+      swiping.transitionX = swiping.resistanceOnEnds
+        ? distanceX / EDGE_RESISTANCE_DIVISOR
+        : distanceX;
+
       setSwipeInfo((state) => ({
         ...state,
-        isSwiping: e.touches.length === 1 && state.allowSwiping ? true : false,
+        transitionX: swiping.transitionX,
       }));
     },
-    []
+    [currentSlide, disableResistanceOnEnds, getSwipeAxis, slidesCount],
+  );
+
+  const endSwipe = useCallback(() => {
+    const swiping = swipingRef.current;
+    const swipingTime = Date.now() - swiping.startTime;
+    const swipingSpeed = Math.floor(
+      swiping.transitionX / (swipingTime * 0.001),
+    );
+    const delta = Math.floor((swiping.transitionX / swiping.width) * 100);
+
+    setSwipeInfo((state) => ({
+      ...state,
+      isSwiping: false,
+      transitionX: 0,
+      transitionEnded: withoutTransitionEndHandling,
+    }));
+
+    if (
+      delta < -SWIPE_DISTANCE_THRESHOLD_PERCENT ||
+      swipingSpeed < -SWIPE_VELOCITY_THRESHOLD_PX_PER_SECOND
+    ) {
+      nextSlide();
+    } else if (
+      delta > SWIPE_DISTANCE_THRESHOLD_PERCENT ||
+      swipingSpeed > SWIPE_VELOCITY_THRESHOLD_PX_PER_SECOND
+    ) {
+      prevSlide();
+    }
+
+    swiping.active = false;
+    swiping.transitionX = 0;
+    swiping.resistanceOnEnds = false;
+    swiping.swipeAxisChanged = false;
+    swiping.swipeAxis = "";
+    swiping.preventTouchScroll = false;
+  }, [nextSlide, prevSlide, withoutTransitionEndHandling]);
+
+  const onTouchStart = useCallback(
+    (e) => {
+      const touch = e.touches[0];
+      startSwipe(
+        touch.clientX,
+        touch.clientY,
+        e.currentTarget.clientWidth,
+        e.touches.length === 1,
+      );
+    },
+    [startSwipe],
   );
 
   const onTouchMove = useCallback(
     (e) => {
-      if (!swipeInfo.isSwiping || !swipeInfo.allowSwiping) return;
-
-      const distanceX = Number(e.touches[0].clientX) - swipingRef.current.originX;
-      const distanceY = Number(e.touches[0].clientY) - swipingRef.current.originY;
-
-      if (!withoutAxisDetection && !swipingRef.current.swipeAxisChanged) {
-        getSwipeAxis(distanceX, distanceY);
-      }
-
-      if (withoutAxisDetection || swipingRef.current.swipeAxis === "x") {
-        swipingRef.current.resistanceOnEnds =
-          ((slidesCount === currentSlide + 1 && distanceX < 0) ||
-            (currentSlide === 0 && distanceX > 0)) &&
-          !disableResistanceOnEnds
-            ? true
-            : false;
-
-        setSwipeInfo((state) => ({
-          ...state,
-          transitionX: swipingRef.current.resistanceOnEnds
-            ? distanceX / RESISTANCE
-            : distanceX,
-        }));
-      }
+      const touch = e.touches[0];
+      moveSwipe(touch.clientX, touch.clientY, !withoutAxisDetection);
     },
-    [
-      currentSlide,
-      disableResistanceOnEnds,
-      getSwipeAxis,
-      slidesCount,
-      withoutAxisDetection,
-      swipeInfo.isSwiping,
-      swipeInfo.allowSwiping,
-    ]
+    [moveSwipe, withoutAxisDetection],
   );
 
-  const onTouchEnd = useCallback(
+  const onMouseDown = useCallback(
     (e) => {
-      const endTime = Date.now();
-      const swipingTime = endTime - swipingRef.current.startTime;
-      const swipingSpeed = Math.floor(
-        swipeInfo.transitionX / (swipingTime * 0.001)
-      );
-      const delta = Math.floor(
-        (swipeInfo.transitionX / e.currentTarget.clientWidth) * 100
-      );
-
-      setSwipeInfo((state) => ({
-        ...state,
-        isSwiping: false,
-        transitionX: 0,
-        transitionEnded: withoutTransitionEndHandling ? true : false,
-      }));
-
-      if (delta < -SENSITIVITY || swipingSpeed < -VELOCITY) {
-        nextSlide();
-      } else if (delta > SENSITIVITY || swipingSpeed > VELOCITY) {
-        prevSlide();
-      }
-
-      swipingRef.current.resistanceOnEnds = false;
-      swipingRef.current.swipeAxisChanged = false;
-      swipingRef.current.swipeAxis = "";
-      swipingRef.current.preventTouchScroll = false;
+      if (e.button !== 0) return;
+      startSwipe(e.clientX, e.clientY, e.currentTarget.clientWidth, true);
+      setMouseDragging(true);
     },
-    [
-      swipeInfo.transitionX,
-      nextSlide,
-      prevSlide,
-      withoutTransitionEndHandling,
-    ]
+    [startSwipe],
+  );
+
+  useEffect(() => {
+    if (!mouseDragging) return;
+
+    const handleMouseMove = (e) => moveSwipe(e.clientX, e.clientY, false);
+    const handleMouseUp = () => {
+      endSwipe();
+      setMouseDragging(false);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [mouseDragging, moveSwipe, endSwipe]);
+
+  const onClickCapture = useCallback((e) => {
+    if (!swipingRef.current.dragged) return;
+    swipingRef.current.dragged = false;
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const onDragStart = useCallback((e) => e.preventDefault(), []);
+
+  const touchHandlers = useMemo(
+    () => ({ onTouchStart, onTouchMove, onTouchEnd: endSwipe }),
+    [onTouchStart, onTouchMove, endSwipe],
+  );
+
+  const swipeHandlers = useMemo(
+    () => ({ ...touchHandlers, onMouseDown, onClickCapture, onDragStart }),
+    [touchHandlers, onMouseDown, onClickCapture, onDragStart],
   );
 
   return {
-    onTouchEnd,
-    onTouchStart,
-    onTouchMove,
+    touchHandlers,
+    swipeHandlers,
     transitionX: swipeInfo.transitionX,
     isSwiping: swipeInfo.isSwiping,
     onTransitionEnd,

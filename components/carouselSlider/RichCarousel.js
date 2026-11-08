@@ -57,9 +57,8 @@ function RichCarousel({
   );
 
   const {
-    onTouchEnd,
-    onTouchStart,
-    onTouchMove,
+    touchHandlers,
+    swipeHandlers,
     prevSlide,
     nextSlide,
     handleMouseLeave,
@@ -135,9 +134,7 @@ function RichCarousel({
         nextSlide={nextSlide}
         handleMouseLeave={handleMouseLeave}
         handleMouseOver={handleMouseOver}
-        onTouchEnd={onTouchEnd}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
+        swipeHandlers={swipeHandlers}
         transitionX={transitionX}
         isSwiping={isSwiping}
         navigationOutside={navigationOutside}
@@ -171,9 +168,7 @@ function RichCarousel({
           closeGallery={closeGallery}
           prevSlide={prevSlide}
           nextSlide={nextSlide}
-          onTouchEnd={onTouchEnd}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
+          touchHandlers={touchHandlers}
           activeIndex={activeIndex}
           setNavigate={setNavigate}
           thumbnailsOptions={lightboxThumbsOptions}

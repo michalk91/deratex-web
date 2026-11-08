@@ -104,9 +104,7 @@ const Carousel = React.forwardRef(function Carousel(
     nextSlide,
     handleMouseLeave,
     handleMouseOver,
-    onTouchEnd,
-    onTouchMove,
-    onTouchStart,
+    swipeHandlers,
     navigationOutside,
     lightboxOpen,
     flipAnimating,
@@ -237,10 +235,9 @@ const Carousel = React.forwardRef(function Carousel(
             <div
               className={classNames(styles.inner, {
                 ["without-transition"]: isSwiping,
+                [styles.dragging]: isSwiping,
               })}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
+              {...swipeHandlers}
               style={{
                 pointerEvents: lightboxOpen ? "none" : "auto",
 

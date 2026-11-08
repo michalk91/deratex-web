@@ -23,9 +23,7 @@ function RichLightboxGallery({
   const lightboxForSlider = false;
 
   const {
-    onTouchEnd,
-    onTouchStart,
-    onTouchMove,
+    touchHandlers,
     prevSlide,
     nextSlide,
     activeIndex,
@@ -95,9 +93,7 @@ function RichLightboxGallery({
       closeGallery={closeGallery}
       openGallery={openGallery}
       lightboxThumbsVisible={lightboxThumbsVisible}
-      onTouchEnd={onTouchEnd}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
+      touchHandlers={touchHandlers}
       activeIndex={activeIndex}
       setNavigate={setNavigate}
       lightboxContainerClassName={lightboxContainerClassName}

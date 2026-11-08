@@ -165,9 +165,7 @@ const ZoomedLightboxImage = memo(function ZoomedLightboxImage({
 function LightboxGallery({
   closeGallery,
   lightboxThumbsVisible,
-  onTouchEnd,
-  onTouchStart,
-  onTouchMove,
+  touchHandlers,
   activeIndex,
   setNavigate,
   lightboxForSlider,
@@ -357,9 +355,7 @@ function LightboxGallery({
             }}
           >
             <div
-              onTouchEnd={onTouchEnd}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
+              {...touchHandlers}
               onTransitionEnd={onTransitionEnd}
               className={classNames(styles.inner, {
                 [styles.resetTransitionTime]: isSwiping && !transitionEnded,
