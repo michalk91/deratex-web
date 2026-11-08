@@ -1,7 +1,6 @@
-import React from "react";
+import { memo } from "react";
 import styles from "./SliderDot.module.css";
 import classNames from "classnames";
-import { memo } from "react";
 
 function SliderDot({ active, paused, onComplete }) {
   if (active) {
@@ -19,7 +18,7 @@ function SliderDot({ active, paused, onComplete }) {
           />
           <circle
             className={classNames(styles.circleWithBorderAnimation, {
-              [styles.circleWithBorderAnimationPaused]: active && paused,
+              [styles.circleWithBorderAnimationPaused]: paused,
             })}
             cx="15"
             cy="15"
@@ -31,7 +30,7 @@ function SliderDot({ active, paused, onComplete }) {
           />
           <circle
             className={classNames({
-              [styles.circleWithScaleAnimation]: active && paused,
+              [styles.circleWithScaleAnimation]: paused,
             })}
             cx="15"
             cy="15"

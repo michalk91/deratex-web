@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, memo } from "react";
+import { useState, useCallback, useRef, memo } from "react";
 import styles from "./slider.module.css";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import classNames from "classnames";
@@ -10,12 +10,12 @@ import useKeyPress from "../../hooks/useKeyPress";
 function Slider({ slides }) {
   const [sliderInfo, setSliderInfo] = useState({
     activeIndex: 0,
-    paused: false,
+    hovered: false,
     enteredViewport: false,
     autoPlayStopped: false,
   });
 
-  const { activeIndex, paused, enteredViewport, autoPlayStopped } = sliderInfo;
+  const { activeIndex, hovered, enteredViewport, autoPlayStopped } = sliderInfo;
 
   const [firstSlideLoaded, setFirstSlideLoaded] = useState(false);
   const handleFirstSlideLoaded = useCallback(
@@ -30,16 +30,14 @@ function Slider({ slides }) {
   const nextSlide = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
-      activeIndex:
-        state.activeIndex !== slidesCount - 1 ? state.activeIndex + 1 : 0,
+      activeIndex: (state.activeIndex + 1) % slidesCount,
     }));
   }, [slidesCount]);
 
   const prevSlide = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
-      activeIndex:
-        state.activeIndex !== 0 ? state.activeIndex - 1 : slidesCount - 1,
+      activeIndex: (state.activeIndex - 1 + slidesCount) % slidesCount,
     }));
   }, [slidesCount]);
 
@@ -55,11 +53,11 @@ function Slider({ slides }) {
   const { inViewport } = useKeyPress({
     inViewportRef: containerRef,
     keys,
-    hover: paused,
+    hover: hovered,
     onEnterViewport: handleEnterViewport,
   });
 
-  const autoPlayPaused = paused || autoPlayStopped || !inViewport;
+  const autoPlayPaused = hovered || autoPlayStopped || !inViewport;
 
   const { onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
     currentSlide: activeIndex,
@@ -71,11 +69,11 @@ function Slider({ slides }) {
   });
 
   const handleMouseEnter = useCallback(() => {
-    setSliderInfo((state) => ({ ...state, paused: true }));
+    setSliderInfo((state) => ({ ...state, hovered: true }));
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    setSliderInfo((state) => ({ ...state, paused: false }));
+    setSliderInfo((state) => ({ ...state, hovered: false }));
   }, []);
 
   const toggleAutoPlay = useCallback(() => {
