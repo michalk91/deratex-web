@@ -56,21 +56,27 @@
 }
 
 .btn {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  display: block;
-  width: 100%;
-  display: flex;
-  padding: 15px;
-  justify-content: center;
-  background-color: #3b5998;
-  color: white;
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
   z-index: 14;
-  text-shadow: black 0.1em 0.1em 0.2em;
-  transition: 0.4s;
-  font-weight: bold;
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.btnIcon {
+  display: flex;
+  font-size: 18px;
 }
 
 .fbSkeleton {

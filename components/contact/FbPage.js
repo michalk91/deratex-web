@@ -7,6 +7,7 @@ import useScrollLock from "../../hooks/useScrollLock";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
 import { SERVICE_CONSENT } from "../../lib/iubenda";
+import { IoCloseSharp } from "react-icons/io5";
 
 function FbPagePlugin() {
   const [touched, setTouched] = useState(false);
@@ -120,11 +121,14 @@ function FbPagePlugin() {
           </div>
           {clicked && (
             <button
-              aria-label="Wyłącz przewijanie"
+              type="button"
               onClick={handleButtonClick}
-              className={styles.btn}
+              className={classNames("button-reset", styles.btn)}
             >
-              Nacisnij aby wyłączyć przewijanie
+              <span className={styles.btnIcon} aria-hidden>
+                <IoCloseSharp />
+              </span>
+              Wyłącz przewijanie
             </button>
           )}
         </>
