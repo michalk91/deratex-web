@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { prefersReducedMotion } from "../lib/prefersReducedMotion";
 
 const ANIMATION_OPTIONS = {
   duration: 600,
@@ -7,10 +8,7 @@ const ANIMATION_OPTIONS = {
   fill: "forwards",
 };
 
-const prefersReducedMotion = () =>
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-async function animateHeight(element, from, to, beforeRelease) {
+async function animateHeight({ element, from, to, beforeRelease }) {
   const animation = element.animate(
     [
       { height: `${from}px`, overflow: "hidden" },
@@ -19,58 +17,78 @@ async function animateHeight(element, from, to, beforeRelease) {
     ANIMATION_OPTIONS,
   );
 
-  await animation.finished;
+  try {
+    await animation.finished;
+  } catch (error) {
+    if (error.name === "AbortError") return;
+    throw error;
+  }
+
   beforeRelease?.();
   animation.cancel();
 }
 
-export default function useCollapsible() {
+export default function useCollapsible({ onCollapse } = {}) {
   const [expanded, setExpanded] = useState(false);
   const containerRef = useRef(null);
   const collapsedSizeRef = useRef(null);
   const animatingRef = useRef(false);
 
-  const runAnimation = useCallback(async (...args) => {
-    animatingRef.current = true;
-    try {
-      await animateHeight(...args);
-    } finally {
-      animatingRef.current = false;
-    }
-  }, []);
+  const runAnimation = useCallback(
+    async ({ element, from, to, beforeRelease }) => {
+      animatingRef.current = true;
+      try {
+        await animateHeight({ element, from, to, beforeRelease });
+      } finally {
+        animatingRef.current = false;
+      }
+    },
+    [],
+  );
+
+  const expand = useCallback(
+    (element) => {
+      const from = element.offsetHeight;
+      collapsedSizeRef.current = { height: from, width: element.offsetWidth };
+      flushSync(() => setExpanded(true));
+      runAnimation({ element, from, to: element.offsetHeight });
+    },
+    [runAnimation],
+  );
+
+  const collapse = useCallback(
+    (element) => {
+      onCollapse?.();
+
+      const collapsedSize = collapsedSizeRef.current;
+      if (!collapsedSize || collapsedSize.width !== element.offsetWidth) {
+        setExpanded(false);
+        return;
+      }
+
+      runAnimation({
+        element,
+        from: element.offsetHeight,
+        to: collapsedSize.height,
+        beforeRelease: () => flushSync(() => setExpanded(false)),
+      });
+    },
+    [onCollapse, runAnimation],
+  );
 
   const toggle = useCallback(() => {
     const element = containerRef.current;
-    if (!element || animatingRef.current) return false;
+    if (!element || animatingRef.current) return;
 
     if (prefersReducedMotion()) {
+      if (expanded) onCollapse?.();
       setExpanded(!expanded);
-      return true;
+      return;
     }
 
-    const currentHeight = element.offsetHeight;
-
-    if (!expanded) {
-      collapsedSizeRef.current = {
-        height: currentHeight,
-        width: element.offsetWidth,
-      };
-      flushSync(() => setExpanded(true));
-      runAnimation(element, currentHeight, element.offsetHeight);
-      return true;
-    }
-
-    const collapsedSize = collapsedSizeRef.current;
-    if (!collapsedSize || collapsedSize.width !== element.offsetWidth) {
-      setExpanded(false);
-      return true;
-    }
-
-    runAnimation(element, currentHeight, collapsedSize.height, () =>
-      flushSync(() => setExpanded(false)),
-    );
-    return true;
-  }, [expanded, runAnimation]);
+    if (expanded) collapse(element);
+    else expand(element);
+  }, [expanded, expand, collapse, onCollapse]);
 
   return { expanded, toggle, containerRef };
 }
