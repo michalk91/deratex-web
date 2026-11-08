@@ -1,5 +1,6 @@
 import RichLightboxGallery from "../lightboxGallery/RichLightboxGallery";
-import { memo, useState, useRef } from "react";
+import { memo, useId, useRef } from "react";
+import useCollapsible from "../../hooks/useCollapsible";
 import styles from "./gallery.module.css";
 import classNames from "classnames";
 import image1 from "/public/images/services/gallery/image-1.jpg";
@@ -55,8 +56,7 @@ import image50 from "/public/images/services/gallery/image_50.jpg";
 import image51 from "/public/images/services/gallery/image_51.jpg";
 import image52 from "/public/images/services/gallery/image_52.jpg";
 
-function Gallery() {
-  const images = [
+const GALLERY_IMAGES = [
   { src: image1, alt: "Dezynsekcja przygotowanie zboża do fumigacji w magazynie płaskim.", caption: "Dezynsekcja przygotowanie zboża do fumigacji w magazynie płaskim.", width: 1368, height: 1824 },
   { src: image2, alt: "Fumigacja zboza w magazynie płaskim.", caption: "Fumigacja zboza w magazynie płaskim.", width: 1368, height: 1824 },
   { src: image3, alt: "Fumigacja zboza w magazynie plaskim.", caption: "Fumigacja zboza w magazynie plaskim.", width: 1368, height: 1824 },
@@ -111,48 +111,56 @@ function Gallery() {
   { src: image52, alt: "W przybliżeniu ładny pomidorek. Najwidoczniej nie apetyczny dla karaluchów.", caption: "W przybliżeniu ładny pomidorek. Najwidoczniej nie apetyczny dla karaluchów.", width: 1387, height: 1849 },
 ];
 
+const COLLAPSED_GALLERY_IMAGES = GALLERY_IMAGES.slice(0, 14);
 
-  const [showAll, setShowAll] = useState(false);
+function Gallery() {
   const galleryRef = useRef(null);
+  const imagesId = useId();
+  const { expanded, toggle, containerRef } = useCollapsible();
 
-  const toggleImages = () => {
-    setShowAll((prevState) => {
-      const newState = !prevState;
-      if (!newState && galleryRef.current) {
-        galleryRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-      return newState;
-    });
+  const handleToggle = () => {
+    const collapsing = expanded;
+    if (toggle() && collapsing) {
+      galleryRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
-  const imagesToDisplay = showAll ? images : images.slice(0, 14);
+  const imagesToDisplay = expanded ? GALLERY_IMAGES : COLLAPSED_GALLERY_IMAGES;
 
   return (
     <>
       <section className={styles.galleryOuterContainer} ref={galleryRef}>
         <h2 className={classNames("title")}>Galeria</h2>
         <div className={classNames("graySection")}>
-          <RichLightboxGallery
-            virtualized
-            key={imagesToDisplay.length}
-            items={imagesToDisplay}
-            imgContainerClassName={styles.imgContainer}
-            lightboxContainerClassName={classNames(
-              styles.container,
-              "innerContentWidth"
-            )}
-            thumbnailWithBorderRadius
-            zoomedImgSizes="40vw"
-          />
+          <div id={imagesId} ref={containerRef}>
+            <RichLightboxGallery
+              virtualized
+              key={imagesToDisplay.length}
+              items={imagesToDisplay}
+              imgContainerClassName={styles.imgContainer}
+              lightboxContainerClassName={classNames(
+                styles.container,
+                "innerContentWidth"
+              )}
+              thumbnailWithBorderRadius
+              zoomedImgSizes="40vw"
+            />
+          </div>
           <button
-            onClick={toggleImages}
+            type="button"
+            onClick={handleToggle}
+            aria-expanded={expanded}
+            aria-controls={imagesId}
             className={classNames(styles.toggleButton)}
           >
             <span className={styles.arrow}>
-              {showAll ? "▲ Zamknij galerię" : "▼ Zobacz cała galerię"}
+              <span aria-hidden="true" className={styles.arrowIcon}>
+                {expanded ? "▲" : "▼"}
+              </span>{" "}
+              {expanded ? "Zamknij galerię" : "Zobacz cała galerię"}
             </span>
           </button>
         </div>

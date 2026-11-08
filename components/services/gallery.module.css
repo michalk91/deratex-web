@@ -36,6 +36,10 @@
   transition: 0.3s;
 }
 
+.arrowIcon {
+  display: inline;
+}
+
 .toggleButton:hover {
   color: #d60000;
 }
