@@ -60,3 +60,9 @@
     stroke-dashoffset: 0;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .circleWithBorderAnimation {
+    animation-duration: 3s !important;
+  }
+}

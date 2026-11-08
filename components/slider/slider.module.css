@@ -95,27 +95,38 @@
 }
 
 .slide {
-  display: none;
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
 }
 
-@keyframes scaleSlide {
-  0% {
-    transform: scale(1.1);
+@keyframes slideBlurIn {
+  from {
     filter: blur(6px);
   }
-  10% {
+  to {
     filter: blur(0px);
   }
+}
 
-  100% {
+@keyframes slideZoomOut {
+  from {
+    transform: scale(1.1);
+  }
+  to {
     transform: scale(1);
   }
 }
 
 .activeSlide {
-  display: block;
-  height: 100%;
-  animation: scaleSlide 3s linear forwards;
+  visibility: visible;
+  animation:
+    slideBlurIn 0.3s linear,
+    slideZoomOut 3s linear forwards;
+}
+
+.pausedSlide {
+  animation-play-state: running, paused;
 }
 
 @media only screen and (max-width: 767px) {

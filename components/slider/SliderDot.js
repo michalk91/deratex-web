@@ -3,7 +3,7 @@ import styles from "./SliderDot.module.css";
 import classNames from "classnames";
 import { memo } from "react";
 
-function SliderDot({ active, paused }) {
+function SliderDot({ active, paused, onComplete }) {
   if (active) {
     return (
       <span className={styles.container}>
@@ -27,6 +27,7 @@ function SliderDot({ active, paused }) {
             stroke="#fff"
             strokeWidth="4"
             fillOpacity="0"
+            onAnimationEnd={onComplete}
           />
           <circle
             className={classNames({

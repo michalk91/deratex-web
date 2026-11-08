@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, memo } from "react";
+import React, { useState, useCallback, useRef, memo } from "react";
 import styles from "./slider.module.css";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import classNames from "classnames";
@@ -8,15 +8,12 @@ import useSwiping from "../../hooks/useSwiping";
 import useKeyPress from "../../hooks/useKeyPress";
 
 function Slider({ slides }) {
-  const [sliderInfo, setSliderInfo] = useState(() => ({
+  const [sliderInfo, setSliderInfo] = useState({
     activeIndex: 0,
     paused: false,
-    pressed: false,
-    startTime: Date.now(),
-    elapsed: 0,
     enteredViewport: false,
     autoPlayStopped: false,
-  }));
+  });
 
   const { activeIndex, paused, enteredViewport, autoPlayStopped } = sliderInfo;
 
@@ -35,29 +32,19 @@ function Slider({ slides }) {
       ...state,
       activeIndex:
         state.activeIndex !== slidesCount - 1 ? state.activeIndex + 1 : 0,
-      startTime: Date.now(),
-      elapsed: 0,
     }));
   }, [slidesCount]);
 
   const prevSlide = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
-      pressed: !state.pressed,
       activeIndex:
         state.activeIndex !== 0 ? state.activeIndex - 1 : slidesCount - 1,
-      startTime: Date.now(),
-      elapsed: 0,
     }));
   }, [slidesCount]);
 
   const handleEnterViewport = useCallback(() => {
-    setSliderInfo((state) => ({
-      ...state,
-      enteredViewport: true,
-      startTime: Date.now(),
-      elapsed: 0,
-    }));
+    setSliderInfo((state) => ({ ...state, enteredViewport: true }));
   }, []);
 
   const keys = [
@@ -72,6 +59,8 @@ function Slider({ slides }) {
     onEnterViewport: handleEnterViewport,
   });
 
+  const autoPlayPaused = paused || autoPlayStopped || !inViewport;
+
   const { onTouchEnd, onTouchMove, onTouchStart } = useSwiping({
     currentSlide: activeIndex,
     nextSlide,
@@ -81,55 +70,23 @@ function Slider({ slides }) {
     disableResistanceOnEnds: true,
   });
 
-  useEffect(() => {
-    if (paused || autoPlayStopped || !inViewport) return;
-
-    const remaining = 3000 - sliderInfo.elapsed;
-    const timer = setTimeout(() => {
-      nextSlide();
-    }, remaining);
-
-    return () => clearTimeout(timer);
-  }, [
-    paused,
-    autoPlayStopped,
-    inViewport,
-    sliderInfo.elapsed,
-    activeIndex,
-    nextSlide,
-  ]);
-
   const handleMouseEnter = useCallback(() => {
-    setSliderInfo((state) => ({
-      ...state,
-      paused: true,
-      elapsed: Date.now() - state.startTime,
-    }));
+    setSliderInfo((state) => ({ ...state, paused: true }));
   }, []);
 
   const handleMouseLeave = useCallback(() => {
-    setSliderInfo((state) => ({
-      ...state,
-      paused: false,
-      startTime: Date.now() - state.elapsed,
-    }));
+    setSliderInfo((state) => ({ ...state, paused: false }));
   }, []);
 
   const toggleAutoPlay = useCallback(() => {
     setSliderInfo((state) => ({
       ...state,
       autoPlayStopped: !state.autoPlayStopped,
-      elapsed: 0,
     }));
   }, []);
 
   const setNavigate = useCallback((index) => {
-    setSliderInfo((state) => ({
-      ...state,
-      activeIndex: index,
-      startTime: Date.now(),
-      elapsed: 0,
-    }));
+    setSliderInfo((state) => ({ ...state, activeIndex: index }));
   }, []);
 
   return (
@@ -194,7 +151,8 @@ function Slider({ slides }) {
             <SliderDot
               key={`${index}-${activeIndex}-${inViewport ? 1 : 0}`}
               active={activeIndex === index}
-              paused={paused || autoPlayStopped || !inViewport}
+              paused={autoPlayPaused}
+              onComplete={nextSlide}
             />
           </button>
         ))}
@@ -204,6 +162,7 @@ function Slider({ slides }) {
           className={classNames(styles.slide, {
             [styles.activeSlide]:
               activeIndex === index && (inViewport || !enteredViewport),
+            [styles.pausedSlide]: autoPlayPaused,
           })}
           key={index}
         >
@@ -212,7 +171,7 @@ function Slider({ slides }) {
               slide={slide}
               loading={index === 0 || firstSlideLoaded ? "eager" : "lazy"}
               fetchPriority={index === 0 ? "high" : "low"}
-              onLoaded={index === 0 ? handleFirstSlideLoaded : undefined}
+              onLoad={index === 0 ? handleFirstSlideLoaded : undefined}
             />
           </div>
         </div>
