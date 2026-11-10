@@ -1,20 +1,28 @@
-import { useEffect, useState } from "react";
-import { CONSENT_CHANGE_EVENT, getConsentedPurposes } from "../lib/iubenda";
+import { useSyncExternalStore } from "react";
+import { readConsent, subscribeToConsent } from "../lib/consent";
+
+const NOT_HYDRATED = Symbol("not-hydrated");
+
+const getServerSnapshot = () => NOT_HYDRATED;
+
+export function useConsentState() {
+  const snapshot = useSyncExternalStore(
+    subscribeToConsent,
+    readConsent,
+    getServerSnapshot,
+  );
+  const isReady = snapshot !== NOT_HYDRATED;
+  const consent = isReady ? snapshot : null;
+
+  return { isReady, consent, hasDecided: consent !== null };
+}
 
 function useConsent(requiredPurposes) {
-  const [purposes, setPurposes] = useState({});
+  const { consent } = useConsentState();
 
-  useEffect(() => {
-    const refreshPurposes = () => setPurposes(getConsentedPurposes());
-
-    refreshPurposes();
-    window.addEventListener(CONSENT_CHANGE_EVENT, refreshPurposes);
-
-    return () =>
-      window.removeEventListener(CONSENT_CHANGE_EVENT, refreshPurposes);
-  }, []);
-
-  return requiredPurposes.every((purpose) => purposes[purpose] === true);
+  return requiredPurposes.every(
+    (purpose) => consent?.purposes?.[purpose] === true,
+  );
 }
 
 export default useConsent;

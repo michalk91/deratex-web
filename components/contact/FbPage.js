@@ -6,7 +6,7 @@ import { isMobile } from "../../lib/device";
 import useScrollLock from "../../hooks/useScrollLock";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
-import { SERVICE_CONSENT } from "../../lib/iubenda";
+import { SERVICE_CONSENT } from "../../lib/consent";
 import { IoCloseSharp } from "react-icons/io5";
 
 function FbPagePlugin() {

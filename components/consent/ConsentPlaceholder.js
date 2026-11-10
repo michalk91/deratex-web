@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styles from "./consentPlaceholder.module.css";
-import { openCookiePreferences } from "../../lib/iubenda";
+import { openCookiePreferences } from "../../lib/consent";
 
 function ConsentPlaceholder({ serviceName }) {
   return (
@@ -11,7 +11,7 @@ function ConsentPlaceholder({ serviceName }) {
       </p>
       <button
         type="button"
-        className={styles.button}
+        className="outline-button"
         onClick={openCookiePreferences}
       >
         Ustawienia cookies

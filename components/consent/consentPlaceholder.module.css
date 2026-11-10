@@ -17,21 +17,3 @@
   text-align: center;
   color: var(--color-text-muted);
 }
-
-.button {
-  padding: 10px 20px;
-  border: 2px solid var(--color-brand);
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-brand);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.button:hover,
-.button:focus-visible {
-  background-color: var(--color-brand);
-  color: #ffffff;
-}

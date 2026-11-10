@@ -3,7 +3,7 @@ import styles from "./map.module.css";
 import { memo } from "react";
 import ConsentGate from "../consent/ConsentGate";
 import ConsentPlaceholder from "../consent/ConsentPlaceholder";
-import { SERVICE_CONSENT } from "../../lib/iubenda";
+import { SERVICE_CONSENT } from "../../lib/consent";
 
 function Map() {
   return (

@@ -6,7 +6,8 @@ import classNames from "classnames";
 import { RiFacebookBoxLine } from "react-icons/ri";
 import RichLightboxGallery from "./lightboxGallery/RichLightboxGallery";
 import { outfit, inter, interMedium } from "../fonts/fonts";
-import { COOKIE_POLICY_URL, openCookiePreferences } from "../lib/iubenda";
+import Link from "next/link";
+import { PRIVACY_POLICY_URL, openCookiePreferences } from "../lib/consent";
 import referenceHousingCoop from "/public/images/services/ReferenceLetters/reference.jpg";
 import referenceSwieceMayor from "/public/images/services/ReferenceLetters/reference_second.jpg";
 
@@ -169,14 +170,9 @@ function Footer() {
               Deratyzacji
             </p>
             <div className={styles.legalLinks}>
-              <a
-                className={styles.redHover}
-                href={COOKIE_POLICY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Polityka cookies
-              </a>
+              <Link className={styles.redHover} href={PRIVACY_POLICY_URL}>
+                Polityka prywatności i cookies
+              </Link>
               <button
                 type="button"
                 className={styles.redHover}

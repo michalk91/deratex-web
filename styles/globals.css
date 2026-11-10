@@ -12,6 +12,8 @@
   --color-error-bg: #fdecec;
   --color-star: #f5a623;
   --color-star-empty: #c4c4c4;
+  --z-cookie-banner: 30;
+  --z-cookie-preferences: 40;
 }
 
 * {
@@ -132,6 +134,40 @@ h2 {
   left: 50%;
   width: var(--underline-width, 200px);
   transform: translateX(-50%);
+}
+
+.accent-links a {
+  font-size: inherit;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand);
+  text-underline-offset: 3px;
+  transition: color 0.3s;
+}
+
+.accent-links a:hover {
+  color: var(--color-brand);
+}
+
+.outline-button {
+  padding: 10px 20px;
+  border: 2px solid var(--color-brand);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  background-color: transparent;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.outline-button:hover,
+.outline-button:focus-visible {
+  color: #ffffff;
+  background-color: var(--color-brand);
 }
 
 span {

@@ -3,7 +3,7 @@ import { memo, useState, useCallback } from "react";
 import classNames from "classnames";
 import Script from "next/script";
 import { FiSend } from "react-icons/fi";
-import { PRIVACY_POLICY_URL } from "../../lib/iubenda";
+import { PRIVACY_POLICY_URL } from "../../lib/consent";
 
 const INPUT_FIELDS = [
   { id: "name", label: "Imię", type: "text", autoComplete: "given-name" },
