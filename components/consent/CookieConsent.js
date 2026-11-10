@@ -1,10 +1,10 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback } from "react";
 import ConsentBanner from "./ConsentBanner";
 import ConsentPreferences from "./ConsentPreferences";
 import { useConsentState } from "../../hooks/useConsent";
+import { useGlobalState } from "../../lib/globalState";
 import {
   ALL_GRANTED,
-  OPEN_PREFERENCES_EVENT,
   isConsentWithdrawn,
   readConsent,
   saveConsent,
@@ -12,25 +12,30 @@ import {
 
 function CookieConsent() {
   const { isReady, consent, hasDecided } = useConsentState();
-  const [preferencesOpen, setPreferencesOpen] = useState(false);
+  const [preferencesOpen, setPreferencesOpen] = useGlobalState(
+    "cookiePreferencesOpen",
+  );
 
-  const openPreferences = useCallback(() => setPreferencesOpen(true), []);
-  const closePreferences = useCallback(() => setPreferencesOpen(false), []);
+  const openPreferences = useCallback(
+    () => setPreferencesOpen(true),
+    [setPreferencesOpen],
+  );
+  const closePreferences = useCallback(
+    () => setPreferencesOpen(false),
+    [setPreferencesOpen],
+  );
 
-  useEffect(() => {
-    window.addEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
-    return () =>
-      window.removeEventListener(OPEN_PREFERENCES_EVENT, openPreferences);
-  }, [openPreferences]);
+  const save = useCallback(
+    (choices) => {
+      const shouldReload = isConsentWithdrawn(readConsent()?.purposes, choices);
 
-  const save = useCallback((choices) => {
-    const shouldReload = isConsentWithdrawn(readConsent()?.purposes, choices);
+      saveConsent(choices);
+      setPreferencesOpen(false);
 
-    saveConsent(choices);
-    setPreferencesOpen(false);
-
-    if (shouldReload) window.location.reload();
-  }, []);
+      if (shouldReload) window.location.reload();
+    },
+    [setPreferencesOpen],
+  );
 
   const acceptAll = useCallback(() => save(ALL_GRANTED), [save]);
   const rejectAll = useCallback(() => save({}), [save]);
